@@ -1,0 +1,53 @@
+#------------------------------------------------------------
+# Values for this lesson.
+#------------------------------------------------------------
+
+# Which carpentry is this (swc, dc, lc, or cp)?
+carpentry: 'incubator'
+
+# Alt-text description of the lesson.
+carpentry_description: 'Intermediate Python for scientists and technicians moving from scripts to reusable, shareable code.'
+
+# Overall title for pages.
+title: 'Intermediate Python: From Scripts to Reusable Projects'
+
+# Date the lesson was created (YYYY-MM-DD)
+created: 2026-07-13
+
+# Comma-separated list of keywords for the lesson
+keywords: 'python, functions, modules, packages, git, repositories, environments, documentation, software carpentry'
+
+# Life cycle stage of the lesson
+life_cycle: 'pre-alpha'
+
+# License of the lesson
+license: 'CC-BY 4.0'
+
+# Link to the source repository for this lesson
+source: 'https://github.com/FIXME/python-intermediate-workshop' # FIXME: update once you create the GitHub repo
+
+# Default branch of your lesson
+branch: 'main'
+
+# Who to contact if there are any issues
+contact: 'FIXME@example.org' # FIXME: your contact email
+
+# Navigation ------------------------------------------------
+# Order of episodes in your lesson
+episodes:
+- 01-writing-functions.md
+- 02-modules.md
+- 03-repo-environments.md
+- 04-documentation-reuse.md
+
+# Information for Learners
+learners:
+
+# Information for Instructors
+instructors:
+- instructor-notes.md
+
+# Learner Profiles
+profiles:
+
+# Customisation ---------------------------------------------
