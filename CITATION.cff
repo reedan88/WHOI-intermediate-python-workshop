@@ -1,0 +1,23 @@
+# This template CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to replace its contents
+# with information about your lesson.
+# Remember to update this file periodically, 
+# ensuring that the author list and other fields remain accurate.
+
+cff-version: 1.2.0
+title: "Intermediate Python: From Scripts to Reusable Projects"
+message: >-
+  Please cite this lesson using the information in this file
+  when you refer to it in publications, and/or if you
+  re-use, adapt, or expand on the content in your own
+  training material.
+type: dataset
+authors:
+  - given-names: FIXME
+    family-names: FIXME
+abstract: >-
+  A two-session intermediate Python workshop for scientists and technicians
+  who are comfortable writing basic scripts. Covers writing reusable
+  functions, organizing code into modules, building a repository with a
+  managed environment, and documenting a project for reuse.
+license: CC-BY-4.0
