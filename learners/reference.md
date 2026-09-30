@@ -27,3 +27,20 @@ docstring
 README
 : The first file a person reading a repository is expected to open;
   describes what the project does, how to install it, and how to use it.
+
+burst sampling
+: An instrument sampling pattern where readings are taken rapidly for a
+  short window (a "burst"), then the instrument goes idle until the next
+  scheduled burst. Common on OOI moorings; motivates computing a robust
+  per-burst statistic (like a median) rather than treating every raw sample
+  as independent.
+
+MAD (median absolute deviation)
+: A robust measure of spread — the median of the absolute deviations from
+  the median. Less sensitive to outliers than standard deviation, which
+  matters for noisy in-situ ocean sensor data.
+
+CTD / DOSTA
+: Common OOI instrument classes. CTD measures conductivity, temperature,
+  and depth (from which salinity and density are derived). DOSTA measures
+  dissolved oxygen.

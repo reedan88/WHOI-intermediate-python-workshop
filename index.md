@@ -4,10 +4,10 @@ site: sandpaper::sandpaper_site
 
 This two-session workshop is for scientists and technicians who are
 comfortable writing basic Python scripts (variables, loops, conditionals) and
-want to level up to writing code that is **reusable, shareable, and
-maintainable**. Across two four-hour sessions, we go from a single well-written
-function all the way to a documented repository you can hand to a colleague
-or return to yourself six months from now.
+want to level up to writing code that conforms with FAIR (**Findable, Accessible,
+Interoperable, and Reuseable**) standards. Across two four-hour sessions, we
+will move from a single well-written function all the way to a documented 
+repository you can hand to a colleague or return to yourself six months from now.
 
 ::::::::::::::::::::::::::::::::::::::: prereq
 
@@ -17,6 +17,7 @@ or return to yourself six months from now.
 - Familiarity with variables, loops, conditionals, and basic data structures
   (lists, dicts)
 - No prior experience with git, packaging, or software testing is assumed
+  - Although git familiarity is beneficials
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
