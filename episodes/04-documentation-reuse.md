@@ -22,16 +22,16 @@ exercises: 50
 
 ## Writing a README
 
-A README's job is narrow: let someone who isn't you install the project
-and run one thing successfully, without opening an issue or emailing you
-first. For `mooring_tools`, that means: what it does, how to install it,
-one runnable usage example, and where the data comes from.
+A README's job is to let someone who isn't you install the project
+and run the code successfully, without opening an issue or emailing you
+first. For `mooring_tools`, that means including the following: 
+what it does, how to install it, an example, and where the data comes from.
 
 ::::::::::::::::::::::::::::::::::::: challenge
 
 ## Challenge 1: Draft the README
 
-Write `README.md` for `gs01sumo-mooring-tools`, covering: what the package
+Write `README.md` for `mooring-tools`, covering: what the package
 does, install instructions (both `pip install -e .` and
 `pip install -r requirements.txt`), and a usage example a new user could
 actually run against `data/gs01sumo_nsif_ctd.nc`.
@@ -39,20 +39,20 @@ actually run against `data/gs01sumo_nsif_ctd.nc`.
 :::::::::::::::::::::::: solution
 
 ```markdown
-# mooring_tools
+# mooring tools
 
-Burst-statistics, plotting, and merge utilities for OOI GS01SUMO CTD/DOSTA
+Burst-statistics, plotting, and merging utilities for OOI CTD/DOSTA
 data (Global Irminger Sea Array, near-surface instrument frame).
 
 ## What this does
 
-OOI moorings sample in short bursts (commonly every 15 minutes). This
+Many sensors on OOI moorings sample in short bursts. This
 package takes raw CTD (temperature, salinity, pressure, density) and DOSTA
 (dissolved oxygen) records and:
 
-- computes robust burst-median statistics (median + median absolute
+- computes robust burst-median statistics (median and median absolute
   deviation) for each variable
-- fills gaps in the burst-median series with a linear-trend + harmonic fit
+- fills gaps in the burst-median series with a linear-trend and harmonic fit
 - plots raw vs. burst-median data, and observed vs. modeled series
 - merges CTD and DOSTA into one annotated, saveable netCDF dataset, flagging
   which values are observed vs. gap-filled
@@ -61,7 +61,7 @@ package takes raw CTD (temperature, salinity, pressure, density) and DOSTA
 
 \`\`\`bash
 git clone <this-repo-url>
-cd gs01sumo-mooring-tools
+cd mooring-tools
 python3 -m venv .venv
 source .venv/bin/activate      # .venv\\Scripts\\activate on Windows
 pip install -e .
@@ -79,18 +79,18 @@ pip install -r requirements.txt
 \`\`\`python
 import xarray as xr
 import numpy as np
-from mooring_tools.stats import resample_burst_stats
+from mooring\_tools.stats import resample\_burst\_stats
 
-ctd = xr.open_dataset("data/gs01sumo_nsif_ctd.nc")
-scalar_vars = [v for v in ctd.data_vars if ctd[v].dims == ("time",) and np.issubdtype(ctd[v].dtype, np.number)]
-ctd_stats = resample_burst_stats(ctd[scalar_vars].to_dataframe())
+ctd = xr.open\_dataset("data/gi01sumo\_nsif\_ctd.nc")
+scalar\_vars = [v for v in ctd.data\_vars if ctd[v].dims == ("time",) and np.issubdtype(ctd[v].dtype, np.number)]
+ctd\_stats = resample\_burst_\stats(ctd[scalar\_vars].to\_\dataframe())
 \`\`\`
 
-See \`notebooks/messy_analysis.ipynb\` for a full worked example.
+See \`notebooks/messy\_analysis\.ipynb\` for a full worked example.
 
 ## Data
 
-\`data/\` contains a one-week subset of the real OOI GS01SUMO deployment
+\`data/\` contains an example OOI GI01SUMO deployment 7
 record. The full dataset is available via the OOI Data Portal.
 
 ## License
@@ -104,9 +104,8 @@ MIT — see \`LICENSE\`.
 ## Docstrings at the project level
 
 Block 1 introduced docstrings at the level of a single function, with
-`fill_harmonic_gaps` as the model to write toward. Now that there are three
-modules, it's worth checking: did that standard actually get applied
-everywhere?
+`fill_harmonic_gaps` as the model. Now that there are three
+modules, it's worth revisiting any functions which we didn't finish/complete the docstrings for.
 
 Open `merge.py`. Compare its docstrings to `stats.py`'s:
 
@@ -119,10 +118,8 @@ def flag_and_flatten(stats, was_filled, keep_vars):
 ```
 
 No type hints, no `Parameters`/`Returns` sections, only a one-line summary
-only. Meanwhile `stats.py`'s `fill_harmonic_gaps` has both. This wasn't
-deliberate inconsistency; it's what naturally happens when a module gets
-built in a hurry during a live-coding challenge. This is exactly what a
-docstring audit is for.
+only. Meanwhile `stats.py`'s `fill_harmonic_gaps` has both. This is a common issue
+that crops up during development and exploration.
 
 ::::::::::::::::::::::::::::::::::::: challenge
 
@@ -218,7 +215,7 @@ def save_merged_dataset(ds: xr.Dataset, path: str) -> None:
     path : str
         Output file path.
     """
-    ds.attrs.setdefault("source", "OOI GS01SUMO near-surface instrument frame (CTD + DOSTA)")
+    ds.attrs.setdefault("source", "OOI GI01SUMO near-surface instrument frame (CTD + DOSTA)")
     ds.attrs.setdefault("processing", "15-minute burst median/MAD; gaps filled with linear trend + harmonic fit")
     ds.to_netcdf(path)
 ```
@@ -231,27 +228,24 @@ def save_merged_dataset(ds: xr.Dataset, path: str) -> None:
 Worth naming explicitly: `merge_ctd_dosta`'s docstring now states the
 "add a new variable" extension path directly in its `Returns` section.
 This is documenting a design property Block 2's callout and this 
-block's reuse challenge both rely on. A good
-docstring doesn't just describe current behavior; it tells the next
-person (including future-you) what's safe to change without reading the
-implementation.
+block's reuse challenge both rely on. A good docstring doesn't just describe 
+current behavior; it tells the next person (including future-you) what's 
+safe to change without reading the implementation.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## Reusing and updating the repo
 
 The real test of a well-organized package is what happens when the
-scientific scope changes. Here's a real one: `data/gs01sumo_nsif_ctd.nc`
-has always included a fourth CTD variable — `sea_water_density` — from the
-original exploratory notebook. `resample_burst_stats` has been computing
-burst statistics for it since Block 1, since it works generically over
+scientific scope changes. Here's an example: add `sea_water_density` as a 
+variable to `data/gi01sumo_nsif_ctd.nc` results. `resample_burst_stats` has been computing burst statistics for it since Block 1, since it works generically over
 every numeric column. But `merge.py`'s `keep_vars` lists (in Block 2's
 Challenge 3, and `VARIABLE_ATTRS`) never included it, so it's never made it
-into the final merged, saved dataset.
+into the final dataset.
 
 ::::::::::::::::::::::::::::::::::::: challenge
 
-## Challenge 3: Add density support
+## Challenge 3: Add `sea_water_density` to the dataset
 
 Add `sea_water_density` as a supported merged-output variable. You should
 not need to edit `resample_burst_stats`, `flag_and_flatten`, or
@@ -273,17 +267,16 @@ ctd_flat = flag_and_flatten(ctd_stats, was_filled_ctd, keep_vars)
 column in the input dataframe, including density, since it was never
 told to look for specific variable names. `flag_and_flatten` and
 `merge_ctd_dosta` are equally generic; they only needed `VARIABLE_ATTRS`
-extended and a longer `keep_vars` list at the call site. If this
-*didn't* work without touching function bodies, that would be a sign the
-functions were less generic than Block 2 intended.
+extended and a longer `keep_vars` list at the call site. If this doesn't work 
+you may need to revisit the functions from Block 2.
 
 :::::::::::::::::::::::::::::::::
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## Versioning changes
 
-As the package evolves, with new variables, a bug fix in `fill_harmonic_gaps`,
-a new plotting function, etc., here are ways to keep that documented:
+As the package evolves, with new variables, bug fixes, new functions, etc., 
+here are how you should handle these changes:
 
 - **Bump the version** in `pyproject.toml` (`version = "0.1.0"` →
   `"0.2.0"`) when you make a change someone else relying on the package
@@ -291,23 +284,23 @@ a new plotting function, etc., here are ways to keep that documented:
 - **Tag the commit in git** (`git tag v0.2.0`) so "the version I ran this
   analysis with" is always recoverable later, even after further changes.
 
-Neither requires new tooling — both are just a habit of treating the
-package as something other people (including future-you) depend on, not
-just a folder of scripts.
+Version updates (e.g. `version = "0.2.0"` vs `version = "1.0.0"`) depends on
+the scale. Modest updates (e.g. bug fixes, addition of new functions, etc) 
+will generally result in a former; big updates (a new module, refactoring, etc)
+would be the latter.
 
 ## Wrap-up
 
 Across all four blocks: a repeated block became a function (Block 1), the
 function joined others in a package (Block 2), the package became
 installable with a managed environment (Block 3), and now it's documented
-well enough, and generic enough, to extend for new scientific questions
-without touching working code (Block 4). That last property — extending
-without editing — is the actual payoff of everything before it.
+well, and generic, to extend for new scientific questions
+without touching working code (Block 4).
 
 ::::::::::::::::::::::::::::::::::::: keypoints
 
 - A README's job is to let someone else install and run the project without asking you
-- Docstring consistency matters more as a project grows past one file — audit it explicitly rather than assuming it happened
+- Docstring consistency matters more as a project grows past one file
 - A well-documented function's docstring tells the reader what's safe to extend, not just what the function currently does
 - Reusing a repo well means extending generic functions with new data/config, not copy-pasting or editing working code
 - Bumping a version number and tagging the commit is enough to keep "what did I run this with" answerable later

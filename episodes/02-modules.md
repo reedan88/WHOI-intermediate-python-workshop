@@ -23,14 +23,13 @@ exercises: 50
 
 ## Why modules?
 
-By the end of Part 1, `messy_analysis.ipynb` has two good functions in it:
+By the end of Block 1, `messy_analysis.ipynb` has two good functions in it:
 `resample_burst_stats` and `fill_harmonic_gaps`. But they're still living in
-notebook cells. If next month you or someone else wants to reuse
-`resample_burst_stats` for a third instrument in a *different* notebook,
-they'd have to copy the function out of this one by hand, which is *not* what
-we want to be doing.
+notebook cells. That means that if  you want to reuse these functions, such as
+`resample_burst_stats`, in a different notebook you would have to copy the 
+function out of this one by hand.
 
-Instead, we are going to put the functions into a **module**. A module is a single `.py` file that other code can `import`. This is how we make a function reusable *outside* the notebook that first needed it.
+Instead, we are going to put the functions into a **module**. A module is a single `.py` file that other code can `import`. This is how we make a function reusable outside the notebook that first needed it.
 
 ::::::::::::::::::::::::::::::::::::: challenge
 
@@ -51,7 +50,25 @@ import pandas as pd
 
 
 def resample_burst_stats(df: pd.DataFrame, freq: str = "900s") -> pd.DataFrame:
-    """Compute burst-median statistics for OOI instrument data."""
+    """Compute burst-median statistics for OOI instrument data.
+
+    OOI instruments often sample in short bursts; this
+    collapses each burst into a robust summary statistic.
+
+    Parameters
+    ----------
+    df : pandas.DataFrame
+        Time-indexed instrument data, one column per variable, at full sampling resolution.
+    freq : str, default "900s"
+        Burst interval as a pandas offset string.
+
+    Returns
+    -------
+    pandas.DataFrame
+        Columns are a 2-level MultiIndex (variable, statistic), where
+        statistic is one of "median" or "mad" (median absolute deviation).
+        Index is the start time of each burst.
+    """
     resampler = df.resample(freq, origin="start_day", offset=pd.Timedelta("3150s"))
     median = resampler.median()
 
@@ -65,7 +82,20 @@ def resample_burst_stats(df: pd.DataFrame, freq: str = "900s") -> pd.DataFrame:
 
 
 def fill_harmonic_gaps(series: pd.Series, periods=("365.25D", "182.625D")):
-    """Fill NaNs in a time-indexed Series with a trend + harmonic fit."""
+    """Fill gaps in a time-indexed Series with a trend + harmonic fit.
+
+    Parameters
+    ----------
+    series : pandas.Series
+        Time-indexed values, with NaNs marking gaps to fill.
+    periods : tuple[str, ...], default ("365.25D", "182.625D")
+        Harmonic periods to fit. Defaults are annual and semiannual cycles.
+
+    Returns
+    -------
+    filled : pandas.Series
+    fitted : pandas.Series
+    """
     t = (series.index - series.index[0]) / pd.Timedelta("1s")
     omegas = [2 * np.pi / (pd.Timedelta(p) / pd.Timedelta("1s")) for p in periods]
 
@@ -100,7 +130,7 @@ from stats import resample_burst_stats, fill_harmonic_gaps
 ## autoreload: editing a module without restarting the kernel
 
 By default, once a notebook has imported a module, editing that module's
-`.py` file and re-running the import cell does *nothing* because Python caches
+`.py` file and re-running the import cell does nothing because Python caches
 the module after the first import. Thus any changes you made in the module
 will not be picked up by the notebook/script/other module you are using.
 
@@ -113,13 +143,14 @@ your own imports:
 ```
 
 With this turned on, editing `stats.py` in your editor and re-running a
-cell that calls `resample_burst_stats(...)` picks up the change immediately. This is the single biggest quality-of-life fix for a notebook + local-module workflow, and a much better approach than restarting the kernel and rerunning all of your cells.
+cell that calls `resample_burst_stats(...)` picks up the change immediately. This 
+significantly improves the use of notebooks for initial explorations and development, then transfering the changes and results into reuseable functions and modules.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: callout
 
-## A real, reproducible gotcha: don't shadow the standard library
+## Note: don't shadow the standard library
 
 Watch what happens if a module happens to share a name with something in
 Python's standard library. In an empty scratch folder:
@@ -133,17 +164,15 @@ python3 -c "import numpy as np; np.random.rand(3)"
 ImportError: cannot import name 'SystemRandom' from 'random' (/.../random.py)
 ```
 
-NumPy tried to `import random` internally and got *your* empty file instead
-of the real standard-library module, three layers deep in someone else's
-code. `random.py`, `csv.py`, `json.py`, `types.py`, and `test.py` are the
-classic examples because Python and, by extension, Jupyter notebooks, always
-checks your notebook's own directory before the standard library. 
+In the above code, NumPy tried to `import random` internally and instead of
+getting the standard-library modules, it picked up your empty file. Some good 
+module names to avoid are: `random.py`, `csv.py`, `json.py`, `types.py`, and `test.py`. 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## Deciding what becomes a module
 
-It's tempting to make a module for every conceptual piece of the pipeline. Let's
+It's tempting to make a module for every conceptual piece of the workflow. Let's
 take a look at what a module for loading the data in this workflow would actually contain:
 
 ```python
@@ -155,7 +184,7 @@ One line, wrapping one library call, with nothing project-specific in it.
 A module built around this doesn't save future-you any real work because ``xarray.open_dataset``` already is one line. **Modularize logic that's
 substantial, reusable, or repeated.** 
 
-What *does* deserve a module in our notebook? The plotting code. Scroll through
+What does deserve a module in our notebook? The plotting code. Scroll through
 `messy_analysis.ipynb` and count how many nearly-identical plotting cells
 it has. This is the type of repeated code that makes sense as a function and a module.
 
@@ -164,7 +193,7 @@ it has. This is the type of repeated code that makes sense as a function and a m
 ## Challenge 2: Extract a plotting module
 
 Pull the repeated plotting logic out of `messy_analysis.ipynb` into
-`plotting.py`, with one function per distinct *kind* of plot (not one
+`plotting.py`, with one function per distinct kind of plot (not one
 function per cell). Aim for something like:
 
 - `plot_raw_timeseries(ctd, dosta, t1=None, t2=None)`
@@ -172,6 +201,8 @@ function per cell). Aim for something like:
   in the notebook)
 - `plot_burst_stats(raw, stats, var, label, color, t1=None, t2=None)`
     * raw points with the burst-median ± 2·MAD band
+
+Don't worry about creating full docstrings for these particular functions. Although you should always add docstrings on your personal code, for this example we can bypass that requirement.
 
 :::::::::::::::::::::::: solution
 
@@ -276,7 +307,7 @@ never run start-to-finish in-order after that line was written.
 
 ::::::::::::::::::::::::::::::::::::: challenge
 
-## Challenge 3: Build a merge module — and fix the bugs
+## Challenge 3: Build a merge module and fix the bugs
 
 Write `merge.py` with the following three functions:
 1.  A function to flatten a stats table's columns and add a `modeled_flag` column
@@ -355,7 +386,7 @@ def save_merged_dataset(ds, path):
     ds.to_netcdf(path)
 ```
 
-Note that **both** CTD and DOSTA go through `flag_and_flatten` now, which is
+Note that both CTD and DOSTA go through `flag_and_flatten` now, which is
 what the original notebook was missing:
 
 ```python
@@ -370,24 +401,15 @@ save_merged_dataset(merged_ds, "gs01sumo_merged.nc")
 :::::::::::::::::::::::::::::::::
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
-
-This challenge is where the workshop's core message lands hardest: modules
-aren't just tidiness, they change what bugs you can even see. As long as
-`ctd_stats`/`dosta_stats` were just names in one long notebook, "did I
-flatten both of these the same way?" was invisible. As soon as
-`flag_and_flatten` exists as one function called twice, the question
-answers itself by construction. Worth saying this out loud rather than
-letting it pass as just another challenge.
-
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## Turning modules into a package
 
 Two or three loose `.py` files next to a notebook works for now, but as
-soon as you want to `pip install` this, or import it from a notebook in a
-different folder, you need a **package**: a directory with an
-`__init__.py` file.
+soon as you want to share this, import this code into a different notebook
+in a different folder or repo or, even better, put it on PyPi and allow
+others to `pip install` your code, you will need to create a **package**: 
+a directory with an `__init__.py` file.
 
 ```text
 mooring_tools/
@@ -397,7 +419,7 @@ mooring_tools/
 └── merge.py
 ```
 
-`__init__.py` can be empty; its presence is what tells Python
+`__init__.py` can be empty: its presence is what tells Python
 `mooring_tools` is an importable package, and modules inside it are
 addressed as `mooring_tools.stats`, `mooring_tools.plotting`,
 `mooring_tools.merge`:

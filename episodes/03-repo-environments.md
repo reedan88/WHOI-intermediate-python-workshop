@@ -6,9 +6,9 @@ exercises: 50
 
 :::::::::::::::::::::::::::::::::::::: questions
 
-- What actually belongs in a code repository, beyond the code itself?
+- What actually belongs in a code repository?
 - Why does each project need its own environment?
-- How do I turn `mooring_tools/` into something `pip install`-able, and why does that matter?
+- How do I turn `mooring_tools/` into something `pip install`-able?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -25,9 +25,9 @@ exercises: 50
 
 By the end of Block 2, `mooring_tools/` is three modules and an
 `__init__.py`, sitting next to `messy_analysis.ipynb`. That's enough to
-import from *this* notebook, in *this* folder. It's not enough to
-`pip install`, share with a colleague, or use from a notebook anywhere
-else on your machine. For that, the package needs a proper home:
+import from this notebook. It's not enough to `pip install`, share with 
+a colleague, or use from a notebook anywhere else on your machine. 
+For that, the package needs a proper home:
 
 ```text
 mooring-tools/
@@ -48,17 +48,15 @@ mooring-tools/
     └── gs01sumo_nsif_dosta.nc
 ```
 
-A few things worth calling out:
+A few things to note about the layout:
 
-- **`src/mooring_tools/`, not just `mooring_tools/` at the repo root.**
-- **`notebooks/` and `data/` are separate from the package.** The package
+- `src/mooring_tools/`, not just `mooring_tools/` as the repo root.
+- `notebooks/` and `data/` are separate from the package. The package
   is code meant to be imported; the notebook is one particular analysis
-  that uses it. Someone installing `mooring_tools` to analyze a different
-  mooring's data doesn't want your notebook along for the ride.
+  that uses it.
 - **`.gitignore`** keeps generated/environment files out of version
   control, such as the venv folder, `__pycache__/`, and Jupyter checkpoint files.
-- **`LICENSE`** states what others are allowed to do with the code. Even
-  for an internal tool, it removes ambiguity.
+- **`LICENSE`** states what others are allowed to do with the code.
 
 ::::::::::::::::::::::::::::::::::::: challenge
 
@@ -73,9 +71,7 @@ Create this directory structure, moving `stats.py`, `plotting.py`, and
 
 ## Why `src/`, specifically
 
-Using an  what
-bugs are possible to hide. Compare two layouts, both **without** the
-package actually installed:
+Compare two layouts, both without the package actually installed:
 
 ```bash
 # flat layout: mooring_tools/ directly at the repo root
@@ -97,21 +93,11 @@ ModuleNotFoundError: No module named 'mooring_tools'
 
 With a flat layout, Python finds the package because your current
 directory is always searched first. That means `import mooring_tools`
-can silently "work" from inside the repo even if the package was **never
-actually installed**, or if the install is broken. The bug only shows up
-later, when someone tries to use the package from *outside* the repo and
-it's nowhere to be found. With `src/`, that failure happens immediately,
-in the one place you can actually fix it.
+can silently "work" from inside the repo even if the package was never
+actually installed, or if the install is broken. The bug only shows up
+later, when someone tries to use the package from outside the repo and
+it's nowhere to be found. With `src/`, that failure happens immediately.
 
-::::::::::::::::::::::::::::::::::::: callout
-
-## This is the same lesson as Block 2's `random.py` gotcha
-
-Both come from the same fact about Python: your current directory is
-always checked first. In Block 2, that fact caused a bug (accidental
-shadowing). Here, the `src/` layout turns the same fact into a safety
-check (accidental success becomes impossible). Same mechanism, used
-against itself.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -120,7 +106,7 @@ against itself.
 Every Python installation on your machine has one set of installed
 packages by default. If two projects need different, incompatible
 versions of the same library, installing globally means only one project
-can work at a time. A **virtual environment** gives each project its own
+can work at a time. A virtual environment gives each project its own
 isolated set of installed packages.
 
 ```bash
@@ -138,7 +124,7 @@ projects, and the system Python, are untouched.
 
 ## Challenge 2: Create an environment
 
-Create a virtual environment for `gs01sumo-mooring-tools` and activate it.
+Create a virtual environment for `mooring-tools` and activate it.
 Confirm you're in it: `which python` (macOS/Linux) or `where python`
 (Windows) should point inside the `.venv` folder, not your system Python.
 
@@ -146,8 +132,7 @@ Confirm you're in it: `which python` (macOS/Linux) or `where python`
 
 ## Making the package installable
 
-`pyproject.toml`, at the repo root, is what turns a `src/` folder into
-something `pip` understands:
+`pyproject.toml` (Tom's Obvious Minimal Language), at the repo root, is what turns a `src/` folder into something `pip` understands:
 
 ```toml
 [build-system]
@@ -157,7 +142,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "mooring_tools"
 version = "0.1.0"
-description = "Burst-statistics, plotting, and merge utilities for OOI GS01SUMO CTD/DOSTA data"
+description = "Burst-statistics, plotting, and merge utilities for OOI CTD/DOSTA data"
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }
@@ -186,12 +171,8 @@ packages, rather than the repo root. With this in place:
 pip install -e .
 ```
 
-installs `mooring_tools` in **editable mode** — `pip` points at your
-`src/mooring_tools/` files directly rather than copying them, so edits
-you make take effect immediately without reinstalling. (This is the
-persistent, cross-restart cousin of Block 2's `%autoreload` — one solves
-"my notebook doesn't see my edits," the other solves "my *other* projects
-don't see my edits.")
+This command installs `mooring_tools` in **editable mode** (this is the `-e .`). `pip` points at your `src/mooring_tools/` files directly rather than copying them, so edits
+you make take effect immediately without reinstalling.
 
 ::::::::::::::::::::::::::::::::::::: challenge
 
@@ -199,7 +180,7 @@ don't see my edits.")
 
 Write the `pyproject.toml` above (adjust name/email), then run
 `pip install -e .` from the repo root. Confirm it worked by opening a
-Python shell from a **different** directory entirely and running:
+Python shell from a different directory entirely and running:
 
 ```python
 import mooring_tools
@@ -208,12 +189,12 @@ print(mooring_tools.__file__)
 ```
 
 The printed path should point at your repo's `src/mooring_tools/`, even
-though you're standing somewhere else entirely.
+though you are working in a different folder.
 
 :::::::::::::::::::::::: solution
 
 If this raises `ModuleNotFoundError`, the most common cause is running
-`pip install -e .` with the wrong environment active — double check
+`pip install -e .` with the wrong environment active. Double check
 `which pip` points inside `.venv` before installing.
 
 ::::::::::::::::::::::::::::::::::
@@ -221,7 +202,7 @@ If this raises `ModuleNotFoundError`, the most common cause is running
 
 ## Package management: pinning dependencies
 
-`pyproject.toml`'s `dependencies` list uses **minimum** versions
+`pyproject.toml`'s `dependencies` list uses minimum versions
 (`xarray>=2024.1`), enough to achieve what's required, loose enough to
 not fight with other projects. For *exact reproducibility* generate a fully pinned lock
 file from your working environment:
@@ -238,7 +219,7 @@ netCDF4==1.7.4
 numpy==2.4.6
 pandas==3.0.6
 xarray==2026.7.0
--e /path/to/gs01sumo-mooring-tools
+-e /path/to/mooring-tools
 ```
 
 The distinction matters: `pyproject.toml` says what your *code* needs to
@@ -285,8 +266,8 @@ makes this repo usable by someone who isn't you.
 
 ::::::::::::::::::::::::::::::::::::: keypoints
 
-- Separate the installable package (`src/mooring_tools/`) from notebooks and data — they have different audiences and different reasons to change
-- A `src/` layout turns "the package isn't actually installed" from a silent bug into an immediate, honest error
+- Separate the installable package (`src/mooring_tools/`) from notebooks and data
+- A `src/` layout turns "the package isn't actually installed" from a silent bug into an error with a traceback
 - `pip install -e .` installs your package so edits to `src/` take effect immediately, from any project, without reinstalling
 - `pyproject.toml` declares what your code needs (loose bounds); `requirements.txt`/`pip freeze` records exactly what's installed (exact pins)
 
