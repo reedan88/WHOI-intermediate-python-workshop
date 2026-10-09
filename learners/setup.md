@@ -7,33 +7,37 @@ title: Setup
 Download the [starter files](../starter-files) and unzip them to your
 Desktop before the workshop. This contains:
 
-- `messy_analysis.ipynb` — a deliberately "messy" Jupyter notebook that we
-  refactor throughout the two sessions
-- `data/gs01sumo_nsif_ctd.nc`, `data/gs01sumo_nsif_dosta.nc` — one week
+- `first_analysis.ipynb`: a deliberately "messy" Jupyter notebook that we
+  refactor throughout the two sessions. Meant to reflect a type of exploratory
+  notebook someone would use for initial data analysis/visualization.
+- `data/gi01sumo_nsif_ctd.nc`, `data/gi01sumo_nsif_dosta.nc` — one week
   (2020-09-01 to 2020-09-08) of real [OOI](https://oceanobservatories.org/)
-  Global Irminger Sea Array (GS01SUMO) near-surface instrument frame data:
-  CTD (temperature, salinity, pressure) and DOSTA (dissolved oxygen),
-  trimmed down from the full year-long deployment record so the files stay
-  small enough to work with comfortably in a workshop setting
+  Global Irminger Sea Array (GI01SUMO) Near-Surface Instrument Frame (NSIF) data:
+  CTD (temperature, salinity, pressure) and DOSTA (dissolved oxygen). The data files
+  contain a full-deployments worth of data but with only the relevant parameters
+  retained. Downloading a similar dataset from the OOI Data Explorer will yield a dataset
+  with a signficant number of extra, lower-processing-level parameters and engineering
+  data.
 
 <!-- FIXME: once this repo is on GitHub, replace the relative link above
      with a link to a release zip, e.g.
      https://github.com/FIXME/python-intermediate-workshop/releases -->
 
-This data requires `xarray`, `netCDF4`, `pandas`, `numpy`, and
-`matplotlib` — installing these is part of Block 3, but if you'd like to
-confirm ahead of time that things work on your machine:
+This data requires `xarray`, `netCDF4`, `pandas`, `numpy`, `Jupyter`, and
+`matplotlib`. These should all be installed ahead of time, although Block 3
+deals specifically with library and package management and environments.
 
 ```bash
 pip install xarray netCDF4 pandas numpy matplotlib jupyter
-python3 -c "import xarray as xr; print(xr.open_dataset('data/gs01sumo_nsif_ctd.nc'))"
+python3 -c "import xarray as xr; print(xr.open_dataset('data/gi01sumo_nsif_ctd.nc'))"
 ```
 
 ## Software Setup
 
-This workshop is written for a **Jupyter notebook** workflow throughout —
-you won't need to run scripts from a terminal or work in a full IDE, though
-either is fine if you already prefer one.
+This workshop is written for a **Jupyter notebook** workflow and interactive programming
+development approach. Terminal work should be limited, but there will be a few points where
+learners will need to use the command line for a couple of things. That said, if the learner
+wishes to use an IDE (such as VS-Code) they are welcome to.
 
 ::::::::::::::::::::::::::::::::::::::: discussion
 
@@ -42,16 +46,13 @@ either is fine if you already prefer one.
 You will need:
 
 1. **Python 3.10+**
-2. **Jupyter** (`pip install jupyter`, or JupyterLab if you prefer) —
-   and, if you have a preference, a code editor with Python support (VS
-   Code's Jupyter extension works well for editing the `.py` modules
-   you'll write alongside your notebook)
+2. **Jupyter** (`pip install jupyter`, or JupyterLab)
+    — Optional: A code editor with Python support (VS
+      Code's Jupyter extension works well for editing the `.py` modules
+      you'll write alongside your notebook)
 3. **git**, and a free [GitHub](https://github.com) account
 4. The ability to create a virtual environment (`venv`, `conda`, or `mamba`)
-5. The `jupyter-autoreload` behavior (built into IPython/Jupyter already —
-   nothing extra to install) — we'll turn this on in Block 2 so edits to
-   your own `.py` files show up in the notebook without restarting the
-   kernel
+
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::
 

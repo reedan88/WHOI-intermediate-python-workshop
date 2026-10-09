@@ -24,18 +24,16 @@ the two blocks of each session.
   directly on the previous one. The functions from Block 1
   become the module in Block 2, the module becomes the repo in Block 3, and
   the repo gets documented and reused in Block 4. 
-- `messy_analysis.ipynb`'s is intended as an example notebook of which many learners
+- `first_analysis.ipynb`'s is intended as an example notebook of which many learners
   may be familiar with. Its intended to contain (almost) all the logic that
   learners may need and is the source from which learners will be pulling
   much of the code that goes into the functions and modules. Overall, though, this is a notebook-first workshop throughout: no standalone
   `.py` scripts are run from a terminal, with everything happenning in
-  `messy_analysis.ipynb`, with functions moved out into `.py` modules that
+  `first_analysis.ipynb`, with functions moved out into `.py` modules that
   the notebook then imports.
 - Docstrings are introduced early (Block 1, at the function level) and
   revisited at the project level in Block 4. This is intentional. Flag the
   callback for learners so it doesn't feel repetitive.
-- Have learners work from the same starter files (see `learners/setup.md`)
-  so that live-coding and challenges stay in sync across the room.
 - Block 3's environment challenge assumes learners already have Python and
   git installed per the setup page. Confirm this and remind learners that
   having python, Jupiter, and the associated packages installed is a prereq.
@@ -46,11 +44,6 @@ the two blocks of each session.
 - Clearly distinguish "module" vs "package" and the callout in Episode 2
   explicitly which explicitly addresses this difference.
 - `PATH` and environment activation issues during Block 3 may be an issue.
-- Episode 2's `random.py` shadowing demo is a real, reproducible failure
-  (verified) — it's worth actually running live rather than describing it,
-  since the traceback (NumPy failing three layers deep, inside
-  `secrets.py`) is far more convincing than a description would be. Have
-  learners run it in a scratch folder, not their project folder.
 - Episode 2's merge-module challenge (Challenge 3) reproduces two real bugs
   from the source notebook: a `MergeError` from an un-flattened DOSTA
   table, and a `ctd_ds`/`ds` typo. This is a good moment to make explicit:
