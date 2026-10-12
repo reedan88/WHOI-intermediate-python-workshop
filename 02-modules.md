@@ -23,7 +23,7 @@ exercises: 50
 
 ## Why modules?
 
-By the end of Block 1, `messy_analysis.ipynb` has two good functions in it:
+By the end of Block 1, `first_analysis.ipynb` has two good functions in it:
 `resample_burst_stats` and `fill_harmonic_gaps`. But they're still living in
 notebook cells. That means that if  you want to reuse these functions, such as
 `resample_burst_stats`, in a different notebook you would have to copy the 
@@ -35,7 +35,7 @@ Instead, we are going to put the functions into a **module**. A module is a sing
 
 ## Challenge 1: From notebook cell to module
 
-Create a new file, `stats.py`, next to `messy_analysis.ipynb`, and move
+Create a new file, `stats.py`, next to `first_analysis.ipynb`, and move
 `resample_burst_stats` and `fill_harmonic_gaps` into it, along with whatever
 `import` lines they need (`numpy`, `pandas`).
 
@@ -118,7 +118,7 @@ def fill_harmonic_gaps(series: pd.Series, periods=("365.25D", "182.625D")):
 
 ## Importing your own module into a notebook
 
-With `stats.py` sitting next to `messy_analysis.ipynb`, a notebook cell can
+With `stats.py` sitting next to `first_analysis.ipynb`, a notebook cell can
 import it exactly like any other package:
 
 ```python
@@ -185,14 +185,14 @@ A module built around this doesn't save future-you any real work because ``xarra
 substantial, reusable, or repeated.** 
 
 What does deserve a module in our notebook? The plotting code. Scroll through
-`messy_analysis.ipynb` and count how many nearly-identical plotting cells
+`first_analysis.ipynb` and count how many nearly-identical plotting cells
 it has. This is the type of repeated code that makes sense as a function and a module.
 
 ::::::::::::::::::::::::::::::::::::: challenge
 
 ## Challenge 2: Extract a plotting module
 
-Pull the repeated plotting logic out of `messy_analysis.ipynb` into
+Pull the repeated plotting logic out of `first_analysis.ipynb` into
 `plotting.py`, with one function per distinct kind of plot (not one
 function per cell). Aim for something like:
 
@@ -287,7 +287,7 @@ This is much cleaner and easier to read.
 ## Fixing real bugs while modularizing
 
 Scroll to the "Merge and save" section at the bottom of
-`messy_analysis.ipynb` which is currently unfinished.
+`first_analysis.ipynb` which is currently unfinished.
 
 ```output
 MergeError: Not allowed to merge between different levels. (1 levels on the left, 2 on the right)
@@ -444,7 +444,7 @@ modules with an `__init__.py`. `stats.py` is a module; `mooring_tools/`
 ## Challenge 4: Notebook to package
 
 Turn `stats.py`, `plotting.py`, and `merge.py` into a `mooring_tools/`
-package (add the `__init__.py`), and update `messy_analysis.ipynb`'s import
+package (add the `__init__.py`), and update `first_analysis.ipynb`'s import
 cell to pull from it instead. 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
