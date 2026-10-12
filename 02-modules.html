@@ -372,7 +372,7 @@ by dataset</li>
 </div>
 </div>
 <section><h2 class="section-heading" id="why-modules">Why modules?<a class="anchor" aria-label="anchor" href="#why-modules"></a></h2>
-<hr class="half-width"><p>By the end of Block 1, <code>messy_analysis.ipynb</code> has two good
+<hr class="half-width"><p>By the end of Block 1, <code>first_analysis.ipynb</code> has two good
 functions in it: <code>resample_burst_stats</code> and
 <code>fill_harmonic_gaps</code>. But they’re still living in notebook
 cells. That means that if you want to reuse these functions, such as
@@ -391,7 +391,7 @@ reusable outside the notebook that first needed it.</p>
 <h3 class="callout-title">Challenge 1: From notebook cell to module</h3>
 <div class="callout-content">
 <p>Create a new file, <code>stats.py</code>, next to
-<code>messy_analysis.ipynb</code>, and move
+<code>first_analysis.ipynb</code>, and move
 <code>resample_burst_stats</code> and <code>fill_harmonic_gaps</code>
 into it, along with whatever <code>import</code> lines they need
 (<code>numpy</code>, <code>pandas</code>).</p>
@@ -403,7 +403,7 @@ into it, along with whatever <code>import</code> lines they need
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -484,7 +484,7 @@ into it, along with whatever <code>import</code> lines they need
 </div>
 </section><section><h2 class="section-heading" id="importing-your-own-module-into-a-notebook">Importing your own module into a notebook<a class="anchor" aria-label="anchor" href="#importing-your-own-module-into-a-notebook"></a></h2>
 <hr class="half-width"><p>With <code>stats.py</code> sitting next to
-<code>messy_analysis.ipynb</code>, a notebook cell can import it exactly
+<code>first_analysis.ipynb</code>, a notebook cell can import it exactly
 like any other package:</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -565,7 +565,7 @@ it. A module built around this doesn’t save future-you any real work
 because ``xarray.open_dataset``` already is one line. <strong>Modularize
 logic that’s substantial, reusable, or repeated.</strong></p>
 <p>What does deserve a module in our notebook? The plotting code. Scroll
-through <code>messy_analysis.ipynb</code> and count how many
+through <code>first_analysis.ipynb</code> and count how many
 nearly-identical plotting cells it has. This is the type of repeated
 code that makes sense as a function and a module.</p>
 <div id="challenge-2-extract-a-plotting-module" class="callout challenge">
@@ -577,7 +577,7 @@ code that makes sense as a function and a module.</p>
 <h3 class="callout-title">Challenge 2: Extract a plotting module</h3>
 <div class="callout-content">
 <p>Pull the repeated plotting logic out of
-<code>messy_analysis.ipynb</code> into <code>plotting.py</code>, with
+<code>first_analysis.ipynb</code> into <code>plotting.py</code>, with
 one function per distinct kind of plot (not one function per cell). Aim
 for something like:</p>
 <ul><li>
@@ -600,7 +600,7 @@ code, for this example we can bypass that requirement.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -683,7 +683,7 @@ code, for this example we can bypass that requirement.</p>
 </div>
 </section><section><h2 class="section-heading" id="fixing-real-bugs-while-modularizing">Fixing real bugs while modularizing<a class="anchor" aria-label="anchor" href="#fixing-real-bugs-while-modularizing"></a></h2>
 <hr class="half-width"><p>Scroll to the “Merge and save” section at the bottom of
-<code>messy_analysis.ipynb</code> which is currently unfinished.</p>
+<code>first_analysis.ipynb</code> which is currently unfinished.</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -728,7 +728,7 @@ netCDF</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -865,7 +865,7 @@ a package containing three modules.</p>
 <p>Turn <code>stats.py</code>, <code>plotting.py</code>, and
 <code>merge.py</code> into a <code>mooring_tools/</code> package (add
 the <code>__init__.py</code>), and update
-<code>messy_analysis.ipynb</code>’s import cell to pull from it
+<code>first_analysis.ipynb</code>’s import cell to pull from it
 instead.</p>
 </div>
 </div>
