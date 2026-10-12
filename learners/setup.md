@@ -19,9 +19,6 @@ Desktop before the workshop. This contains:
   with a signficant number of extra, lower-processing-level parameters and engineering
   data.
 
-<!-- FIXME: once this repo is on GitHub, replace the relative link above
-     with a link to a release zip, e.g.
-     https://github.com/FIXME/python-intermediate-workshop/releases -->
 
 This data requires `xarray`, `netCDF4`, `pandas`, `numpy`, `Jupyter`, and
 `matplotlib`. These should all be installed ahead of time, although Block 3

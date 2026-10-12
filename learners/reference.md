@@ -31,14 +31,11 @@ README
 burst sampling
 : An instrument sampling pattern where readings are taken rapidly for a
   short window (a "burst"), then the instrument goes idle until the next
-  scheduled burst. Common on OOI moorings; motivates computing a robust
-  per-burst statistic (like a median) rather than treating every raw sample
-  as independent.
+  scheduled burst. 
 
 MAD (median absolute deviation)
-: A robust measure of spread — the median of the absolute deviations from
-  the median. Less sensitive to outliers than standard deviation, which
-  matters for noisy in-situ ocean sensor data.
+: A robust measure of spread: the median of the absolute deviations from
+  the median. Less sensitive to outliers than standard deviation.
 
 CTD / DOSTA
 : Common OOI instrument classes. CTD measures conductivity, temperature,
