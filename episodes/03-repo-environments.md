@@ -99,8 +99,6 @@ later, when someone tries to use the package from outside the repo and
 it's nowhere to be found. With `src/`, that failure happens immediately.
 
 
-::::::::::::::::::::::::::::::::::::::::::::::::
-
 ## Environments
 
 Every Python installation on your machine has one set of installed
