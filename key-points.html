@@ -40,7 +40,10 @@
   <div class="container-fluid top-nav-container">
     <div class="col-md-8">
       <div class="large-logo">
-        <img id="incubator-logo" alt="Intermediate Python for scientists and technicians moving from scripts to reusable, shareable code." src="assets/images/incubator-logo.svg"><span class="badge text-bg-danger">
+        <a href="index.html">
+        <img id="incubator-logo" alt="Intermediate Python for scientists and technicians moving from scripts to reusable, shareable code." src="assets/images/incubator-logo.svg"></a>
+
+        <span class="badge text-bg-danger">
           <abbr title="This lesson is in the pre-alpha phase, which means that it is in early development, but has not yet been taught.">
             <a href="https://docs.carpentries.org/resources/curriculum/lesson-life-cycle.html" class="external-link alert-link">
               <i aria-hidden="true" class="icon" data-feather="alert-octagon" style="border-radius: 5px"></i>
@@ -96,8 +99,9 @@
       <span class="menu-title">Menu</span>
     </button>
     <div class="nav-logo">
-      <img class="small-logo" alt="Intermediate Python for scientists and technicians moving from scripts to reusable, shareable code." src="assets/images/incubator-logo-sm.svg">
-</div>
+      <a href="index.html">
+      <img class="small-logo" alt="Intermediate Python for scientists and technicians moving from scripts to reusable, shareable code." src="assets/images/incubator-logo-sm.svg"></a>
+    </div>
     <div class="lesson-title-md">
       Intermediate Python: From Scripts to Reusable Projects
     </div>
@@ -142,7 +146,7 @@
       </fieldset>
     </form>
     -->
-    <a id="search-button" class="btn btn-primary" href="aio.html" role="button" aria-label="Search the All In One page">Search the All In One page</a>
+    <a id="search-button-nav" class="btn btn-primary" href="aio.html" role="button" aria-label="Search the All In One page">Search the All In One page</a>
   </div>
 <!--/div.container-fluid -->
 </nav><div class="container">
@@ -154,6 +158,9 @@
           <i class="search-icon" data-feather="x" role="img"></i>
         </button>
         <div class="sidebar-inner">
+          <div class="row mobile-row" id="theme-row-mobile">
+            <a id="search-button-sidebar" class="btn btn-primary" href="aio.html" role="button" aria-label="Search the All In One page">Search the All In One page</a>
+          </div>
           <div class="row mobile-row" id="theme-row-mobile">
             <menu class="col theme-selector" id="theme-selector-sidebar">
 <li class="nav-item dropdown theme-button-list" id="theme-button-list-sidebar">
@@ -202,6 +209,7 @@
 <!--/div.accordion-item-->
                 </div>
 <!--/div.accordion-flush-->
+
               </div>
 <!--div.sidenav-view-selector -->
             </div>
@@ -286,6 +294,34 @@
             </div>
 
             <hr class="half-width">
+<div class="accordion accordion-flush" id="accordion-links-toggle">
+                <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-heading-links-toggle">
+                  <button class="accordion-button collapsed" id="links" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-links-toggle" aria-expanded="false" aria-controls="flush-collapse-links-toggle">
+                    LINKS
+                  </button>
+                </h2>
+                <div id="flush-collapse-links-toggle" class="accordion-collapse show collapse" data-bs-parent="#accordion-links-toggle">
+                    <div class="accordion-body">
+                        <ul>
+<li>
+                            <a href="key-points.html">Key Points</a>
+                            </li>
+                            <li>
+                            <a href="reference.html#glossary">Glossary</a>
+                            </li>
+                            <li>
+                            <a href="profiles.html">Learner Profiles</a>
+                            </li>
+                        </ul>
+</div>
+                </div>
+                </div>
+<!--/div.accordion-item-->
+            </div>
+<!--/div.accordion-flush-->
+
+            <hr class="half-width">
 <div class="accordion accordion-flush lesson-resources" id="accordion-resources-toggle">
               <div class="accordion-item">
                 <h2 class="accordion-header" id="flush-heading-resources-toggle">
@@ -296,16 +332,7 @@
                 <div id="flush-collapse-resources-toggle" class="accordion-collapse collapse" data-bs-parent="#accordion-resources-toggle">
                   <div class="accordion-body">
                     <ul>
-<li>
-                        <a href="key-points.html">Key Points</a>
-                      </li>
-                      <li>
-                        <a href="reference.html#glossary">Glossary</a>
-                      </li>
-                      <li>
-                        <a href="profiles.html">Learner Profiles</a>
-                      </li>
-                      <li><a href="reference.html">Reference</a></li>
+<li><a href="reference.html">Reference</a></li>
                     </ul>
 </div>
                 </div>
@@ -344,8 +371,9 @@ to look tidy</li>
 composed</li>
 <li>Type hints document expected input/output types for editors and
 readers</li>
-<li>A docstring documents purpose, parameters, and return value — write
-it as part of writing the function, not as an afterthought</li>
+<li>A docstring documents purpose, parameters, and return value. Its
+often best to write it as part of writing the function, not as an
+afterthought</li>
 </ul></section><section id="02-modules"><h2 class="section-heading"><a href="02-modules.html">Organizing Functions into Modules</a></h2>
 <hr class="half-width">
 <ul>
@@ -353,20 +381,30 @@ it as part of writing the function, not as an afterthought</li>
 of modules with an <code>__init__.py</code>
 </li>
 <li>
-<code>import</code>, <code>from ... import</code>, and
-<code>as</code> all change <em>how</em> a name is brought into scope,
-not what code runs</li>
-<li>Consistent naming and folder structure is what makes a project
-navigable to someone who didn’t write it</li>
+<code>%load_ext autoreload</code> + <code>%autoreload 2</code> lets
+a notebook pick up edits to your own modules without a kernel
+restart</li>
+<li>Python checks your notebook’s own directory before the standard
+library, such that a module named <code>random.py</code> or
+<code>csv.py</code> can silently break unrelated imports elsewhere in
+your code</li>
+<li>Not everything needs a module. Modularize logic that’s substantial
+or repeated</li>
 </ul></section><section id="03-repo-environments"><h2 class="section-heading"><a href="03-repo-environments.html">Building a Repository and Managing Environments</a></h2>
 <hr class="half-width">
 <ul>
-<li>A repo is more than code: structure, <code>.gitignore</code>, and a
-dependency file are part of making it usable by someone else</li>
-<li>Each project gets its own environment to avoid dependency
-conflicts</li>
-<li>Recording exact dependencies (with versions) is what makes a project
-reproducible</li>
+<li>Separate the installable package (<code>src/mooring_tools/</code>)
+from notebooks and data</li>
+<li>A <code>src/</code> layout turns “the package isn’t actually
+installed” from a silent bug into an error with a traceback</li>
+<li>
+<code>pip install -e .</code> installs your package so edits to
+<code>src/</code> take effect immediately, from any project, without
+reinstalling</li>
+<li>
+<code>pyproject.toml</code> declares what your code needs (loose
+bounds); <code>requirements.txt</code>/<code>pip freeze</code> records
+exactly what’s installed (exact pins)</li>
 </ul></section><section id="04-documentation-reuse"><h2 class="section-heading"><a href="04-documentation-reuse.html">Documentation and Reuse</a></h2>
 <hr class="half-width">
 <ul>
@@ -374,8 +412,12 @@ reproducible</li>
 without asking you</li>
 <li>Docstring consistency matters more as a project grows past one
 file</li>
-<li>Reusing a repo well means updating it deliberately, not copy-pasting
-it</li>
+<li>A well-documented function’s docstring tells the reader what’s safe
+to extend, not just what the function currently does</li>
+<li>Reusing a repo well means extending generic functions with new
+data/config, not copy-pasting or editing working code</li>
+<li>Bumping a version number and tagging the commit is enough to keep
+“what did I run this with” answerable later</li>
 </ul></section>
 </div>
     </main>
@@ -403,7 +445,7 @@ it</li>
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
 
         <p>Template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">CC-BY 4.0</a> by <a href="https://carpentries.org/" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/" class="external-link">sandpaper (0.20.2)</a>, <a href="https://github.com/carpentries/pegboard/tree/" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/carpentries/varnish/tree/" class="external-link">varnish (1.1.1)</a></p>
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/" class="external-link">sandpaper (0.21.1)</a>, <a href="https://github.com/carpentries/pegboard/tree/" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/carpentries/varnish/tree/" class="external-link">varnish (1.1.3)</a></p>
 		</div>
 		</footer>
 </div> <!-- / div.container -->
@@ -426,8 +468,8 @@ it</li>
   "url": "https://FIXME.github.io/python-intermediate-workshop/key-points.html",
   "identifier": "https://FIXME.github.io/python-intermediate-workshop/key-points.html",
   "dateCreated": "2026-07-13",
-  "dateModified": "2026-08-25",
-  "datePublished": "2026-08-25"
+  "dateModified": "2026-10-12",
+  "datePublished": "2026-10-12"
 }
 
   </script><script>

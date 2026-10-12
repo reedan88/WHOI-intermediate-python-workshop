@@ -24,7 +24,10 @@
   <div class="container-fluid top-nav-container">
     <div class="col-md-8">
       <div class="large-logo">
-        <img id="incubator-logo" alt="Intermediate Python for scientists and technicians moving from scripts to reusable, shareable code." src="../assets/images/incubator-logo.svg"><span class="badge text-bg-danger">
+        <a href="index.html">
+        <img id="incubator-logo" alt="Intermediate Python for scientists and technicians moving from scripts to reusable, shareable code." src="../assets/images/incubator-logo.svg"></a>
+
+        <span class="badge text-bg-danger">
           <abbr title="This lesson is in the pre-alpha phase, which means that it is in early development, but has not yet been taught.">
             <a href="https://docs.carpentries.org/resources/curriculum/lesson-life-cycle.html" class="external-link alert-link">
               <i aria-hidden="true" class="icon" data-feather="alert-octagon" style="border-radius: 5px"></i>
@@ -74,7 +77,9 @@
       <span class="menu-title">Menu</span>
     </button>
     <div class="nav-logo">
-      <img class="small-logo" alt="Intermediate Python for scientists and technicians moving from scripts to reusable, shareable code." src="../assets/images/incubator-logo-sm.svg"></div>
+      <a href="index.html">
+      <img class="small-logo" alt="Intermediate Python for scientists and technicians moving from scripts to reusable, shareable code." src="../assets/images/incubator-logo-sm.svg"></a>
+    </div>
     <div class="lesson-title-md">
       Intermediate Python: From Scripts to Reusable Projects
     </div>
@@ -115,10 +120,10 @@
       </fieldset>
     </form>
     -->
-    <a id="search-button" class="btn btn-primary" href="../instructor/aio.html" role="button" aria-label="Search the All In One page">Search the All In One page</a>
+    <a id="search-button-nav" class="btn btn-primary" href="../instructor/aio.html" role="button" aria-label="Search the All In One page">Search the All In One page</a>
   </div><!--/div.container-fluid -->
 </nav><aside class="col-md-12 lesson-progress"><div class="progress incubator">
-    <div class="progress-bar incubator" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" aria-label="Lesson Progress">50%</div>
+    <div class="progress-bar incubator" role="progressbar" style="width: 48%" aria-valuenow="48" aria-valuemin="0" aria-valuemax="100" aria-label="Lesson Progress">48%</div>
   </div>
 </aside><div class="container">
       <div class="row">
@@ -129,6 +134,9 @@
           <i class="search-icon" data-feather="x" role="img"></i>
         </button>
         <div class="sidebar-inner">
+          <div class="row mobile-row" id="theme-row-mobile">
+            <a id="search-button-sidebar" class="btn btn-primary" href="../instructor/aio.html" role="button" aria-label="Search the All In One page">Search the All In One page</a>
+          </div>
           <div class="row mobile-row" id="theme-row-mobile">
             <menu class="col theme-selector" id="theme-selector-sidebar"><li class="nav-item dropdown theme-button-list" id="theme-button-list-sidebar">
                 <button class="btn btn-link nav-link px-0 px-lg-2 dropdown-toggle d-flex align-items-center" id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown" data-bs-display="static" aria-label="Toggle theme (auto)">
@@ -171,6 +179,7 @@
                     </div>
                   </div><!--/div.accordion-item-->
                 </div><!--/div.accordion-flush-->
+
               </div><!--div.sidenav-view-selector -->
             </div><!--/div.col -->
 
@@ -228,8 +237,11 @@
     <div id="flush-collapsecurrent" class="accordion-collapse collapse show" data-bs-parent="#accordionFlushcurrent">
       <div class="accordion-body">
         <ul><li><a href="#what-goes-in-a-repo">What goes in a repo</a></li>
+<li><a href="#why-src-specifically">Why <code>src/</code>, specifically</a></li>
 <li><a href="#environments">Environments</a></li>
-<li><a href="#package-management">Package management</a></li>
+<li><a href="#making-the-package-installable">Making the package installable</a></li>
+<li><a href="#package-management-pinning-dependencies">Package management: pinning dependencies</a></li>
+<li><a href="#wrap-up">Wrap-up</a></li>
         </ul></div><!--/div.accordion-body-->
     </div><!--/div.accordion-collapse-->
 
@@ -249,6 +261,29 @@
               </div>
             </div>
 
+            <hr class="half-width"><div class="accordion accordion-flush" id="accordion-links-toggle">
+                <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-heading-links-toggle">
+                  <button class="accordion-button collapsed" id="links" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-links-toggle" aria-expanded="false" aria-controls="flush-collapse-links-toggle">
+                    LINKS
+                  </button>
+                </h2>
+                <div id="flush-collapse-links-toggle" class="accordion-collapse show collapse" data-bs-parent="#accordion-links-toggle">
+                    <div class="accordion-body">
+                        <ul><li>
+                            <a href="../instructor/key-points.html">Key Points</a>
+                            </li>
+                            <li>
+                            <a href="../instructor/instructor-notes.html">Instructor Notes</a>
+                            </li>
+                            <li>
+                            <a href="../instructor/images.html">Extract All Images</a>
+                            </li>
+                        </ul></div>
+                </div>
+                </div><!--/div.accordion-item-->
+            </div><!--/div.accordion-flush-->
+
             <hr class="half-width"><div class="accordion accordion-flush lesson-resources" id="accordion-resources-toggle">
               <div class="accordion-item">
                 <h2 class="accordion-header" id="flush-heading-resources-toggle">
@@ -258,16 +293,7 @@
                 </h2>
                 <div id="flush-collapse-resources-toggle" class="accordion-collapse collapse" data-bs-parent="#accordion-resources-toggle">
                   <div class="accordion-body">
-                    <ul><li>
-                        <a href="../instructor/key-points.html">Key Points</a>
-                      </li>
-                      <li>
-                        <a href="../instructor/instructor-notes.html">Instructor Notes</a>
-                      </li>
-                      <li>
-                        <a href="../instructor/images.html">Extract All Images</a>
-                      </li>
-                      <hr><li><a class="dropdown-item" href="reference.html">Reference</a></li>
+                    <ul><hr><li><a class="dropdown-item" href="reference.html">Reference</a></li>
                     </ul></div>
                 </div>
               </div>
@@ -294,22 +320,22 @@
       <div class="d-none d-sm-none d-md-block">
         <a class="chapter-link" href="../instructor/02-modules.html" rel="prev">
           <i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>
-          Previous: Organizing Functions
+          Previous: Organizing Functions into Modules...
         </a>
         <a class="chapter-link float-end" href="../instructor/04-documentation-reuse.html" rel="next">
-          Next: Documentation and...
+          Next: Documentation and Reuse...
           <i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i>
         </a>
       </div>
     </nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Building a Repository and Managing Environments</h1>
-        <p>Last updated on 2026-07-13 |
+        <p>Last updated on 2026-10-12 |
 
         <a href="https://github.com/FIXME/python-intermediate-workshop/edit/main/episodes/03-repo-environments.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
 
 
-        <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 120 minutes</p>
+        <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 140 minutes</p>
 
         <div class="text-end">
           <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right" data-expand="Expand All Solutions " data-collapse="Collapse All Solutions "> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
@@ -324,10 +350,10 @@
 <div class="card-body">
 <div class="inner">
 <h3 class="card-title">Questions</h3>
-<ul><li>What actually belongs in a code repository, beyond the code
-itself?</li>
+<ul><li>What actually belongs in a code repository?</li>
 <li>Why does each project need its own environment?</li>
-<li>How do I record and share which packages a project depends on?</li>
+<li>How do I turn <code>mooring_tools/</code> into something
+<code>pip install</code>-able?</li>
 </ul></div>
 </div>
 </div>
@@ -335,35 +361,209 @@ itself?</li>
 <div class="card-body">
 <div class="inner bordered">
 <h3 class="card-title">Objectives</h3>
-<ul><li>Initialize a git repository with a sensible directory structure</li>
-<li>Create an isolated virtual environment for a project</li>
-<li>Generate and use a dependency file (<code>requirements.txt</code> or
-<code>pyproject.toml</code>)</li>
+<ul><li>Lay out a repository with a <code>src/</code> (aka “source”)
+package, notebooks, and data kept separate</li>
+<li>Create an isolated virtual environment and install the project into
+it in “editable” mode</li>
+<li>Explain why a <code>src/</code> layout catches packaging bugs that a
+flat layout hides</li>
+<li>Generate a dependency file that lets someone else reproduce your
+environment</li>
 </ul></div>
 </div>
 </div>
 </div>
 </div>
 <section><h2 class="section-heading" id="what-goes-in-a-repo">What goes in a repo<a class="anchor" aria-label="anchor" href="#what-goes-in-a-repo"></a></h2>
-<hr class="half-width"><!-- FIXME: walk through a minimal but complete repo layout, e.g.:
-     project/
-       README.md
-       LICENSE
-       .gitignore
-       pyproject.toml (or requirements.txt)
-       src/project_name/
-       tests/
-     Discuss what each piece is for and why tests/README/.gitignore matter
-     even for a "just for me" project. --><div id="challenge-1-initialize-the-repo" class="callout challenge">
+<hr class="half-width"><p>By the end of Block 2, <code>mooring_tools/</code> is three modules
+and an <code>__init__.py</code>, sitting next to
+<code>messy_analysis.ipynb</code>. That’s enough to import from this
+notebook. It’s not enough to <code>pip install</code>, share with a
+colleague, or use from a notebook anywhere else on your machine. For
+that, the package needs a proper home:</p>
+<pre class="text"><code>mooring-tools/
+├── .gitignore
+├── LICENSE
+├── README.md
+├── pyproject.toml
+├── src/
+│   └── mooring_tools/
+│       ├── __init__.py
+│       ├── stats.py
+│       ├── plotting.py
+│       └── merge.py
+├── notebooks/
+│   └── messy_analysis.ipynb
+└── data/
+    ├── gs01sumo_nsif_ctd.nc
+    └── gs01sumo_nsif_dosta.nc</code></pre>
+<p>A few things to note about the layout:</p>
+<ul><li>
+<code>src/mooring_tools/</code>, not just
+<code>mooring_tools/</code> as the repo root.</li>
+<li>
+<code>notebooks/</code> and <code>data/</code> are separate from the
+package. The package is code meant to be imported; the notebook is one
+particular analysis that uses it.</li>
+<li>
+<strong><code>.gitignore</code></strong> keeps generated/environment
+files out of version control, such as the venv folder,
+<code>__pycache__/</code>, and Jupyter checkpoint files.</li>
+<li>
+<strong><code>LICENSE</code></strong> states what others are allowed
+to do with the code.</li>
+</ul><div id="challenge-1-lay-out-the-repository" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <span class="callout-header">Challenge</span>
-<div id="challenge-1-initialize-the-repo" class="callout-inner">
-<h3 class="callout-title">Challenge 1: Initialize the repo</h3>
+<div id="challenge-1-lay-out-the-repository" class="callout-inner">
+<h3 class="callout-title">Challenge 1: Lay out the repository</h3>
 <div class="callout-content">
-<!-- FIXME: `git init`, add the package from Block 2 into `src/`, write a
-     first `.gitignore` (Python template), first commit. -->
+<p>Create this directory structure, moving <code>stats.py</code>,
+<code>plotting.py</code>, and <code>merge.py</code> (and
+<code>__init__.py</code>) into <code>src/mooring_tools/</code>, and
+<code>messy_analysis.ipynb</code> into <code>notebooks/</code>. Don’t
+worry about <code>pyproject.toml</code> yet.</p>
+</div>
+</div>
+</div>
+</section><section><h2 class="section-heading" id="why-src-specifically">Why <code>src/</code>, specifically<a class="anchor" aria-label="anchor" href="#why-src-specifically"></a></h2>
+<hr class="half-width"><p>Compare two layouts, both without the package actually installed:</p>
+<div class="codewrapper sourceCode" id="cb2">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1" aria-label="code-block-2-1"></a><span class="co"># flat layout: mooring_tools/ directly at the repo root</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1" aria-label="code-block-2-2"></a><span class="bu">cd</span> flat-layout-repo</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1" aria-label="code-block-2-3"></a><span class="ex">python3</span> <span class="at">-c</span> <span class="st">"import mooring_tools"</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>(imports successfully — from mooring_tools/__init__.py right there in the folder)</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb4">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" tabindex="-1" aria-label="code-block-4-1"></a><span class="co"># src layout: mooring_tools/ inside src/</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1" aria-label="code-block-4-2"></a><span class="bu">cd</span> src-layout-repo</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1" aria-label="code-block-4-3"></a><span class="ex">python3</span> <span class="at">-c</span> <span class="st">"import mooring_tools"</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>ModuleNotFoundError: No module named 'mooring_tools'</code></pre>
+</div>
+<p>With a flat layout, Python finds the package because your current
+directory is always searched first. That means
+<code>import mooring_tools</code> can silently “work” from inside the
+repo even if the package was never actually installed, or if the install
+is broken. The bug only shows up later, when someone tries to use the
+package from outside the repo and it’s nowhere to be found. With
+<code>src/</code>, that failure happens immediately.</p>
+</section><section><h2 class="section-heading" id="environments">Environments<a class="anchor" aria-label="anchor" href="#environments"></a></h2>
+<hr class="half-width"><p>Every Python installation on your machine has one set of installed
+packages by default. If two projects need different, incompatible
+versions of the same library, installing globally means only one project
+can work at a time. A virtual environment gives each project its own
+isolated set of installed packages.</p>
+<div class="codewrapper sourceCode" id="cb6">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" tabindex="-1" aria-label="code-block-6-1"></a><span class="ex">python3</span> <span class="at">-m</span> venv .venv</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1" aria-label="code-block-6-2"></a></span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1" aria-label="code-block-6-3"></a><span class="co"># activate it:</span></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1" aria-label="code-block-6-4"></a><span class="bu">source</span> .venv/bin/activate        <span class="co"># macOS/Linux</span></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1" aria-label="code-block-6-5"></a><span class="ex">.venv\Scripts\activate</span>            <span class="co"># Windows</span></span></code></pre>
+</div>
+<p>Once activated, <code>pip install</code> only affects this
+environment. Other projects, and the system Python, are untouched.</p>
+<div id="challenge-2-create-an-environment" class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
+</div>
+<span class="callout-header">Challenge</span>
+<div id="challenge-2-create-an-environment" class="callout-inner">
+<h3 class="callout-title">Challenge 2: Create an environment</h3>
+<div class="callout-content">
+<p>Create a virtual environment for <code>mooring-tools</code> and
+activate it. Confirm you’re in it: <code>which python</code>
+(macOS/Linux) or <code>where python</code> (Windows) should point inside
+the <code>.venv</code> folder, not your system Python.</p>
+</div>
+</div>
+</div>
+</section><section><h2 class="section-heading" id="making-the-package-installable">Making the package installable<a class="anchor" aria-label="anchor" href="#making-the-package-installable"></a></h2>
+<hr class="half-width"><p><code>pyproject.toml</code> (Tom’s Obvious Minimal Language), at the
+repo root, is what turns a <code>src/</code> folder into something
+<code>pip</code> understands:</p>
+<div class="codewrapper sourceCode" id="cb7">
+<h3 class="code-label">TOML<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode toml" tabindex="0"><code class="sourceCode toml"><span id="cb7-1"><a href="#cb7-1" tabindex="-1" aria-label="code-block-7-1"></a><span class="kw">[build-system]</span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1" aria-label="code-block-7-2"></a><span class="dt">requires</span> <span class="op">=</span> <span class="op">[</span><span class="st">"setuptools&gt;=68"</span><span class="op">]</span></span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1" aria-label="code-block-7-3"></a><span class="dt">build-backend</span> <span class="op">=</span> <span class="st">"setuptools.build_meta"</span></span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1" aria-label="code-block-7-4"></a></span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1" aria-label="code-block-7-5"></a><span class="kw">[project]</span></span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1" aria-label="code-block-7-6"></a><span class="dt">name</span> <span class="op">=</span> <span class="st">"mooring_tools"</span></span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1" aria-label="code-block-7-7"></a><span class="dt">version</span> <span class="op">=</span> <span class="st">"0.1.0"</span></span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1" aria-label="code-block-7-8"></a><span class="dt">description</span> <span class="op">=</span> <span class="st">"Burst-statistics, plotting, and merge utilities for OOI CTD/DOSTA data"</span></span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1" aria-label="code-block-7-9"></a><span class="dt">readme</span> <span class="op">=</span> <span class="st">"README.md"</span></span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1" aria-label="code-block-7-10"></a><span class="dt">requires-python</span> <span class="op">=</span> <span class="st">"&gt;=3.10"</span></span>
+<span id="cb7-11"><a href="#cb7-11" tabindex="-1" aria-label="code-block-7-11"></a><span class="dt">license</span> <span class="op">=</span> <span class="op">{ </span><span class="dt">text</span><span class="op"> =</span> <span class="st">"MIT"</span><span class="op"> }</span></span>
+<span id="cb7-12"><a href="#cb7-12" tabindex="-1" aria-label="code-block-7-12"></a><span class="dt">authors</span> <span class="op">=</span> <span class="op">[</span></span>
+<span id="cb7-13"><a href="#cb7-13" tabindex="-1" aria-label="code-block-7-13"></a>    <span class="op">{ </span><span class="dt">name</span><span class="op"> =</span> <span class="st">"Your Name"</span><span class="op">, </span><span class="dt">email</span><span class="op"> =</span> <span class="st">"you@example.org"</span><span class="op"> },</span></span>
+<span id="cb7-14"><a href="#cb7-14" tabindex="-1" aria-label="code-block-7-14"></a><span class="op">]</span></span>
+<span id="cb7-15"><a href="#cb7-15" tabindex="-1" aria-label="code-block-7-15"></a><span class="dt">dependencies</span> <span class="op">=</span> <span class="op">[</span></span>
+<span id="cb7-16"><a href="#cb7-16" tabindex="-1" aria-label="code-block-7-16"></a>    <span class="st">"xarray&gt;=2024.1"</span><span class="op">,</span></span>
+<span id="cb7-17"><a href="#cb7-17" tabindex="-1" aria-label="code-block-7-17"></a>    <span class="st">"netCDF4&gt;=1.6"</span><span class="op">,</span></span>
+<span id="cb7-18"><a href="#cb7-18" tabindex="-1" aria-label="code-block-7-18"></a>    <span class="st">"pandas&gt;=2.0"</span><span class="op">,</span></span>
+<span id="cb7-19"><a href="#cb7-19" tabindex="-1" aria-label="code-block-7-19"></a>    <span class="st">"numpy&gt;=1.24"</span><span class="op">,</span></span>
+<span id="cb7-20"><a href="#cb7-20" tabindex="-1" aria-label="code-block-7-20"></a>    <span class="st">"matplotlib&gt;=3.7"</span><span class="op">,</span></span>
+<span id="cb7-21"><a href="#cb7-21" tabindex="-1" aria-label="code-block-7-21"></a><span class="op">]</span></span>
+<span id="cb7-22"><a href="#cb7-22" tabindex="-1" aria-label="code-block-7-22"></a></span>
+<span id="cb7-23"><a href="#cb7-23" tabindex="-1" aria-label="code-block-7-23"></a><span class="kw">[project.optional-dependencies]</span></span>
+<span id="cb7-24"><a href="#cb7-24" tabindex="-1" aria-label="code-block-7-24"></a><span class="dt">notebook</span> <span class="op">=</span> <span class="op">[</span><span class="st">"jupyter"</span><span class="op">]</span></span>
+<span id="cb7-25"><a href="#cb7-25" tabindex="-1" aria-label="code-block-7-25"></a></span>
+<span id="cb7-26"><a href="#cb7-26" tabindex="-1" aria-label="code-block-7-26"></a><span class="kw">[tool.setuptools.packages.find]</span></span>
+<span id="cb7-27"><a href="#cb7-27" tabindex="-1" aria-label="code-block-7-27"></a><span class="dt">where</span> <span class="op">=</span> <span class="op">[</span><span class="st">"src"</span><span class="op">]</span></span></code></pre>
+</div>
+<p>The last two lines are what tell <code>setuptools</code> to look
+inside <code>src/</code> for packages, rather than the repo root. With
+this in place:</p>
+<div class="codewrapper sourceCode" id="cb8">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" tabindex="-1" aria-label="code-block-8-1"></a><span class="ex">pip</span> install <span class="at">-e</span> .</span></code></pre>
+</div>
+<p>This command installs <code>mooring_tools</code> in <strong>editable
+mode</strong> (this is the <code>-e .</code>). <code>pip</code> points
+at your <code>src/mooring_tools/</code> files directly rather than
+copying them, so edits you make take effect immediately without
+reinstalling.</p>
+<div id="challenge-3-install-the-package-into-your-environment" class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
+</div>
+<span class="callout-header">Challenge</span>
+<div id="challenge-3-install-the-package-into-your-environment" class="callout-inner">
+<h3 class="callout-title">Challenge 3: Install the package into your
+environment</h3>
+<div class="callout-content">
+<p>Write the <code>pyproject.toml</code> above (adjust name/email), then
+run <code>pip install -e .</code> from the repo root. Confirm it worked
+by opening a Python shell from a different directory entirely and
+running:</p>
+<div class="codewrapper sourceCode" id="cb9">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" tabindex="-1" aria-label="code-block-9-1"></a><span class="im">import</span> mooring_tools</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1" aria-label="code-block-9-2"></a><span class="im">from</span> mooring_tools.stats <span class="im">import</span> resample_burst_stats</span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1" aria-label="code-block-9-3"></a><span class="bu">print</span>(mooring_tools.<span class="va">__file__</span>)</span></code></pre>
+</div>
+<p>The printed path should point at your repo’s
+<code>src/mooring_tools/</code>, even though you are working in a
+different folder.</p>
 </div>
 </div>
 </div>
@@ -372,72 +572,85 @@ itself?</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
-<!-- FIXME -->
+<p>If this raises <code>ModuleNotFoundError</code>, the most common
+cause is running <code>pip install -e .</code> with the wrong
+environment active. Double check <code>which pip</code> points inside
+<code>.venv</code> before installing.</p>
 </div>
 </div>
 </div>
 </div>
-</section><section><h2 class="section-heading" id="environments">Environments<a class="anchor" aria-label="anchor" href="#environments"></a></h2>
-<hr class="half-width"><!-- FIXME: explain *why* (dependency conflicts between projects), then
-     demonstrate venv (`python -m venv .venv`) and/or conda, activating,
-     and installing a package into it. --><div id="why-not-just-install-everything-globally" class="callout">
-<div class="callout-square">
-<i class="callout-icon" data-feather="bell"></i>
+</section><section><h2 class="section-heading" id="package-management-pinning-dependencies">Package management: pinning dependencies<a class="anchor" aria-label="anchor" href="#package-management-pinning-dependencies"></a></h2>
+<hr class="half-width"><p><code>pyproject.toml</code>’s <code>dependencies</code> list uses
+minimum versions (<code>xarray&gt;=2024.1</code>), enough to achieve
+what’s required, loose enough to not fight with other projects. For
+<em>exact reproducibility</em> generate a fully pinned lock file from
+your working environment:</p>
+<div class="codewrapper sourceCode" id="cb10">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" tabindex="-1" aria-label="code-block-10-1"></a><span class="ex">pip</span> freeze <span class="op">&gt;</span> requirements.txt</span></code></pre>
 </div>
-<span class="callout-header">Callout</span>
-<div id="why-not-just-install-everything-globally" class="callout-inner">
-<h3 class="callout-title">“Why not just install everything
-globally?”</h3>
-<div class="callout-content">
-<!-- FIXME: a good callout for the most common pushback in this section —
-     conflicting version requirements across unrelated projects. -->
-</div>
-</div>
-</div>
-<div id="challenge-2-create-an-environment-for-the-project" class="callout challenge">
+<p>From this project’s tested environment, that produces something
+like:</p>
+<pre class="text"><code>matplotlib==3.11.2
+netCDF4==1.7.4
+numpy==2.4.6
+pandas==3.0.6
+xarray==2026.7.0
+-e /path/to/mooring-tools</code></pre>
+<p>The distinction matters: <code>pyproject.toml</code> says what your
+<em>code</em> needs to run at all; <code>requirements.txt</code> (or a
+proper lock file) says exactly what <em>this specific environment</em>
+has installed, version by version. A colleague reproducing your result
+wants the second one.</p>
+<div id="challenge-4-generate-a-lock-file" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <span class="callout-header">Challenge</span>
-<div id="challenge-2-create-an-environment-for-the-project" class="callout-inner">
-<h3 class="callout-title">Challenge 2: Create an environment for the
-project</h3>
+<div id="challenge-4-generate-a-lock-file" class="callout-inner">
+<h3 class="callout-title">Challenge 4: Generate a lock file</h3>
 <div class="callout-content">
-<p>Create a virtual environment for the repo from Challenge 1 and
-install one external dependency into it (e.g. <code>numpy</code>).</p>
+<p>Run <code>pip freeze &gt; requirements.txt</code> in your activated
+environment. Then, starting from a fresh virtual environment, confirm a
+teammate could reproduce it with
+<code>pip install -r requirements.txt</code>.</p>
 </div>
 </div>
 </div>
-<div id="accordionSolution2" class="accordion challenge-accordion accordion-flush">
-<div class="accordion-item">
-<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
-  <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
-</button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
-<div class="accordion-body">
-<!-- FIXME -->
-</div>
-</div>
-</div>
-</div>
-</section><section><h2 class="section-heading" id="package-management">Package management<a class="anchor" aria-label="anchor" href="#package-management"></a></h2>
-<hr class="half-width"><!-- FIXME: `requirements.txt` (`pip freeze > requirements.txt`) vs.
-     `pyproject.toml` (declared dependencies, editable installs with
-     `pip install -e .`), and pinning versions vs. leaving them open. --><div id="challenge-3-record-dependencies" class="callout discussion">
+<div id="gitignore-for-this-project" class="callout">
 <div class="callout-square">
-<i class="callout-icon" data-feather="message-circle"></i>
+<i class="callout-icon" data-feather="bell"></i>
 </div>
-<span class="callout-header">Discussion</span>
-<div id="challenge-3-record-dependencies" class="callout-inner">
-<h3 class="callout-title">Challenge 3: Record dependencies</h3>
+<span class="callout-header">Callout</span>
+<div id="gitignore-for-this-project" class="callout-inner">
+<h3 class="callout-title">
+<code>.gitignore</code> for this project</h3>
 <div class="callout-content">
-<p>Generate a dependency file for the environment you created, and
-confirm a teammate could recreate it from a clean environment.</p>
+<p>Virtual environments and Jupyter checkpoint files don’t belong in
+version control. A minimal <code>.gitignore</code> for this repo will
+look something like this:</p>
+<pre class="text"><code>.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/</code></pre>
+<p>If your data files are large or sensitive, consider whether
+<code>data/</code> belongs in <code>.gitignore</code> too, with a note
+in the README on where to get it.</p>
 </div>
 </div>
 </div>
+</section><section><h2 class="section-heading" id="wrap-up">Wrap-up<a class="anchor" aria-label="anchor" href="#wrap-up"></a></h2>
+<hr class="half-width"><p>By the end of this block, <code>mooring_tools</code> is a real,
+installable package: <code>src/</code> layout,
+<code>pyproject.toml</code>, an activated virtual environment it’s
+installed into with <code>pip install -e .</code>, and a
+<code>requirements.txt</code> capturing exactly what’s installed. Block
+4 adds the README and docstring pass that makes this repo usable by
+someone who isn’t you.</p>
 <div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
@@ -445,12 +658,18 @@ confirm a teammate could recreate it from a clean environment.</p>
 <span class="callout-header">Key Points</span>
 <div class="callout-inner">
 <div class="callout-content">
-<ul><li>A repo is more than code: structure, <code>.gitignore</code>, and a
-dependency file are part of making it usable by someone else</li>
-<li>Each project gets its own environment to avoid dependency
-conflicts</li>
-<li>Recording exact dependencies (with versions) is what makes a project
-reproducible</li>
+<ul><li>Separate the installable package (<code>src/mooring_tools/</code>)
+from notebooks and data</li>
+<li>A <code>src/</code> layout turns “the package isn’t actually
+installed” from a silent bug into an error with a traceback</li>
+<li>
+<code>pip install -e .</code> installs your package so edits to
+<code>src/</code> take effect immediately, from any project, without
+reinstalling</li>
+<li>
+<code>pyproject.toml</code> declares what your code needs (loose
+bounds); <code>requirements.txt</code>/<code>pip freeze</code> records
+exactly what’s installed (exact pins)</li>
 </ul></div>
 </div>
 </div>
@@ -467,10 +686,10 @@ any links that you are not going to use.
       <div class="d-none d-sm-none d-md-block">
         <a class="chapter-link" href="../instructor/02-modules.html" rel="prev">
           <i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>
-          Previous: Organizing Functions
+          Previous: Organizing Functions into Modules...
         </a>
         <a class="chapter-link float-end" href="../instructor/04-documentation-reuse.html" rel="next">
-          Next: Documentation and...
+          Next: Documentation and Reuse...
           <i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i>
         </a>
       </div>
@@ -496,7 +715,7 @@ any links that you are not going to use.
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
 
         <p>Template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">CC-BY 4.0</a> by <a href="https://carpentries.org/" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/" class="external-link">sandpaper (0.20.2)</a>, <a href="https://github.com/carpentries/pegboard/tree/" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/carpentries/varnish/tree/" class="external-link">varnish (1.1.1)</a></p>
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/" class="external-link">sandpaper (0.21.1)</a>, <a href="https://github.com/carpentries/pegboard/tree/" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/carpentries/varnish/tree/" class="external-link">varnish (1.1.3)</a></p>
 		</div>
 		</footer></div> <!-- / div.container -->
 	<div id="to-top">
@@ -518,8 +737,8 @@ any links that you are not going to use.
   "url": "https://FIXME.github.io/python-intermediate-workshop/instructor/03-repo-environments.html",
   "identifier": "https://FIXME.github.io/python-intermediate-workshop/instructor/03-repo-environments.html",
   "dateCreated": "2026-07-13",
-  "dateModified": "2026-07-13",
-  "datePublished": "2026-08-25"
+  "dateModified": "2026-10-12",
+  "datePublished": "2026-10-12"
 }
 
   </script><script>

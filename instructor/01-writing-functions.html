@@ -24,7 +24,10 @@
   <div class="container-fluid top-nav-container">
     <div class="col-md-8">
       <div class="large-logo">
-        <img id="incubator-logo" alt="Intermediate Python for scientists and technicians moving from scripts to reusable, shareable code." src="../assets/images/incubator-logo.svg"><span class="badge text-bg-danger">
+        <a href="index.html">
+        <img id="incubator-logo" alt="Intermediate Python for scientists and technicians moving from scripts to reusable, shareable code." src="../assets/images/incubator-logo.svg"></a>
+
+        <span class="badge text-bg-danger">
           <abbr title="This lesson is in the pre-alpha phase, which means that it is in early development, but has not yet been taught.">
             <a href="https://docs.carpentries.org/resources/curriculum/lesson-life-cycle.html" class="external-link alert-link">
               <i aria-hidden="true" class="icon" data-feather="alert-octagon" style="border-radius: 5px"></i>
@@ -74,7 +77,9 @@
       <span class="menu-title">Menu</span>
     </button>
     <div class="nav-logo">
-      <img class="small-logo" alt="Intermediate Python for scientists and technicians moving from scripts to reusable, shareable code." src="../assets/images/incubator-logo-sm.svg"></div>
+      <a href="index.html">
+      <img class="small-logo" alt="Intermediate Python for scientists and technicians moving from scripts to reusable, shareable code." src="../assets/images/incubator-logo-sm.svg"></a>
+    </div>
     <div class="lesson-title-md">
       Intermediate Python: From Scripts to Reusable Projects
     </div>
@@ -115,7 +120,7 @@
       </fieldset>
     </form>
     -->
-    <a id="search-button" class="btn btn-primary" href="../instructor/aio.html" role="button" aria-label="Search the All In One page">Search the All In One page</a>
+    <a id="search-button-nav" class="btn btn-primary" href="../instructor/aio.html" role="button" aria-label="Search the All In One page">Search the All In One page</a>
   </div><!--/div.container-fluid -->
 </nav><aside class="col-md-12 lesson-progress"><div class="progress incubator">
     <div class="progress-bar incubator" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Lesson Progress">0%</div>
@@ -129,6 +134,9 @@
           <i class="search-icon" data-feather="x" role="img"></i>
         </button>
         <div class="sidebar-inner">
+          <div class="row mobile-row" id="theme-row-mobile">
+            <a id="search-button-sidebar" class="btn btn-primary" href="../instructor/aio.html" role="button" aria-label="Search the All In One page">Search the All In One page</a>
+          </div>
           <div class="row mobile-row" id="theme-row-mobile">
             <menu class="col theme-selector" id="theme-selector-sidebar"><li class="nav-item dropdown theme-button-list" id="theme-button-list-sidebar">
                 <button class="btn btn-link nav-link px-0 px-lg-2 dropdown-toggle d-flex align-items-center" id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown" data-bs-display="static" aria-label="Toggle theme (auto)">
@@ -171,6 +179,7 @@
                     </div>
                   </div><!--/div.accordion-item-->
                 </div><!--/div.accordion-flush-->
+
               </div><!--div.sidenav-view-selector -->
             </div><!--/div.col -->
 
@@ -251,6 +260,29 @@
               </div>
             </div>
 
+            <hr class="half-width"><div class="accordion accordion-flush" id="accordion-links-toggle">
+                <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-heading-links-toggle">
+                  <button class="accordion-button collapsed" id="links" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-links-toggle" aria-expanded="false" aria-controls="flush-collapse-links-toggle">
+                    LINKS
+                  </button>
+                </h2>
+                <div id="flush-collapse-links-toggle" class="accordion-collapse show collapse" data-bs-parent="#accordion-links-toggle">
+                    <div class="accordion-body">
+                        <ul><li>
+                            <a href="../instructor/key-points.html">Key Points</a>
+                            </li>
+                            <li>
+                            <a href="../instructor/instructor-notes.html">Instructor Notes</a>
+                            </li>
+                            <li>
+                            <a href="../instructor/images.html">Extract All Images</a>
+                            </li>
+                        </ul></div>
+                </div>
+                </div><!--/div.accordion-item-->
+            </div><!--/div.accordion-flush-->
+
             <hr class="half-width"><div class="accordion accordion-flush lesson-resources" id="accordion-resources-toggle">
               <div class="accordion-item">
                 <h2 class="accordion-header" id="flush-heading-resources-toggle">
@@ -260,16 +292,7 @@
                 </h2>
                 <div id="flush-collapse-resources-toggle" class="accordion-collapse collapse" data-bs-parent="#accordion-resources-toggle">
                   <div class="accordion-body">
-                    <ul><li>
-                        <a href="../instructor/key-points.html">Key Points</a>
-                      </li>
-                      <li>
-                        <a href="../instructor/instructor-notes.html">Instructor Notes</a>
-                      </li>
-                      <li>
-                        <a href="../instructor/images.html">Extract All Images</a>
-                      </li>
-                      <hr><li><a class="dropdown-item" href="reference.html">Reference</a></li>
+                    <ul><hr><li><a class="dropdown-item" href="reference.html">Reference</a></li>
                     </ul></div>
                 </div>
               </div>
@@ -299,13 +322,13 @@
           Home
         </a>
         <a class="chapter-link float-end" href="../instructor/02-modules.html" rel="next">
-          Next: Organizing Functions...
+          Next: Organizing Functions into Modules...
           <i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i>
         </a>
       </div>
     </nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Writing Effective Functions</h1>
-        <p>Last updated on 2026-07-13 |
+        <p>Last updated on 2026-10-12 |
 
         <a href="https://github.com/FIXME/python-intermediate-workshop/edit/main/episodes/01-writing-functions.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -351,13 +374,16 @@ and return value</li>
 </div>
 </div>
 <section><h2 class="section-heading" id="why-write-functions">Why write functions?<a class="anchor" aria-label="anchor" href="#why-write-functions"></a></h2>
-<hr class="half-width"><p>Open <code>messy_analysis.py</code> from the setup materials. It
-reads three days of hourly CTD/DOSTA readings from an ocean mooring
-(temperature, salinity, and dissolved oxygen — modeled on the kind of
-data an <a href="https://oceanobservatories.org/" class="external-link">OOI</a> Coastal
-Endurance surface mooring would report) and calculates summary
-statistics for each variable, one block at a time, with the same six
-lines of code copy-pasted and lightly edited each time.</p>
+<hr class="half-width"><p>Open <code>messy_analysis.ipynb</code> from the setup materials. It
+loads a full-year of data from the <a href="https://oceanobservatories.org/" class="external-link">OOI</a> <strong>GI01SUMO</strong>
+(<strong>G</strong>lobal <strong>I</strong>rminger Sea Array
+<strong>Su</strong>rface <strong>Mo</strong>oring) <strong>NSIF</strong>
+(<strong>N</strong>ear-<strong>S</strong>urface
+<strong>I</strong>nstrument <strong>F</strong>rame) and computes
+15-minute burst-median statistics for the CTD (temperature, salinity)
+and the DOSTA (dissolved oxygen). It calculates the <em>same</em>
+statistics for both instruments, with a six-line block copy-pasted and
+lightly edited between them.</p>
 <div id="challenge-1-spot-the-repetition" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
@@ -366,9 +392,9 @@ lines of code copy-pasted and lightly edited each time.</p>
 <div id="challenge-1-spot-the-repetition" class="callout-inner">
 <h3 class="callout-title">Challenge 1: Spot the repetition</h3>
 <div class="callout-content">
-<p>Skim <code>messy_analysis.py</code>. Without changing any code yet,
-write down (in a comment at the top of the file) which blocks of code
-are doing “the same thing” to different data.</p>
+<p>Skim <code>messy_analysis.ipynb</code>. Without changing any code
+yet, identify (you can write a comment at the top of the file) which
+blocks of code are doing “the same thing” to different data.</p>
 </div>
 </div>
 </div>
@@ -379,42 +405,52 @@ are doing “the same thing” to different data.</p>
 </button>
 <div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
-<p>The temperature, salinity, and dissolved oxygen blocks: each drops
-missing readings (recorded as blank cells from telemetry dropouts),
-computes mean/std/min/max, and prints a formatted summary. Only the
-input list and a label string change between them.</p>
+<p>The CTD block and the DOSTA block: both convert an xarray
+<code>Dataset</code> to a dataframe, resample it to 15-minute bins,
+compute the median and the median absolute deviation (MAD) per bin, and
+reassemble the two into one table. Only the input dataset changes
+between them.</p>
 </div>
 </div>
 </div>
 </div>
 <p>A good rule of thumb: <strong>if you’ve written the same logic twice,
-it should be a function.</strong> By the third copy-paste, a bug fix
-means finding and fixing it in three places — functions turn that into
-one place.</p>
+it should be a function.</strong> As you add instruments or expand your
+analysis, a bug fix means finding and fixing it in every copy. Functions
+turn that into one place.</p>
 </section><section><h2 class="section-heading" id="function-anatomy">Function anatomy<a class="anchor" aria-label="anchor" href="#function-anatomy"></a></h2>
-<hr class="half-width"><p>We’ll live-code the extraction together:</p>
+<hr class="half-width"><p>We’ll live-code the extraction together, pulling the burst-statistics
+logic out of the CTD block:</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1" aria-label="code-block-1-1"></a><span class="kw">def</span> summarize_readings(values, label<span class="op">=</span><span class="st">"temperature_c"</span>):</span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1" aria-label="code-block-1-2"></a>    cleaned <span class="op">=</span> [v <span class="cf">for</span> v <span class="kw">in</span> values <span class="cf">if</span> v <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>]</span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1" aria-label="code-block-1-3"></a>    mean <span class="op">=</span> <span class="bu">sum</span>(cleaned) <span class="op">/</span> <span class="bu">len</span>(cleaned)</span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1" aria-label="code-block-1-4"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>label<span class="sc">}</span><span class="ss">: mean=</span><span class="sc">{</span>mean<span class="sc">:.2f}</span><span class="ss">, n=</span><span class="sc">{</span><span class="bu">len</span>(cleaned)<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb1-5"><a href="#cb1-5" tabindex="-1" aria-label="code-block-1-5"></a>    <span class="cf">return</span> mean</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1" aria-label="code-block-1-1"></a><span class="kw">def</span> resample_burst_stats(df, freq<span class="op">=</span><span class="st">"900s"</span>):</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1" aria-label="code-block-1-2"></a>    resampler <span class="op">=</span> df.resample(freq, origin<span class="op">=</span><span class="st">"start_day"</span>, offset<span class="op">=</span>pd.Timedelta(<span class="st">"3150s"</span>))</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1" aria-label="code-block-1-3"></a>    median <span class="op">=</span> resampler.median()</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1" aria-label="code-block-1-4"></a></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1" aria-label="code-block-1-5"></a>    group_median <span class="op">=</span> resampler.transform(<span class="st">"median"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1" aria-label="code-block-1-6"></a>    deviations <span class="op">=</span> (df <span class="op">-</span> group_median).<span class="bu">abs</span>()</span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1" aria-label="code-block-1-7"></a>    mad <span class="op">=</span> deviations.resample(freq, origin<span class="op">=</span><span class="st">"start_day"</span>, offset<span class="op">=</span>pd.Timedelta(<span class="st">"3150s"</span>)).median()</span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1" aria-label="code-block-1-8"></a></span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1" aria-label="code-block-1-9"></a>    stats <span class="op">=</span> pd.concat([median, mad], axis<span class="op">=</span><span class="dv">1</span>, keys<span class="op">=</span>[<span class="st">"median"</span>, <span class="st">"mad"</span>]).swaplevel(axis<span class="op">=</span><span class="dv">1</span>).sort_index(axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1" aria-label="code-block-1-10"></a>    stats.index <span class="op">=</span> stats.index <span class="op">+</span> pd.Timedelta(freq) <span class="op">/</span> <span class="dv">2</span></span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1" aria-label="code-block-1-11"></a>    <span class="cf">return</span> stats</span></code></pre>
 </div>
 <p>Key parts to narrate as you write:</p>
 <ul><li>
-<strong>Positional arguments</strong> (<code>values</code>)
+<strong>Positional arguments</strong> (<code>df</code>)
 vs. <strong>keyword arguments with defaults</strong>
-(<code>label="temperature_c"</code>)</li>
-<li>The <strong>return value</strong> — a function that only
-<code>print</code>s is hard to reuse in another function; returning the
-result is what makes it composable</li>
+(<code>freq="900s"</code>): the burst interval defines the length of
+time between the start of collection intervals. It may change between
+instruments (but not here)</li>
+<li>The <strong>return value</strong>: the original script only ever
+printed or plotted <code>ctd_stats</code>/<code>dosta_stats</code>;
+returning it is what lets the same function produce <em>both</em>
+</li>
 <li>
-<code>*args</code> and <code>**kwargs</code> for the rare case where
-a function needs to accept a variable number of arguments (e.g. a
-wrapper that logs, then calls another function with whatever arguments
-it was given)</li>
+<code>*args</code>/<code>**kwargs</code> would come in if, say, this
+needed to pass extra options through to <code>.resample()</code> without
+the function knowing about all of them in advance.</li>
 </ul><div id="challenge-2-extract-a-function" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
@@ -423,10 +459,9 @@ it was given)</li>
 <div id="challenge-2-extract-a-function" class="callout-inner">
 <h3 class="callout-title">Challenge 2: Extract a function</h3>
 <div class="callout-content">
-<p>Working from <code>messy_analysis.py</code>, extract the repeated
-block into a function called <code>summarize_readings</code> and call it
-three times, once per variable (temperature, salinity, dissolved
-oxygen).</p>
+<p>Working from <code>messy_analysis.ipynb</code>, extract the repeated
+resampling block into <code>resample_burst_stats</code> and call it
+twice: once for the CTD dataframe, once for the DOSTA dataframe.</p>
 </div>
 </div>
 </div>
@@ -440,15 +475,20 @@ oxygen).</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" tabindex="-1" aria-label="code-block-2-1"></a><span class="kw">def</span> summarize_readings(values, label<span class="op">=</span><span class="st">"temperature_c"</span>):</span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1" aria-label="code-block-2-2"></a>    cleaned <span class="op">=</span> [v <span class="cf">for</span> v <span class="kw">in</span> values <span class="cf">if</span> v <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>]</span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1" aria-label="code-block-2-3"></a>    mean <span class="op">=</span> <span class="bu">sum</span>(cleaned) <span class="op">/</span> <span class="bu">len</span>(cleaned)</span>
-<span id="cb2-4"><a href="#cb2-4" tabindex="-1" aria-label="code-block-2-4"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>label<span class="sc">}</span><span class="ss">: mean=</span><span class="sc">{</span>mean<span class="sc">:.2f}</span><span class="ss">, n=</span><span class="sc">{</span><span class="bu">len</span>(cleaned)<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb2-5"><a href="#cb2-5" tabindex="-1" aria-label="code-block-2-5"></a>    <span class="cf">return</span> mean</span>
-<span id="cb2-6"><a href="#cb2-6" tabindex="-1" aria-label="code-block-2-6"></a></span>
-<span id="cb2-7"><a href="#cb2-7" tabindex="-1" aria-label="code-block-2-7"></a>summarize_readings(temperature_readings, label<span class="op">=</span><span class="st">"temperature_c"</span>)</span>
-<span id="cb2-8"><a href="#cb2-8" tabindex="-1" aria-label="code-block-2-8"></a>summarize_readings(salinity_readings, label<span class="op">=</span><span class="st">"salinity_psu"</span>)</span>
-<span id="cb2-9"><a href="#cb2-9" tabindex="-1" aria-label="code-block-2-9"></a>summarize_readings(do_readings, label<span class="op">=</span><span class="st">"dissolved_oxygen_umol_kg"</span>)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" tabindex="-1" aria-label="code-block-2-1"></a><span class="kw">def</span> resample_burst_stats(df, freq<span class="op">=</span><span class="st">"900s"</span>):</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1" aria-label="code-block-2-2"></a>    resampler <span class="op">=</span> df.resample(freq, origin<span class="op">=</span><span class="st">"start_day"</span>, offset<span class="op">=</span>pd.Timedelta(<span class="st">"3150s"</span>))</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1" aria-label="code-block-2-3"></a>    median <span class="op">=</span> resampler.median()</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1" aria-label="code-block-2-4"></a></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1" aria-label="code-block-2-5"></a>    group_median <span class="op">=</span> resampler.transform(<span class="st">"median"</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1" aria-label="code-block-2-6"></a>    deviations <span class="op">=</span> (df <span class="op">-</span> group_median).<span class="bu">abs</span>()</span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1" aria-label="code-block-2-7"></a>    mad <span class="op">=</span> deviations.resample(freq, origin<span class="op">=</span><span class="st">"start_day"</span>, offset<span class="op">=</span>pd.Timedelta(<span class="st">"3150s"</span>)).median()</span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1" aria-label="code-block-2-8"></a></span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1" aria-label="code-block-2-9"></a>    stats <span class="op">=</span> pd.concat([median, mad], axis<span class="op">=</span><span class="dv">1</span>, keys<span class="op">=</span>[<span class="st">"median"</span>, <span class="st">"mad"</span>]).swaplevel(axis<span class="op">=</span><span class="dv">1</span>).sort_index(axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1" aria-label="code-block-2-10"></a>    stats.index <span class="op">=</span> stats.index <span class="op">+</span> pd.Timedelta(freq) <span class="op">/</span> <span class="dv">2</span></span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1" aria-label="code-block-2-11"></a>    <span class="cf">return</span> stats</span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1" aria-label="code-block-2-12"></a></span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1" aria-label="code-block-2-13"></a>ctd_stats <span class="op">=</span> resample_burst_stats(ctd_df)</span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1" aria-label="code-block-2-14"></a>dosta_stats <span class="op">=</span> resample_burst_stats(dosta_df)</span></code></pre>
 </div>
 </div>
 </div>
@@ -462,23 +502,23 @@ oxygen).</p>
 <div id="single-responsibility" class="callout-inner">
 <h3 class="callout-title">Single responsibility</h3>
 <div class="callout-content">
-<p>A function that cleans data, computes statistics, <em>and</em> prints
-formatted output is doing three jobs. That’s fine for a quick script,
-but as functions get reused, each responsibility you bundle together is
-one more reason the function can’t be reused somewhere that only needs
-one of those things. We’ll revisit this idea when we split code into
+<p><code>resample_burst_stats</code> computes statistics. It doesn’t
+load data and it doesn’t plot. The original notebook’s cells did all
+three in sequence, which is fine for exploring, but bundling them
+together is exactly what would stop this function from being reused and
+limits its flexibility. We’ll revisit this when we split code into
 modules in the next block.</p>
 </div>
 </div>
 </div>
 </section><section><h2 class="section-heading" id="type-hints">Type hints<a class="anchor" aria-label="anchor" href="#type-hints"></a></h2>
-<hr class="half-width"><p>Type hints don’t change how Python runs your code — they’re
+<hr class="half-width"><p>Type hints don’t change how Python runs your code. Rather, they’re
 documentation that your editor and static-analysis tools can check for
 you.</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" tabindex="-1" aria-label="code-block-3-1"></a><span class="kw">def</span> summarize_readings(values: <span class="bu">list</span>[<span class="bu">float</span>], label: <span class="bu">str</span> <span class="op">=</span> <span class="st">"sensor"</span>) <span class="op">-&gt;</span> <span class="bu">float</span>:</span>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" tabindex="-1" aria-label="code-block-3-1"></a><span class="kw">def</span> resample_burst_stats(df: pd.DataFrame, freq: <span class="bu">str</span> <span class="op">=</span> <span class="st">"900s"</span>) <span class="op">-&gt;</span> pd.DataFrame:</span>
 <span id="cb3-2"><a href="#cb3-2" tabindex="-1" aria-label="code-block-3-2"></a>    ...</span></code></pre>
 </div>
 <div id="challenge-3-add-type-hints" class="callout challenge">
@@ -489,8 +529,8 @@ you.</p>
 <div id="challenge-3-add-type-hints" class="callout-inner">
 <h3 class="callout-title">Challenge 3: Add type hints</h3>
 <div class="callout-content">
-<p>Add type hints to the <code>summarize_readings</code> function you
-wrote in Challenge 2. What type should the return value be?</p>
+<p>Add type hints to <code>resample_burst_stats</code>. What type should
+the return value be?</p>
 </div>
 </div>
 </div>
@@ -504,14 +544,21 @@ wrote in Challenge 2. What type should the return value be?</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" tabindex="-1" aria-label="code-block-4-1"></a><span class="kw">def</span> summarize_readings(values: <span class="bu">list</span>[<span class="bu">float</span>], label: <span class="bu">str</span> <span class="op">=</span> <span class="st">"sensor"</span>) <span class="op">-&gt;</span> <span class="bu">float</span>:</span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1" aria-label="code-block-4-2"></a>    cleaned <span class="op">=</span> [v <span class="cf">for</span> v <span class="kw">in</span> values <span class="cf">if</span> v <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>]</span>
-<span id="cb4-3"><a href="#cb4-3" tabindex="-1" aria-label="code-block-4-3"></a>    mean <span class="op">=</span> <span class="bu">sum</span>(cleaned) <span class="op">/</span> <span class="bu">len</span>(cleaned)</span>
-<span id="cb4-4"><a href="#cb4-4" tabindex="-1" aria-label="code-block-4-4"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>label<span class="sc">}</span><span class="ss">: mean=</span><span class="sc">{</span>mean<span class="sc">:.2f}</span><span class="ss">, n=</span><span class="sc">{</span><span class="bu">len</span>(cleaned)<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb4-5"><a href="#cb4-5" tabindex="-1" aria-label="code-block-4-5"></a>    <span class="cf">return</span> mean</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" tabindex="-1" aria-label="code-block-4-1"></a><span class="kw">def</span> resample_burst_stats(df: pd.DataFrame, freq: <span class="bu">str</span> <span class="op">=</span> <span class="st">"900s"</span>) <span class="op">-&gt;</span> pd.DataFrame:</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1" aria-label="code-block-4-2"></a>    resampler <span class="op">=</span> df.resample(freq, origin<span class="op">=</span><span class="st">"start_day"</span>, offset<span class="op">=</span>pd.Timedelta(<span class="st">"3150s"</span>))</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1" aria-label="code-block-4-3"></a>    median <span class="op">=</span> resampler.median()</span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1" aria-label="code-block-4-4"></a></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1" aria-label="code-block-4-5"></a>    group_median <span class="op">=</span> resampler.transform(<span class="st">"median"</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1" aria-label="code-block-4-6"></a>    deviations <span class="op">=</span> (df <span class="op">-</span> group_median).<span class="bu">abs</span>()</span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1" aria-label="code-block-4-7"></a>    mad <span class="op">=</span> deviations.resample(freq, origin<span class="op">=</span><span class="st">"start_day"</span>, offset<span class="op">=</span>pd.Timedelta(<span class="st">"3150s"</span>)).median()</span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1" aria-label="code-block-4-8"></a></span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1" aria-label="code-block-4-9"></a>    stats <span class="op">=</span> pd.concat([median, mad], axis<span class="op">=</span><span class="dv">1</span>, keys<span class="op">=</span>[<span class="st">"median"</span>, <span class="st">"mad"</span>]).swaplevel(axis<span class="op">=</span><span class="dv">1</span>).sort_index(axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1" aria-label="code-block-4-10"></a>    stats.index <span class="op">=</span> stats.index <span class="op">+</span> pd.Timedelta(freq) <span class="op">/</span> <span class="dv">2</span></span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1" aria-label="code-block-4-11"></a>    <span class="cf">return</span> stats</span></code></pre>
 </div>
-<p>The return type is <code>float</code>, since <code>mean</code> is the
-value being returned.</p>
+<p>The return type is <code>pd.DataFrame</code> because both
+<code>median</code> and the final <code>stats</code> table are
+dataframes, and <code>stats</code> is what gets returned.</p>
 </div>
 </div>
 </div>
@@ -519,42 +566,53 @@ value being returned.</p>
 </section><section><h2 class="section-heading" id="docstrings">Docstrings<a class="anchor" aria-label="anchor" href="#docstrings"></a></h2>
 <hr class="half-width"><p>A docstring is the first statement inside a function, written as a
 triple-quoted string. It’s what shows up when someone runs
-<code>help(summarize_readings)</code>.</p>
+<code>help(resample_burst_stats)</code>.
+<code>messy_analysis.ipynb</code> already has one good example to look
+at: <code>fill_harmonic_gaps</code>, which fills gaps in the
+burst-median series using a linear-trend-plus-harmonic fit. It’s already
+written as a clean, documented function. Use it as a reference
+example.</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" tabindex="-1" aria-label="code-block-5-1"></a><span class="kw">def</span> summarize_readings(values: <span class="bu">list</span>[<span class="bu">float</span>], label: <span class="bu">str</span> <span class="op">=</span> <span class="st">"sensor"</span>) <span class="op">-&gt;</span> <span class="bu">float</span>:</span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1" aria-label="code-block-5-2"></a>    <span class="co">"""Compute and print the mean of a list of sensor readings.</span></span>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" tabindex="-1" aria-label="code-block-5-1"></a><span class="kw">def</span> resample_burst_stats(df: pd.DataFrame, freq: <span class="bu">str</span> <span class="op">=</span> <span class="st">"900s"</span>) <span class="op">-&gt;</span> pd.DataFrame:</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1" aria-label="code-block-5-2"></a>    <span class="co">"""Compute burst-median statistics for OOI instrument data.</span></span>
 <span id="cb5-3"><a href="#cb5-3" tabindex="-1" aria-label="code-block-5-3"></a></span>
-<span id="cb5-4"><a href="#cb5-4" tabindex="-1" aria-label="code-block-5-4"></a><span class="co">    Parameters</span></span>
-<span id="cb5-5"><a href="#cb5-5" tabindex="-1" aria-label="code-block-5-5"></a><span class="co">    ----------</span></span>
-<span id="cb5-6"><a href="#cb5-6" tabindex="-1" aria-label="code-block-5-6"></a><span class="co">    values : list[float]</span></span>
-<span id="cb5-7"><a href="#cb5-7" tabindex="-1" aria-label="code-block-5-7"></a><span class="co">        Raw sensor readings; ``None`` entries are dropped before computing.</span></span>
-<span id="cb5-8"><a href="#cb5-8" tabindex="-1" aria-label="code-block-5-8"></a><span class="co">    label : str, default "sensor"</span></span>
-<span id="cb5-9"><a href="#cb5-9" tabindex="-1" aria-label="code-block-5-9"></a><span class="co">        Name used in the printed summary line.</span></span>
-<span id="cb5-10"><a href="#cb5-10" tabindex="-1" aria-label="code-block-5-10"></a></span>
-<span id="cb5-11"><a href="#cb5-11" tabindex="-1" aria-label="code-block-5-11"></a><span class="co">    Returns</span></span>
-<span id="cb5-12"><a href="#cb5-12" tabindex="-1" aria-label="code-block-5-12"></a><span class="co">    -------</span></span>
-<span id="cb5-13"><a href="#cb5-13" tabindex="-1" aria-label="code-block-5-13"></a><span class="co">    float</span></span>
-<span id="cb5-14"><a href="#cb5-14" tabindex="-1" aria-label="code-block-5-14"></a><span class="co">        The mean of the non-missing values.</span></span>
-<span id="cb5-15"><a href="#cb5-15" tabindex="-1" aria-label="code-block-5-15"></a><span class="co">    """</span></span>
-<span id="cb5-16"><a href="#cb5-16" tabindex="-1" aria-label="code-block-5-16"></a>    ...</span></code></pre>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1" aria-label="code-block-5-4"></a><span class="co">    OOI instruments often sample in short bursts; this</span></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1" aria-label="code-block-5-5"></a><span class="co">    collapses each burst into a robust summary statistic.</span></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1" aria-label="code-block-5-6"></a></span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1" aria-label="code-block-5-7"></a><span class="co">    Parameters</span></span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1" aria-label="code-block-5-8"></a><span class="co">    ----------</span></span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1" aria-label="code-block-5-9"></a><span class="co">    df : pandas.DataFrame</span></span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1" aria-label="code-block-5-10"></a><span class="co">        Time-indexed instrument data, one column per variable, at full sampling resolution.</span></span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1" aria-label="code-block-5-11"></a><span class="co">    freq : str, default "900s"</span></span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1" aria-label="code-block-5-12"></a><span class="co">        Burst interval as a pandas offset string.</span></span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1" aria-label="code-block-5-13"></a></span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1" aria-label="code-block-5-14"></a><span class="co">    Returns</span></span>
+<span id="cb5-15"><a href="#cb5-15" tabindex="-1" aria-label="code-block-5-15"></a><span class="co">    -------</span></span>
+<span id="cb5-16"><a href="#cb5-16" tabindex="-1" aria-label="code-block-5-16"></a><span class="co">    pandas.DataFrame</span></span>
+<span id="cb5-17"><a href="#cb5-17" tabindex="-1" aria-label="code-block-5-17"></a><span class="co">        Columns are a 2-level MultiIndex (variable, statistic), where</span></span>
+<span id="cb5-18"><a href="#cb5-18" tabindex="-1" aria-label="code-block-5-18"></a><span class="co">        statistic is one of "median" or "mad" (median absolute deviation).</span></span>
+<span id="cb5-19"><a href="#cb5-19" tabindex="-1" aria-label="code-block-5-19"></a><span class="co">        Index is the start time of each burst.</span></span>
+<span id="cb5-20"><a href="#cb5-20" tabindex="-1" aria-label="code-block-5-20"></a><span class="co">    """</span></span>
+<span id="cb5-21"><a href="#cb5-21" tabindex="-1" aria-label="code-block-5-21"></a>    ...</span></code></pre>
 </div>
 <p>We’re using the NumPy docstring style here since it’s common in
 scientific Python, but the important content is the same regardless of
 style: what the function does, what each argument means, and what comes
 back.</p>
-<div id="challenge-4-document-your-function" class="callout discussion">
+<div id="challenge-4-document-your-function" class="callout challenge">
 <div class="callout-square">
-<i class="callout-icon" data-feather="message-circle"></i>
+<i class="callout-icon" data-feather="zap"></i>
 </div>
-<span class="callout-header">Discussion</span>
+<span class="callout-header">Challenge</span>
 <div id="challenge-4-document-your-function" class="callout-inner">
 <h3 class="callout-title">Challenge 4: Document your function</h3>
 <div class="callout-content">
-<p>Add a docstring to <code>summarize_readings</code>. Then, in a Python
-shell, run <code>help(summarize_readings)</code> and confirm it displays
-what you expect.</p>
+<p>Add a docstring to <code>resample_burst_stats</code>. Then, in a
+notebook cell, run <code>help(resample_burst_stats)</code> and confirm
+it displays what you expect. Compare it to
+<code>fill_harmonic_gaps</code>’s docstring already in the file.</p>
 </div>
 </div>
 </div>
@@ -565,19 +623,22 @@ what you expect.</p>
 </button>
 <div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
 <div class="accordion-body">
-<p>Some learners will want to skip docstrings as “extra work.” It’s
-worth pointing out here that we’ll rely on these docstrings again in
-Block 4 when generating project documentation — the investment pays off
-later in the workshop, not just in some hypothetical future project.</p>
+<p>It’s worth pointing out here that we’ll rely on these docstrings
+again in Block 4 when generating project documentation, and thus the
+investment pays off later in the workshop, not just in some hypothetical
+future project. <code>fill_harmonic_gaps</code> is deliberately left
+already-documented in the starter file so learners have a working
+example to model their own docstring on, rather than writing one from a
+blank page.</p>
 </div>
 </div>
 </div>
 </div>
 </section><section><h2 class="section-heading" id="wrap-up">Wrap-up<a class="anchor" aria-label="anchor" href="#wrap-up"></a></h2>
-<hr class="half-width"><p>By the end of this block, learners should have a small set of clean,
-type-hinted, documented functions extracted from
-<code>messy_analysis.py</code>. This file is what Block 2 organizes into
-a module — don’t let learners discard it.</p>
+<hr class="half-width"><p>By the end of this block, learners should have
+<code>resample_burst_stats</code> extracted, type-hinted, and
+documented, alongside the already-clean <code>fill_harmonic_gaps</code>.
+These two functions are what Block 2 organizes into a module.</p>
 <div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
@@ -591,8 +652,9 @@ to look tidy</li>
 composed</li>
 <li>Type hints document expected input/output types for editors and
 readers</li>
-<li>A docstring documents purpose, parameters, and return value — write
-it as part of writing the function, not as an afterthought</li>
+<li>A docstring documents purpose, parameters, and return value. Its
+often best to write it as part of writing the function, not as an
+afterthought</li>
 </ul></div>
 </div>
 </div>
@@ -612,7 +674,7 @@ any links that you are not going to use.
           Home
         </a>
         <a class="chapter-link float-end" href="../instructor/02-modules.html" rel="next">
-          Next: Organizing Functions...
+          Next: Organizing Functions into Modules...
           <i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i>
         </a>
       </div>
@@ -638,7 +700,7 @@ any links that you are not going to use.
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
 
         <p>Template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">CC-BY 4.0</a> by <a href="https://carpentries.org/" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/" class="external-link">sandpaper (0.20.2)</a>, <a href="https://github.com/carpentries/pegboard/tree/" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/carpentries/varnish/tree/" class="external-link">varnish (1.1.1)</a></p>
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/" class="external-link">sandpaper (0.21.1)</a>, <a href="https://github.com/carpentries/pegboard/tree/" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/carpentries/varnish/tree/" class="external-link">varnish (1.1.3)</a></p>
 		</div>
 		</footer></div> <!-- / div.container -->
 	<div id="to-top">
@@ -660,8 +722,8 @@ any links that you are not going to use.
   "url": "https://FIXME.github.io/python-intermediate-workshop/instructor/01-writing-functions.html",
   "identifier": "https://FIXME.github.io/python-intermediate-workshop/instructor/01-writing-functions.html",
   "dateCreated": "2026-07-13",
-  "dateModified": "2026-07-13",
-  "datePublished": "2026-08-25"
+  "dateModified": "2026-10-12",
+  "datePublished": "2026-10-12"
 }
 
   </script><script>

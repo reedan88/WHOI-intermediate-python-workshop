@@ -24,7 +24,10 @@
   <div class="container-fluid top-nav-container">
     <div class="col-md-8">
       <div class="large-logo">
-        <img id="incubator-logo" alt="Intermediate Python for scientists and technicians moving from scripts to reusable, shareable code." src="../assets/images/incubator-logo.svg"><span class="badge text-bg-danger">
+        <a href="index.html">
+        <img id="incubator-logo" alt="Intermediate Python for scientists and technicians moving from scripts to reusable, shareable code." src="../assets/images/incubator-logo.svg"></a>
+
+        <span class="badge text-bg-danger">
           <abbr title="This lesson is in the pre-alpha phase, which means that it is in early development, but has not yet been taught.">
             <a href="https://docs.carpentries.org/resources/curriculum/lesson-life-cycle.html" class="external-link alert-link">
               <i aria-hidden="true" class="icon" data-feather="alert-octagon" style="border-radius: 5px"></i>
@@ -74,7 +77,9 @@
       <span class="menu-title">Menu</span>
     </button>
     <div class="nav-logo">
-      <img class="small-logo" alt="Intermediate Python for scientists and technicians moving from scripts to reusable, shareable code." src="../assets/images/incubator-logo-sm.svg"></div>
+      <a href="index.html">
+      <img class="small-logo" alt="Intermediate Python for scientists and technicians moving from scripts to reusable, shareable code." src="../assets/images/incubator-logo-sm.svg"></a>
+    </div>
     <div class="lesson-title-md">
       Intermediate Python: From Scripts to Reusable Projects
     </div>
@@ -115,7 +120,7 @@
       </fieldset>
     </form>
     -->
-    <a id="search-button" class="btn btn-primary" href="../instructor/aio.html" role="button" aria-label="Search the All In One page">Search the All In One page</a>
+    <a id="search-button-nav" class="btn btn-primary" href="../instructor/aio.html" role="button" aria-label="Search the All In One page">Search the All In One page</a>
   </div><!--/div.container-fluid -->
 </nav><div class="container">
       <div class="row">
@@ -126,6 +131,9 @@
           <i class="search-icon" data-feather="x" role="img"></i>
         </button>
         <div class="sidebar-inner">
+          <div class="row mobile-row" id="theme-row-mobile">
+            <a id="search-button-sidebar" class="btn btn-primary" href="../instructor/aio.html" role="button" aria-label="Search the All In One page">Search the All In One page</a>
+          </div>
           <div class="row mobile-row" id="theme-row-mobile">
             <menu class="col theme-selector" id="theme-selector-sidebar"><li class="nav-item dropdown theme-button-list" id="theme-button-list-sidebar">
                 <button class="btn btn-link nav-link px-0 px-lg-2 dropdown-toggle d-flex align-items-center" id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown" data-bs-display="static" aria-label="Toggle theme (auto)">
@@ -168,6 +176,7 @@
                     </div>
                   </div><!--/div.accordion-item-->
                 </div><!--/div.accordion-flush-->
+
               </div><!--div.sidenav-view-selector -->
             </div><!--/div.col -->
 
@@ -245,6 +254,29 @@
               </div>
             </div>
 
+            <hr class="half-width"><div class="accordion accordion-flush" id="accordion-links-toggle">
+                <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-heading-links-toggle">
+                  <button class="accordion-button collapsed" id="links" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-links-toggle" aria-expanded="false" aria-controls="flush-collapse-links-toggle">
+                    LINKS
+                  </button>
+                </h2>
+                <div id="flush-collapse-links-toggle" class="accordion-collapse show collapse" data-bs-parent="#accordion-links-toggle">
+                    <div class="accordion-body">
+                        <ul><li>
+                            <a href="../instructor/key-points.html">Key Points</a>
+                            </li>
+                            <li>
+                            <a href="../instructor/instructor-notes.html">Instructor Notes</a>
+                            </li>
+                            <li>
+                            <a href="../instructor/images.html">Extract All Images</a>
+                            </li>
+                        </ul></div>
+                </div>
+                </div><!--/div.accordion-item-->
+            </div><!--/div.accordion-flush-->
+
             <hr class="half-width"><div class="accordion accordion-flush lesson-resources" id="accordion-resources-toggle">
               <div class="accordion-item">
                 <h2 class="accordion-header" id="flush-heading-resources-toggle">
@@ -254,16 +286,7 @@
                 </h2>
                 <div id="flush-collapse-resources-toggle" class="accordion-collapse collapse" data-bs-parent="#accordion-resources-toggle">
                   <div class="accordion-body">
-                    <ul><li>
-                        <a href="../instructor/key-points.html">Key Points</a>
-                      </li>
-                      <li>
-                        <a href="../instructor/instructor-notes.html">Instructor Notes</a>
-                      </li>
-                      <li>
-                        <a href="../instructor/images.html">Extract All Images</a>
-                      </li>
-                      <hr><li><a class="dropdown-item" href="reference.html">Reference</a></li>
+                    <ul><hr><li><a class="dropdown-item" href="reference.html">Reference</a></li>
                     </ul></div>
                 </div>
               </div>
@@ -287,18 +310,19 @@
       </div>
       <!-- content for large screens -->
       <div class="d-none d-sm-none d-md-block">
-        <a class="chapter-link float-end" href="../instructor/01-writing-functions.html" rel="next">Next: Writing Effective... <i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
+        <a class="chapter-link float-end" href="../instructor/01-writing-functions.html" rel="next">Next: Writing Effective Functions... <i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
       </div>
     </nav><main id="main-content" class="main-content"><h1 class="schedule-heading">Summary and Schedule</h1>
       
 
 <p>This two-session workshop is for scientists and technicians who are
 comfortable writing basic Python scripts (variables, loops,
-conditionals) and want to level up to writing code that is
-<strong>reusable, shareable, and maintainable</strong>. Across two
-four-hour sessions, we go from a single well-written function all the
-way to a documented repository you can hand to a colleague or return to
-yourself six months from now.</p>
+conditionals) and want to level up to writing code that conforms with
+FAIR (<strong>Findable, Accessible, Interoperable, and
+Reuseable</strong>) standards. Across two four-hour sessions, we will
+move from a single well-written function all the way to a documented
+repository you can hand to a colleague or return to yourself six months
+from now.</p>
 <div id="prerequisites" class="callout prereq">
 <div class="callout-square">
 <i class="callout-icon" data-feather="check"></i>
@@ -311,7 +335,9 @@ yourself six months from now.</p>
 <li>Familiarity with variables, loops, conditionals, and basic data
 structures (lists, dicts)</li>
 <li>No prior experience with git, packaging, or software testing is
-assumed</li>
+assumed
+<ul><li>Although git familiarity is beneficials</li>
+</ul></li>
 </ul></div>
 </div>
 </div>
@@ -348,24 +374,24 @@ belongs in a docstring, and why write one at all?
  2. <a href="02-modules.html">Organizing Functions into Modules</a>
 </td>
 <td>
-When does a collection of functions become a module?<br>How does Python
-find code when I <code>import</code> it?<br>How should I name and
-organize modules so a colleague can find things later?
+When does a collection of functions become a module?<br>How do I use my
+own modules from a Jupyter notebook, not just a script?<br>How should I
+decide what becomes a module, and what doesn’t?
 </td>
 </tr><tr><td>
-<span class="visually-hidden">Duration: </span>04h 00m
+<span class="visually-hidden">Duration: </span>04h 20m
 </td>
 <td>
  3. <a href="03-repo-environments.html">Building a Repository and
 Managing Environments</a>
 </td>
 <td>
-What actually belongs in a code repository, beyond the code
-itself?<br>Why does each project need its own environment?<br>How do I
-record and share which packages a project depends on?
+What actually belongs in a code repository?<br>Why does each project
+need its own environment?<br>How do I turn <code>mooring_tools/</code>
+into something <code>pip install</code>-able?
 </td>
 </tr><tr><td>
-<span class="visually-hidden">Duration: </span>06h 00m
+<span class="visually-hidden">Duration: </span>06h 40m
 </td>
 <td>
  4. <a href="04-documentation-reuse.html">Documentation and Reuse</a>
@@ -373,11 +399,11 @@ record and share which packages a project depends on?
 <td>
 What does a README need to contain to actually be useful?<br>How do
 docstrings work together across a whole project, not just one
-function?<br>How do I safely reuse or update this repo for a new piece
-of work?
+function?<br>How do I extend this package for new work without breaking
+what already works?
 </td>
 </tr><tr><td>
-<span class="visually-hidden">Duration: </span>08h 00m
+<span class="visually-hidden">Duration: </span>09h 00m
 </td>
 <td>
 Finish
@@ -394,17 +420,39 @@ any links that you are not going to use.
 <hr class="half-width"><p>Download the <a href="starter-files">starter files</a> and unzip them
 to your Desktop before the workshop. This contains:</p>
 <ul><li>
-<code>messy_analysis.py</code> — a deliberately “messy” analysis
-script that we refactor throughout the two sessions</li>
+<code>first_analysis.ipynb</code>: a deliberately “messy” Jupyter
+notebook that we refactor throughout the two sessions. Meant to reflect
+a type of exploratory notebook someone would use for initial data
+analysis/visualization.</li>
 <li>
-<code>data/ooi_mooring_sample.csv</code> — three days of hourly
-synthetic CTD/DOSTA readings (temperature, salinity, dissolved oxygen)
-modeled on data from an <a href="https://oceanobservatories.org/" class="external-link">OOI</a> Coastal Endurance surface
-mooring</li>
-</ul><!-- FIXME: once this repo is on GitHub, replace the relative link above
-     with a link to a release zip, e.g.
-     https://github.com/FIXME/python-intermediate-workshop/releases --></section><section><h2 class="section-heading" id="software-setup">Software Setup<a class="anchor" aria-label="anchor" href="#software-setup"></a></h2>
-<hr class="half-width"><div id="details" class="callout discussion">
+<code>data/gi01sumo_nsif_ctd.nc</code>,
+<code>data/gi01sumo_nsif_dosta.nc</code> — one week (2020-09-01 to
+2020-09-08) of real <a href="https://oceanobservatories.org/" class="external-link">OOI</a>
+Global Irminger Sea Array (GI01SUMO) Near-Surface Instrument Frame
+(NSIF) data: CTD (temperature, salinity, pressure) and DOSTA (dissolved
+oxygen). The data files contain a full-deployments worth of data but
+with only the relevant parameters retained. Downloading a similar
+dataset from the OOI Data Explorer will yield a dataset with a
+signficant number of extra, lower-processing-level parameters and
+engineering data.</li>
+</ul><p>This data requires <code>xarray</code>, <code>netCDF4</code>,
+<code>pandas</code>, <code>numpy</code>, <code>Jupyter</code>, and
+<code>matplotlib</code>. These should all be installed ahead of time,
+although Block 3 deals specifically with library and package management
+and environments.</p>
+<div class="codewrapper sourceCode" id="cb1">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1" aria-label="code-block-1-1"></a><span class="ex">pip</span> install xarray netCDF4 pandas numpy matplotlib jupyter</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1" aria-label="code-block-1-2"></a><span class="ex">python3</span> <span class="at">-c</span> <span class="st">"import xarray as xr; print(xr.open_dataset('data/gi01sumo_nsif_ctd.nc'))"</span></span></code></pre>
+</div>
+</section><section><h2 class="section-heading" id="software-setup">Software Setup<a class="anchor" aria-label="anchor" href="#software-setup"></a></h2>
+<hr class="half-width"><p>This workshop is written for a <strong>Jupyter notebook</strong>
+workflow and interactive programming development approach. Terminal work
+should be limited, but there will be a few points where learners will
+need to use the command line for a couple of things. That said, if the
+learner wishes to use an IDE (such as VS-Code) they are welcome to.</p>
+<div id="details" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
 </div>
@@ -414,7 +462,11 @@ mooring</li>
 <div class="callout-content">
 <p>You will need:</p>
 <ol style="list-style-type: decimal"><li><strong>Python 3.10+</strong></li>
-<li>A code editor (VS Code recommended, but any editor works)</li>
+<li>
+<strong>Jupyter</strong> (<code>pip install jupyter</code>, or
+JupyterLab) — Optional: A code editor with Python support (VS Code’s
+Jupyter extension works well for editing the <code>.py</code> modules
+you’ll write alongside your notebook)</li>
 <li>
 <strong>git</strong>, and a free <a href="https://github.com" class="external-link">GitHub</a> account</li>
 <li>The ability to create a virtual environment (<code>venv</code>,
@@ -436,7 +488,9 @@ mooring</li>
 check “Add Python to PATH” during install.</li>
 <li>Install <a href="https://git-scm.com/download/win" class="external-link">Git for
 Windows</a>, which includes Git Bash.</li>
-<li>Install <a href="https://code.visualstudio.com/" class="external-link">VS Code</a>.</li>
+<li>
+<code>pip install jupyter</code>, then confirm it launches with
+<code>jupyter notebook</code> or <code>jupyter lab</code>.</li>
 </ol></div>
 </div>
 </div>
@@ -455,7 +509,9 @@ Windows</a>, which includes Git Bash.</li>
 <code>brew install python</code>.</li>
 <li>Git is usually pre-installed; verify with <code>git --version</code>
 in Terminal.</li>
-<li>Install <a href="https://code.visualstudio.com/" class="external-link">VS Code</a>.</li>
+<li>
+<code>pip install jupyter</code>, then confirm it launches with
+<code>jupyter notebook</code> or <code>jupyter lab</code>.</li>
 </ol></div>
 </div>
 </div>
@@ -474,8 +530,9 @@ in Terminal.</li>
 <code>python3 --version</code>.</li>
 <li>Install git via your package manager,
 e.g. <code>sudo apt install git</code>.</li>
-<li>Install <a href="https://code.visualstudio.com/" class="external-link">VS Code</a> or your
-preferred editor.</li>
+<li>
+<code>pip install jupyter</code>, then confirm it launches with
+<code>jupyter notebook</code> or <code>jupyter lab</code>.</li>
 </ol></div>
 </div>
 </div>
@@ -489,7 +546,7 @@ any links that you are not going to use.
       </div>
       <!-- content for large screens -->
       <div class="d-none d-sm-none d-md-block">
-        <a class="chapter-link float-end" href="../instructor/01-writing-functions.html" rel="next">Next: Writing Effective... <i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
+        <a class="chapter-link float-end" href="../instructor/01-writing-functions.html" rel="next">Next: Writing Effective Functions... <i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
       </div>
     </nav></div>
 <!-- END  : inst/pkgdown/templates/content-syllabus.html -->
@@ -513,7 +570,7 @@ any links that you are not going to use.
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
 
         <p>Template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">CC-BY 4.0</a> by <a href="https://carpentries.org/" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/" class="external-link">sandpaper (0.20.2)</a>, <a href="https://github.com/carpentries/pegboard/tree/" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/carpentries/varnish/tree/" class="external-link">varnish (1.1.1)</a></p>
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/" class="external-link">sandpaper (0.21.1)</a>, <a href="https://github.com/carpentries/pegboard/tree/" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/carpentries/varnish/tree/" class="external-link">varnish (1.1.3)</a></p>
 		</div>
 		</footer></div> <!-- / div.container -->
 	<div id="to-top">
@@ -535,8 +592,8 @@ any links that you are not going to use.
   "url": "https://FIXME.github.io/python-intermediate-workshop/instructor/index.html",
   "identifier": "https://FIXME.github.io/python-intermediate-workshop/instructor/index.html",
   "dateCreated": "2026-07-13",
-  "dateModified": "2026-08-25",
-  "datePublished": "2026-08-25"
+  "dateModified": "2026-10-12",
+  "datePublished": "2026-10-12"
 }
 
   </script><script>

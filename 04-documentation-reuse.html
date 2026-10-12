@@ -24,7 +24,10 @@
   <div class="container-fluid top-nav-container">
     <div class="col-md-8">
       <div class="large-logo">
-        <img id="incubator-logo" alt="Intermediate Python for scientists and technicians moving from scripts to reusable, shareable code." src="assets/images/incubator-logo.svg"><span class="badge text-bg-danger">
+        <a href="index.html">
+        <img id="incubator-logo" alt="Intermediate Python for scientists and technicians moving from scripts to reusable, shareable code." src="assets/images/incubator-logo.svg"></a>
+
+        <span class="badge text-bg-danger">
           <abbr title="This lesson is in the pre-alpha phase, which means that it is in early development, but has not yet been taught.">
             <a href="https://docs.carpentries.org/resources/curriculum/lesson-life-cycle.html" class="external-link alert-link">
               <i aria-hidden="true" class="icon" data-feather="alert-octagon" style="border-radius: 5px"></i>
@@ -74,7 +77,9 @@
       <span class="menu-title">Menu</span>
     </button>
     <div class="nav-logo">
-      <img class="small-logo" alt="Intermediate Python for scientists and technicians moving from scripts to reusable, shareable code." src="assets/images/incubator-logo-sm.svg"></div>
+      <a href="index.html">
+      <img class="small-logo" alt="Intermediate Python for scientists and technicians moving from scripts to reusable, shareable code." src="assets/images/incubator-logo-sm.svg"></a>
+    </div>
     <div class="lesson-title-md">
       Intermediate Python: From Scripts to Reusable Projects
     </div>
@@ -115,10 +120,10 @@
       </fieldset>
     </form>
     -->
-    <a id="search-button" class="btn btn-primary" href="aio.html" role="button" aria-label="Search the All In One page">Search the All In One page</a>
+    <a id="search-button-nav" class="btn btn-primary" href="aio.html" role="button" aria-label="Search the All In One page">Search the All In One page</a>
   </div><!--/div.container-fluid -->
 </nav><aside class="col-md-12 lesson-progress"><div class="progress incubator">
-    <div class="progress-bar incubator" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" aria-label="Lesson Progress">75%</div>
+    <div class="progress-bar incubator" role="progressbar" style="width: 74%" aria-valuenow="74" aria-valuemin="0" aria-valuemax="100" aria-label="Lesson Progress">74%</div>
   </div>
 </aside><div class="container">
       <div class="row">
@@ -129,6 +134,9 @@
           <i class="search-icon" data-feather="x" role="img"></i>
         </button>
         <div class="sidebar-inner">
+          <div class="row mobile-row" id="theme-row-mobile">
+            <a id="search-button-sidebar" class="btn btn-primary" href="aio.html" role="button" aria-label="Search the All In One page">Search the All In One page</a>
+          </div>
           <div class="row mobile-row" id="theme-row-mobile">
             <menu class="col theme-selector" id="theme-selector-sidebar"><li class="nav-item dropdown theme-button-list" id="theme-button-list-sidebar">
                 <button class="btn btn-link nav-link px-0 px-lg-2 dropdown-toggle d-flex align-items-center" id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown" data-bs-display="static" aria-label="Toggle theme (auto)">
@@ -171,6 +179,7 @@
                     </div>
                   </div><!--/div.accordion-item-->
                 </div><!--/div.accordion-flush-->
+
               </div><!--div.sidenav-view-selector -->
             </div><!--/div.col -->
 
@@ -239,7 +248,8 @@
         <ul><li><a href="#writing-a-readme">Writing a README</a></li>
 <li><a href="#docstrings-at-the-project-level">Docstrings at the project level</a></li>
 <li><a href="#reusing-and-updating-the-repo">Reusing and updating the repo</a></li>
-<li><a href="#workshop-wrap-up">Workshop wrap-up</a></li>
+<li><a href="#versioning-changes">Versioning changes</a></li>
+<li><a href="#wrap-up">Wrap-up</a></li>
         </ul></div><!--/div.accordion-body-->
     </div><!--/div.accordion-collapse-->
 
@@ -250,6 +260,29 @@
               </div>
             </div>
 
+            <hr class="half-width"><div class="accordion accordion-flush" id="accordion-links-toggle">
+                <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-heading-links-toggle">
+                  <button class="accordion-button collapsed" id="links" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-links-toggle" aria-expanded="false" aria-controls="flush-collapse-links-toggle">
+                    LINKS
+                  </button>
+                </h2>
+                <div id="flush-collapse-links-toggle" class="accordion-collapse show collapse" data-bs-parent="#accordion-links-toggle">
+                    <div class="accordion-body">
+                        <ul><li>
+                            <a href="key-points.html">Key Points</a>
+                            </li>
+                            <li>
+                            <a href="reference.html#glossary">Glossary</a>
+                            </li>
+                            <li>
+                            <a href="profiles.html">Learner Profiles</a>
+                            </li>
+                        </ul></div>
+                </div>
+                </div><!--/div.accordion-item-->
+            </div><!--/div.accordion-flush-->
+
             <hr class="half-width"><div class="accordion accordion-flush lesson-resources" id="accordion-resources-toggle">
               <div class="accordion-item">
                 <h2 class="accordion-header" id="flush-heading-resources-toggle">
@@ -259,16 +292,7 @@
                 </h2>
                 <div id="flush-collapse-resources-toggle" class="accordion-collapse collapse" data-bs-parent="#accordion-resources-toggle">
                   <div class="accordion-body">
-                    <ul><li>
-                        <a href="key-points.html">Key Points</a>
-                      </li>
-                      <li>
-                        <a href="reference.html#glossary">Glossary</a>
-                      </li>
-                      <li>
-                        <a href="profiles.html">Learner Profiles</a>
-                      </li>
-                      <li><a href="reference.html">Reference</a></li>
+                    <ul><li><a href="reference.html">Reference</a></li>
                     </ul></div>
                 </div>
               </div>
@@ -295,7 +319,7 @@
       <div class="d-none d-sm-none d-md-block">
         <a class="chapter-link" href="03-repo-environments.html" rel="prev">
           <i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>
-          Previous: Building a
+          Previous: Building a Repository and Managing...
         </a>
         <a class="chapter-link float-end" href="index.html" rel="next">
           Home
@@ -304,7 +328,7 @@
       </div>
     </nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Documentation and Reuse</h1>
-        <p>Last updated on 2026-07-13 |
+        <p>Last updated on 2026-10-12 |
 
         <a href="https://github.com/FIXME/python-intermediate-workshop/edit/main/episodes/04-documentation-reuse.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -326,8 +350,8 @@
 <ul><li>What does a README need to contain to actually be useful?</li>
 <li>How do docstrings work together across a whole project, not just one
 function?</li>
-<li>How do I safely reuse or update this repo for a new piece of
-work?</li>
+<li>How do I extend this package for new work without breaking what
+already works?</li>
 </ul></div>
 </div>
 </div>
@@ -336,27 +360,35 @@ work?</li>
 <div class="inner bordered">
 <h3 class="card-title">Objectives</h3>
 <ul><li>Write a README that lets a new user install and run the project</li>
-<li>Audit docstrings across a small project for consistency</li>
-<li>Adapt an existing repository for a new but related task without
-breaking it</li>
+<li>Audit and complete docstrings and type hints across a small
+project</li>
+<li>Extend the package to support a new variable without editing
+existing functions</li>
 </ul></div>
 </div>
 </div>
 </div>
 </div>
 <section><h2 class="section-heading" id="writing-a-readme">Writing a README<a class="anchor" aria-label="anchor" href="#writing-a-readme"></a></h2>
-<hr class="half-width"><!-- FIXME: cover the minimum viable README: what the project does, install
-     instructions, a minimal usage example, and how to run tests (if any).
-     Emphasize writing for someone who is *not* you in six months. --><div id="challenge-1-draft-a-readme" class="callout challenge">
+<hr class="half-width"><p>A README’s job is to let someone who isn’t you install the project
+and run the code successfully, without opening an issue or emailing you
+first. For <code>mooring_tools</code>, that means including the
+following: what it does, how to install it, an example, and where the
+data comes from.</p>
+<div id="challenge-1-draft-the-readme" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <span class="callout-header">Challenge</span>
-<div id="challenge-1-draft-a-readme" class="callout-inner">
-<h3 class="callout-title">Challenge 1: Draft a README</h3>
+<div id="challenge-1-draft-the-readme" class="callout-inner">
+<h3 class="callout-title">Challenge 1: Draft the README</h3>
 <div class="callout-content">
-<p>Write a README for the repo built in Block 3, covering at least:
-purpose, installation, and one usage example.</p>
+<p>Write <code>README.md</code> for <code>mooring-tools</code>,
+covering: what the package does, install instructions (both
+<code>pip install -e .</code> and
+<code>pip install -r requirements.txt</code>), and a usage example a new
+user could actually run against
+<code>data/gs01sumo_nsif_ctd.nc</code>.</p>
 </div>
 </div>
 </div>
@@ -367,53 +399,104 @@ purpose, installation, and one usage example.</p>
 </button>
 <div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
-<!-- FIXME -->
+<div class="codewrapper sourceCode" id="cb1">
+<h3 class="code-label">MARKDOWN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode markdown" tabindex="0"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" tabindex="-1" aria-label="code-block-1-1"></a><span class="fu"># mooring tools</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1" aria-label="code-block-1-2"></a></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1" aria-label="code-block-1-3"></a>Burst-statistics, plotting, and merging utilities for OOI CTD/DOSTA</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1" aria-label="code-block-1-4"></a>data (Global Irminger Sea Array, near-surface instrument frame).</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1" aria-label="code-block-1-5"></a></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1" aria-label="code-block-1-6"></a><span class="fu">## What this does</span></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1" aria-label="code-block-1-7"></a></span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1" aria-label="code-block-1-8"></a>Many sensors on OOI moorings sample in short bursts. This</span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1" aria-label="code-block-1-9"></a>package takes raw CTD (temperature, salinity, pressure, density) and DOSTA</span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1" aria-label="code-block-1-10"></a>(dissolved oxygen) records and:</span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1" aria-label="code-block-1-11"></a></span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1" aria-label="code-block-1-12"></a><span class="ss">- </span>computes robust burst-median statistics (median and median absolute</span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1" aria-label="code-block-1-13"></a>  deviation) for each variable</span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1" aria-label="code-block-1-14"></a><span class="ss">- </span>fills gaps in the burst-median series with a linear-trend and harmonic fit</span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1" aria-label="code-block-1-15"></a><span class="ss">- </span>plots raw vs. burst-median data, and observed vs. modeled series</span>
+<span id="cb1-16"><a href="#cb1-16" tabindex="-1" aria-label="code-block-1-16"></a><span class="ss">- </span>merges CTD and DOSTA into one annotated, saveable netCDF dataset, flagging</span>
+<span id="cb1-17"><a href="#cb1-17" tabindex="-1" aria-label="code-block-1-17"></a>  which values are observed vs. gap-filled</span>
+<span id="cb1-18"><a href="#cb1-18" tabindex="-1" aria-label="code-block-1-18"></a></span>
+<span id="cb1-19"><a href="#cb1-19" tabindex="-1" aria-label="code-block-1-19"></a><span class="fu">## Install</span></span>
+<span id="cb1-20"><a href="#cb1-20" tabindex="-1" aria-label="code-block-1-20"></a></span>
+<span id="cb1-21"><a href="#cb1-21" tabindex="-1" aria-label="code-block-1-21"></a><span class="sc">\`\`\`</span>bash</span>
+<span id="cb1-22"><a href="#cb1-22" tabindex="-1" aria-label="code-block-1-22"></a>git clone <span class="dt">&lt;</span><span class="kw">this-repo-url</span><span class="dt">&gt;</span></span>
+<span id="cb1-23"><a href="#cb1-23" tabindex="-1" aria-label="code-block-1-23"></a>cd mooring-tools</span>
+<span id="cb1-24"><a href="#cb1-24" tabindex="-1" aria-label="code-block-1-24"></a>python3 -m venv .venv</span>
+<span id="cb1-25"><a href="#cb1-25" tabindex="-1" aria-label="code-block-1-25"></a>source .venv/bin/activate      # .venv<span class="sc">\\</span>Scripts<span class="sc">\\</span>activate on Windows</span>
+<span id="cb1-26"><a href="#cb1-26" tabindex="-1" aria-label="code-block-1-26"></a>pip install -e .</span>
+<span id="cb1-27"><a href="#cb1-27" tabindex="-1" aria-label="code-block-1-27"></a><span class="sc">\`\`\`</span></span>
+<span id="cb1-28"><a href="#cb1-28" tabindex="-1" aria-label="code-block-1-28"></a></span>
+<span id="cb1-29"><a href="#cb1-29" tabindex="-1" aria-label="code-block-1-29"></a>For exact reproducibility of a specific analysis, use the pinned</span>
+<span id="cb1-30"><a href="#cb1-30" tabindex="-1" aria-label="code-block-1-30"></a><span class="sc">\`</span>requirements.txt<span class="sc">\`</span> instead of the loose bounds in <span class="sc">\`</span>pyproject.toml<span class="sc">\`</span>:</span>
+<span id="cb1-31"><a href="#cb1-31" tabindex="-1" aria-label="code-block-1-31"></a></span>
+<span id="cb1-32"><a href="#cb1-32" tabindex="-1" aria-label="code-block-1-32"></a><span class="sc">\`\`\`</span>bash</span>
+<span id="cb1-33"><a href="#cb1-33" tabindex="-1" aria-label="code-block-1-33"></a>pip install -r requirements.txt</span>
+<span id="cb1-34"><a href="#cb1-34" tabindex="-1" aria-label="code-block-1-34"></a><span class="sc">\`\`\`</span></span>
+<span id="cb1-35"><a href="#cb1-35" tabindex="-1" aria-label="code-block-1-35"></a></span>
+<span id="cb1-36"><a href="#cb1-36" tabindex="-1" aria-label="code-block-1-36"></a><span class="fu">## Usage</span></span>
+<span id="cb1-37"><a href="#cb1-37" tabindex="-1" aria-label="code-block-1-37"></a></span>
+<span id="cb1-38"><a href="#cb1-38" tabindex="-1" aria-label="code-block-1-38"></a><span class="sc">\`\`\`</span>python</span>
+<span id="cb1-39"><a href="#cb1-39" tabindex="-1" aria-label="code-block-1-39"></a>import xarray as xr</span>
+<span id="cb1-40"><a href="#cb1-40" tabindex="-1" aria-label="code-block-1-40"></a>import numpy as np</span>
+<span id="cb1-41"><a href="#cb1-41" tabindex="-1" aria-label="code-block-1-41"></a>from mooring<span class="sc">\_</span>tools.stats import resample<span class="sc">\_</span>burst<span class="sc">\_</span>stats</span>
+<span id="cb1-42"><a href="#cb1-42" tabindex="-1" aria-label="code-block-1-42"></a></span>
+<span id="cb1-43"><a href="#cb1-43" tabindex="-1" aria-label="code-block-1-43"></a>ctd = xr.open<span class="sc">\_</span>dataset("data/gi01sumo<span class="sc">\_</span>nsif<span class="sc">\_</span>ctd.nc")</span>
+<span id="cb1-44"><a href="#cb1-44" tabindex="-1" aria-label="code-block-1-44"></a>scalar<span class="sc">\_</span>vars = <span class="co">[</span><span class="ot">v for v in ctd.data\_vars if ctd[v].dims == ("time",) and np.issubdtype(ctd[v].dtype, np.number)</span><span class="co">]</span></span>
+<span id="cb1-45"><a href="#cb1-45" tabindex="-1" aria-label="code-block-1-45"></a>ctd<span class="sc">\_</span>stats = resample<span class="sc">\_</span>burst_\stats(ctd<span class="co">[</span><span class="ot">scalar\_vars</span><span class="co">]</span>.to<span class="sc">\_</span>\dataframe())</span>
+<span id="cb1-46"><a href="#cb1-46" tabindex="-1" aria-label="code-block-1-46"></a><span class="sc">\`\`\`</span></span>
+<span id="cb1-47"><a href="#cb1-47" tabindex="-1" aria-label="code-block-1-47"></a></span>
+<span id="cb1-48"><a href="#cb1-48" tabindex="-1" aria-label="code-block-1-48"></a>See <span class="sc">\`</span>notebooks/messy<span class="sc">\_</span>analysis<span class="sc">\.</span>ipynb<span class="sc">\`</span> for a full worked example.</span>
+<span id="cb1-49"><a href="#cb1-49" tabindex="-1" aria-label="code-block-1-49"></a></span>
+<span id="cb1-50"><a href="#cb1-50" tabindex="-1" aria-label="code-block-1-50"></a><span class="fu">## Data</span></span>
+<span id="cb1-51"><a href="#cb1-51" tabindex="-1" aria-label="code-block-1-51"></a></span>
+<span id="cb1-52"><a href="#cb1-52" tabindex="-1" aria-label="code-block-1-52"></a><span class="sc">\`</span>data/<span class="sc">\`</span> contains an example OOI GI01SUMO deployment 7</span>
+<span id="cb1-53"><a href="#cb1-53" tabindex="-1" aria-label="code-block-1-53"></a>record. The full dataset is available via the OOI Data Portal.</span>
+<span id="cb1-54"><a href="#cb1-54" tabindex="-1" aria-label="code-block-1-54"></a></span>
+<span id="cb1-55"><a href="#cb1-55" tabindex="-1" aria-label="code-block-1-55"></a><span class="fu">## License</span></span>
+<span id="cb1-56"><a href="#cb1-56" tabindex="-1" aria-label="code-block-1-56"></a></span>
+<span id="cb1-57"><a href="#cb1-57" tabindex="-1" aria-label="code-block-1-57"></a>MIT — see <span class="sc">\`</span>LICENSE<span class="sc">\`</span>.</span></code></pre>
+</div>
 </div>
 </div>
 </div>
 </div>
 </section><section><h2 class="section-heading" id="docstrings-at-the-project-level">Docstrings at the project level<a class="anchor" aria-label="anchor" href="#docstrings-at-the-project-level"></a></h2>
-<hr class="half-width"><!-- FIXME: revisit docstrings from Block 1 — now that there are multiple
-     modules, check for consistent style across all of them. Optionally
-     introduce a doc-generation tool (e.g. `pdoc` or `sphinx`) briefly. --><div id="callback-to-block-1" class="callout">
-<div class="callout-square">
-<i class="callout-icon" data-feather="bell"></i>
+<hr class="half-width"><p>Block 1 introduced docstrings at the level of a single function, with
+<code>fill_harmonic_gaps</code> as the model. Now that there are three
+modules, it’s worth revisiting any functions which we didn’t
+finish/complete the docstrings for.</p>
+<p>Open <code>merge.py</code>. Compare its docstrings to
+<code>stats.py</code>’s:</p>
+<div class="codewrapper sourceCode" id="cb2">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" tabindex="-1" aria-label="code-block-2-1"></a><span class="co"># merge.py, as it stands after Block 2</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1" aria-label="code-block-2-2"></a><span class="kw">def</span> flag_and_flatten(stats, was_filled, keep_vars):</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1" aria-label="code-block-2-3"></a>    <span class="co">"""Restrict to `keep_vars`, add a modeled_flag per variable, and flatten</span></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1" aria-label="code-block-2-4"></a><span class="co">    the 2-level (variable, stat) columns into single flat names."""</span></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1" aria-label="code-block-2-5"></a>    ...</span></code></pre>
 </div>
-<span class="callout-header">Callout</span>
-<div id="callback-to-block-1" class="callout-inner">
-<h3 class="callout-title">Callback to Block 1</h3>
-<div class="callout-content">
-<!-- FIXME: explicitly connect back to the docstrings written in Block 1 —
-     this is the payoff for writing them early. -->
-</div>
-</div>
-</div>
-<div id="challenge-2-docstring-audit" class="callout discussion">
-<div class="callout-square">
-<i class="callout-icon" data-feather="message-circle"></i>
-</div>
-<span class="callout-header">Discussion</span>
-<div id="challenge-2-docstring-audit" class="callout-inner">
-<h3 class="callout-title">Challenge 2: Docstring audit</h3>
-<div class="callout-content">
-<p>Check every function in the project for a docstring. Fix any that are
-missing or inconsistent in style.</p>
-</div>
-</div>
-</div>
-</section><section><h2 class="section-heading" id="reusing-and-updating-the-repo">Reusing and updating the repo<a class="anchor" aria-label="anchor" href="#reusing-and-updating-the-repo"></a></h2>
-<hr class="half-width"><!-- FIXME: cover cloning the repo as a starting point for new but related
-     work, updating dependencies safely, and a lightweight approach to
-     versioning changes (git tags, or a CHANGELOG.md). --><div id="challenge-3-adapt-for-new-work" class="callout challenge">
+<p>No type hints, no <code>Parameters</code>/<code>Returns</code>
+sections, only a one-line summary only. Meanwhile
+<code>stats.py</code>’s <code>fill_harmonic_gaps</code> has both. This
+is a common issue that crops up during development and exploration.</p>
+<div id="challenge-2-docstring-and-type-hint-audit" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <span class="callout-header">Challenge</span>
-<div id="challenge-3-adapt-for-new-work" class="callout-inner">
-<h3 class="callout-title">Challenge 3: Adapt for new work</h3>
+<div id="challenge-2-docstring-and-type-hint-audit" class="callout-inner">
+<h3 class="callout-title">Challenge 2: Docstring and type-hint
+audit</h3>
 <div class="callout-content">
-<p>Imagine a new sensor type needs the same summary statistics. Adapt
-the repo to support it without duplicating the existing modules.</p>
+<p>Go through <code>plotting.py</code> and <code>merge.py</code> and
+bring every function up to the same standard as <code>stats.py</code>:
+type hints on the signature, and a full NumPy-style docstring (summary,
+<code>Parameters</code>, <code>Returns</code>).</p>
 </div>
 </div>
 </div>
@@ -424,15 +507,179 @@ the repo to support it without duplicating the existing modules.</p>
 </button>
 <div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
-<!-- FIXME -->
+<div class="codewrapper sourceCode" id="cb3">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" tabindex="-1" aria-label="code-block-3-1"></a><span class="co"># merge.py, after the audit</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1" aria-label="code-block-3-2"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1" aria-label="code-block-3-3"></a><span class="im">import</span> xarray <span class="im">as</span> xr</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1" aria-label="code-block-3-4"></a></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1" aria-label="code-block-3-5"></a>VARIABLE_ATTRS <span class="op">=</span> {</span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1" aria-label="code-block-3-6"></a>    <span class="st">"sea_water_temperature"</span>: {<span class="st">"units"</span>: <span class="st">"degrees_Celsius"</span>, <span class="st">"long_name"</span>: <span class="st">"Sea Water Temperature"</span>},</span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1" aria-label="code-block-3-7"></a>    <span class="st">"sea_water_practical_salinity"</span>: {<span class="st">"units"</span>: <span class="st">"1"</span>, <span class="st">"long_name"</span>: <span class="st">"Sea Water Practical Salinity"</span>},</span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1" aria-label="code-block-3-8"></a>    <span class="st">"sea_water_pressure"</span>: {<span class="st">"units"</span>: <span class="st">"dbar"</span>, <span class="st">"long_name"</span>: <span class="st">"Sea Water Pressure"</span>},</span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1" aria-label="code-block-3-9"></a>    <span class="st">"sea_water_density"</span>: {<span class="st">"units"</span>: <span class="st">"kg m-3"</span>, <span class="st">"long_name"</span>: <span class="st">"Sea Water Density"</span>},</span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1" aria-label="code-block-3-10"></a>    <span class="st">"oxygen_concentration_corrected"</span>: {<span class="st">"units"</span>: <span class="st">"umol kg-1"</span>, <span class="st">"long_name"</span>: <span class="st">"Corrected Dissolved Oxygen Concentration"</span>},</span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1" aria-label="code-block-3-11"></a>}</span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1" aria-label="code-block-3-12"></a></span>
+<span id="cb3-13"><a href="#cb3-13" tabindex="-1" aria-label="code-block-3-13"></a></span>
+<span id="cb3-14"><a href="#cb3-14" tabindex="-1" aria-label="code-block-3-14"></a><span class="kw">def</span> flag_and_flatten(stats: pd.DataFrame, was_filled: pd.DataFrame, keep_vars: <span class="bu">list</span>[<span class="bu">str</span>]) <span class="op">-&gt;</span> pd.DataFrame:</span>
+<span id="cb3-15"><a href="#cb3-15" tabindex="-1" aria-label="code-block-3-15"></a>    <span class="co">"""Restrict to `keep_vars`, add a modeled_flag per variable, and flatten</span></span>
+<span id="cb3-16"><a href="#cb3-16" tabindex="-1" aria-label="code-block-3-16"></a><span class="co">    the 2-level (variable, stat) columns into single flat names.</span></span>
+<span id="cb3-17"><a href="#cb3-17" tabindex="-1" aria-label="code-block-3-17"></a></span>
+<span id="cb3-18"><a href="#cb3-18" tabindex="-1" aria-label="code-block-3-18"></a><span class="co">    Parameters</span></span>
+<span id="cb3-19"><a href="#cb3-19" tabindex="-1" aria-label="code-block-3-19"></a><span class="co">    ----------</span></span>
+<span id="cb3-20"><a href="#cb3-20" tabindex="-1" aria-label="code-block-3-20"></a><span class="co">    stats : pandas.DataFrame</span></span>
+<span id="cb3-21"><a href="#cb3-21" tabindex="-1" aria-label="code-block-3-21"></a><span class="co">        Output of `resample_burst_stats` (2-level column MultiIndex of</span></span>
+<span id="cb3-22"><a href="#cb3-22" tabindex="-1" aria-label="code-block-3-22"></a><span class="co">        (variable, stat)).</span></span>
+<span id="cb3-23"><a href="#cb3-23" tabindex="-1" aria-label="code-block-3-23"></a><span class="co">    was_filled : pandas.DataFrame</span></span>
+<span id="cb3-24"><a href="#cb3-24" tabindex="-1" aria-label="code-block-3-24"></a><span class="co">        Boolean frame, same shape/columns as the "median" slice of `stats`,</span></span>
+<span id="cb3-25"><a href="#cb3-25" tabindex="-1" aria-label="code-block-3-25"></a><span class="co">        True where that burst was gap-filled rather than observed.</span></span>
+<span id="cb3-26"><a href="#cb3-26" tabindex="-1" aria-label="code-block-3-26"></a><span class="co">    keep_vars : list[str]</span></span>
+<span id="cb3-27"><a href="#cb3-27" tabindex="-1" aria-label="code-block-3-27"></a><span class="co">        Which variables (first-level column names) to keep.</span></span>
+<span id="cb3-28"><a href="#cb3-28" tabindex="-1" aria-label="code-block-3-28"></a></span>
+<span id="cb3-29"><a href="#cb3-29" tabindex="-1" aria-label="code-block-3-29"></a><span class="co">    Returns</span></span>
+<span id="cb3-30"><a href="#cb3-30" tabindex="-1" aria-label="code-block-3-30"></a><span class="co">    -------</span></span>
+<span id="cb3-31"><a href="#cb3-31" tabindex="-1" aria-label="code-block-3-31"></a><span class="co">    pandas.DataFrame</span></span>
+<span id="cb3-32"><a href="#cb3-32" tabindex="-1" aria-label="code-block-3-32"></a><span class="co">        Flat columns like "sea_water_temperature_median",</span></span>
+<span id="cb3-33"><a href="#cb3-33" tabindex="-1" aria-label="code-block-3-33"></a><span class="co">        "sea_water_temperature_mad", "sea_water_temperature_modeled_flag".</span></span>
+<span id="cb3-34"><a href="#cb3-34" tabindex="-1" aria-label="code-block-3-34"></a><span class="co">    """</span></span>
+<span id="cb3-35"><a href="#cb3-35" tabindex="-1" aria-label="code-block-3-35"></a>    stats <span class="op">=</span> stats.loc[:, keep_vars].copy()</span>
+<span id="cb3-36"><a href="#cb3-36" tabindex="-1" aria-label="code-block-3-36"></a>    <span class="cf">for</span> var <span class="kw">in</span> keep_vars:</span>
+<span id="cb3-37"><a href="#cb3-37" tabindex="-1" aria-label="code-block-3-37"></a>        stats[(var, <span class="st">"modeled_flag"</span>)] <span class="op">=</span> was_filled[var].astype(<span class="bu">int</span>)</span>
+<span id="cb3-38"><a href="#cb3-38" tabindex="-1" aria-label="code-block-3-38"></a></span>
+<span id="cb3-39"><a href="#cb3-39" tabindex="-1" aria-label="code-block-3-39"></a>    stats.columns <span class="op">=</span> [<span class="st">"_"</span>.join(col).strip() <span class="cf">for</span> col <span class="kw">in</span> stats.columns.values]</span>
+<span id="cb3-40"><a href="#cb3-40" tabindex="-1" aria-label="code-block-3-40"></a>    <span class="cf">return</span> stats</span>
+<span id="cb3-41"><a href="#cb3-41" tabindex="-1" aria-label="code-block-3-41"></a></span>
+<span id="cb3-42"><a href="#cb3-42" tabindex="-1" aria-label="code-block-3-42"></a></span>
+<span id="cb3-43"><a href="#cb3-43" tabindex="-1" aria-label="code-block-3-43"></a><span class="kw">def</span> merge_ctd_dosta(ctd_flat: pd.DataFrame, dosta_flat: pd.DataFrame) <span class="op">-&gt;</span> xr.Dataset:</span>
+<span id="cb3-44"><a href="#cb3-44" tabindex="-1" aria-label="code-block-3-44"></a>    <span class="co">"""Outer-merge flattened CTD and DOSTA tables and attach variable attributes.</span></span>
+<span id="cb3-45"><a href="#cb3-45" tabindex="-1" aria-label="code-block-3-45"></a></span>
+<span id="cb3-46"><a href="#cb3-46" tabindex="-1" aria-label="code-block-3-46"></a><span class="co">    Parameters</span></span>
+<span id="cb3-47"><a href="#cb3-47" tabindex="-1" aria-label="code-block-3-47"></a><span class="co">    ----------</span></span>
+<span id="cb3-48"><a href="#cb3-48" tabindex="-1" aria-label="code-block-3-48"></a><span class="co">    ctd_flat, dosta_flat : pandas.DataFrame</span></span>
+<span id="cb3-49"><a href="#cb3-49" tabindex="-1" aria-label="code-block-3-49"></a><span class="co">        Output of `flag_and_flatten` for each instrument. Both must already</span></span>
+<span id="cb3-50"><a href="#cb3-50" tabindex="-1" aria-label="code-block-3-50"></a><span class="co">        be flattened to single-level columns -- merging one flattened and</span></span>
+<span id="cb3-51"><a href="#cb3-51" tabindex="-1" aria-label="code-block-3-51"></a><span class="co">        one still-MultiIndex table raises a `MergeError`.</span></span>
+<span id="cb3-52"><a href="#cb3-52" tabindex="-1" aria-label="code-block-3-52"></a></span>
+<span id="cb3-53"><a href="#cb3-53" tabindex="-1" aria-label="code-block-3-53"></a><span class="co">    Returns</span></span>
+<span id="cb3-54"><a href="#cb3-54" tabindex="-1" aria-label="code-block-3-54"></a><span class="co">    -------</span></span>
+<span id="cb3-55"><a href="#cb3-55" tabindex="-1" aria-label="code-block-3-55"></a><span class="co">    xarray.Dataset</span></span>
+<span id="cb3-56"><a href="#cb3-56" tabindex="-1" aria-label="code-block-3-56"></a><span class="co">        Merged on the shared burst-median time index, with `units` and</span></span>
+<span id="cb3-57"><a href="#cb3-57" tabindex="-1" aria-label="code-block-3-57"></a><span class="co">        `long_name` attached to each data variable listed in</span></span>
+<span id="cb3-58"><a href="#cb3-58" tabindex="-1" aria-label="code-block-3-58"></a><span class="co">        `VARIABLE_ATTRS`. To support a new variable, add it to</span></span>
+<span id="cb3-59"><a href="#cb3-59" tabindex="-1" aria-label="code-block-3-59"></a><span class="co">        `VARIABLE_ATTRS` and include it in the `keep_vars` passed to</span></span>
+<span id="cb3-60"><a href="#cb3-60" tabindex="-1" aria-label="code-block-3-60"></a><span class="co">        `flag_and_flatten` -- no changes needed here.</span></span>
+<span id="cb3-61"><a href="#cb3-61" tabindex="-1" aria-label="code-block-3-61"></a><span class="co">    """</span></span>
+<span id="cb3-62"><a href="#cb3-62" tabindex="-1" aria-label="code-block-3-62"></a>    merged <span class="op">=</span> pd.merge(ctd_flat, dosta_flat, left_index<span class="op">=</span><span class="va">True</span>, right_index<span class="op">=</span><span class="va">True</span>, how<span class="op">=</span><span class="st">"outer"</span>)</span>
+<span id="cb3-63"><a href="#cb3-63" tabindex="-1" aria-label="code-block-3-63"></a>    merged.index.name <span class="op">=</span> <span class="st">"time"</span></span>
+<span id="cb3-64"><a href="#cb3-64" tabindex="-1" aria-label="code-block-3-64"></a>    ds <span class="op">=</span> merged.to_xarray()</span>
+<span id="cb3-65"><a href="#cb3-65" tabindex="-1" aria-label="code-block-3-65"></a></span>
+<span id="cb3-66"><a href="#cb3-66" tabindex="-1" aria-label="code-block-3-66"></a>    <span class="cf">for</span> var <span class="kw">in</span> ds.data_vars:</span>
+<span id="cb3-67"><a href="#cb3-67" tabindex="-1" aria-label="code-block-3-67"></a>        base_name <span class="op">=</span> var.rsplit(<span class="st">"_"</span>, <span class="dv">1</span>)[<span class="dv">0</span>] <span class="cf">if</span> var.endswith((<span class="st">"_median"</span>, <span class="st">"_mad"</span>)) <span class="cf">else</span> var</span>
+<span id="cb3-68"><a href="#cb3-68" tabindex="-1" aria-label="code-block-3-68"></a>        <span class="cf">if</span> base_name <span class="kw">in</span> VARIABLE_ATTRS:</span>
+<span id="cb3-69"><a href="#cb3-69" tabindex="-1" aria-label="code-block-3-69"></a>            ds[var].attrs.update(VARIABLE_ATTRS[base_name])</span>
+<span id="cb3-70"><a href="#cb3-70" tabindex="-1" aria-label="code-block-3-70"></a></span>
+<span id="cb3-71"><a href="#cb3-71" tabindex="-1" aria-label="code-block-3-71"></a>    <span class="cf">return</span> ds</span>
+<span id="cb3-72"><a href="#cb3-72" tabindex="-1" aria-label="code-block-3-72"></a></span>
+<span id="cb3-73"><a href="#cb3-73" tabindex="-1" aria-label="code-block-3-73"></a></span>
+<span id="cb3-74"><a href="#cb3-74" tabindex="-1" aria-label="code-block-3-74"></a><span class="kw">def</span> save_merged_dataset(ds: xr.Dataset, path: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb3-75"><a href="#cb3-75" tabindex="-1" aria-label="code-block-3-75"></a>    <span class="co">"""Write a merged dataset to netCDF, with a couple of dataset-level attrs.</span></span>
+<span id="cb3-76"><a href="#cb3-76" tabindex="-1" aria-label="code-block-3-76"></a></span>
+<span id="cb3-77"><a href="#cb3-77" tabindex="-1" aria-label="code-block-3-77"></a><span class="co">    Parameters</span></span>
+<span id="cb3-78"><a href="#cb3-78" tabindex="-1" aria-label="code-block-3-78"></a><span class="co">    ----------</span></span>
+<span id="cb3-79"><a href="#cb3-79" tabindex="-1" aria-label="code-block-3-79"></a><span class="co">    ds : xarray.Dataset</span></span>
+<span id="cb3-80"><a href="#cb3-80" tabindex="-1" aria-label="code-block-3-80"></a><span class="co">        Typically the output of `merge_ctd_dosta`.</span></span>
+<span id="cb3-81"><a href="#cb3-81" tabindex="-1" aria-label="code-block-3-81"></a><span class="co">    path : str</span></span>
+<span id="cb3-82"><a href="#cb3-82" tabindex="-1" aria-label="code-block-3-82"></a><span class="co">        Output file path.</span></span>
+<span id="cb3-83"><a href="#cb3-83" tabindex="-1" aria-label="code-block-3-83"></a><span class="co">    """</span></span>
+<span id="cb3-84"><a href="#cb3-84" tabindex="-1" aria-label="code-block-3-84"></a>    ds.attrs.setdefault(<span class="st">"source"</span>, <span class="st">"OOI GI01SUMO near-surface instrument frame (CTD + DOSTA)"</span>)</span>
+<span id="cb3-85"><a href="#cb3-85" tabindex="-1" aria-label="code-block-3-85"></a>    ds.attrs.setdefault(<span class="st">"processing"</span>, <span class="st">"15-minute burst median/MAD; gaps filled with linear trend + harmonic fit"</span>)</span>
+<span id="cb3-86"><a href="#cb3-86" tabindex="-1" aria-label="code-block-3-86"></a>    ds.to_netcdf(path)</span></code></pre>
 </div>
 </div>
 </div>
 </div>
-</section><section><h2 class="section-heading" id="workshop-wrap-up">Workshop wrap-up<a class="anchor" aria-label="anchor" href="#workshop-wrap-up"></a></h2>
-<hr class="half-width"><!-- FIXME: brief recap connecting all four blocks — script to function
-     (Block 1), function to module (Block 2), module to repo (Block 3),
-     repo to shareable/reusable project (Block 4). --><div id="keypoints1" class="callout keypoints">
+</div>
+
+</section><section><h2 class="section-heading" id="reusing-and-updating-the-repo">Reusing and updating the repo<a class="anchor" aria-label="anchor" href="#reusing-and-updating-the-repo"></a></h2>
+<hr class="half-width"><p>The real test of a well-organized package is what happens when the
+scientific scope changes. Here’s an example: add
+<code>sea_water_density</code> as a variable to
+<code>data/gi01sumo_nsif_ctd.nc</code> results.
+<code>resample_burst_stats</code> has been computing burst statistics
+for it since Block 1, since it works generically over every numeric
+column. But <code>merge.py</code>’s <code>keep_vars</code> lists (in
+Block 2’s Challenge 3, and <code>VARIABLE_ATTRS</code>) never included
+it, so it’s never made it into the final dataset.</p>
+<div id="challenge-3-add-sea_water_density-to-the-dataset" class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
+</div>
+<span class="callout-header">Challenge</span>
+<div id="challenge-3-add-sea_water_density-to-the-dataset" class="callout-inner">
+<h3 class="callout-title">Challenge 3: Add
+<code>sea_water_density</code> to the dataset</h3>
+<div class="callout-content">
+<p>Add <code>sea_water_density</code> as a supported merged-output
+variable. You should not need to edit <code>resample_burst_stats</code>,
+<code>flag_and_flatten</code>, or <code>merge_ctd_dosta</code> at
+all.</p>
+</div>
+</div>
+</div>
+<div id="accordionSolution3" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
+  <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
+</button>
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div class="accordion-body">
+<div class="codewrapper sourceCode" id="cb4">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" tabindex="-1" aria-label="code-block-4-1"></a><span class="im">from</span> mooring_tools.merge <span class="im">import</span> VARIABLE_ATTRS</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1" aria-label="code-block-4-2"></a></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1" aria-label="code-block-4-3"></a>VARIABLE_ATTRS[<span class="st">"sea_water_density"</span>] <span class="op">=</span> {<span class="st">"units"</span>: <span class="st">"kg m-3"</span>, <span class="st">"long_name"</span>: <span class="st">"Sea Water Density"</span>}</span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1" aria-label="code-block-4-4"></a></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1" aria-label="code-block-4-5"></a>keep_vars <span class="op">=</span> [<span class="st">"sea_water_temperature"</span>, <span class="st">"sea_water_practical_salinity"</span>,</span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1" aria-label="code-block-4-6"></a>             <span class="st">"sea_water_pressure"</span>, <span class="st">"sea_water_density"</span>]</span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1" aria-label="code-block-4-7"></a>ctd_flat <span class="op">=</span> flag_and_flatten(ctd_stats, was_filled_ctd, keep_vars)</span></code></pre>
+</div>
+<p><code>resample_burst_stats</code> already computed statistics for
+every numeric column in the input dataframe, including density, since it
+was never told to look for specific variable names.
+<code>flag_and_flatten</code> and <code>merge_ctd_dosta</code> are
+equally generic; they only needed <code>VARIABLE_ATTRS</code> extended
+and a longer <code>keep_vars</code> list at the call site. If this
+doesn’t work you may need to revisit the functions from Block 2.</p>
+</div>
+</div>
+</div>
+</div>
+</section><section><h2 class="section-heading" id="versioning-changes">Versioning changes<a class="anchor" aria-label="anchor" href="#versioning-changes"></a></h2>
+<hr class="half-width"><p>As the package evolves, with new variables, bug fixes, new functions,
+etc., here are how you should handle these changes:</p>
+<ul><li>
+<strong>Bump the version</strong> in <code>pyproject.toml</code>
+(<code>version = "0.1.0"</code> → <code>"0.2.0"</code>) when you make a
+change someone else relying on the package would care about.</li>
+<li>
+<strong>Tag the commit in git</strong> (<code>git tag v0.2.0</code>)
+so “the version I ran this analysis with” is always recoverable later,
+even after further changes.</li>
+</ul><p>Version updates (e.g. <code>version = "0.2.0"</code> vs
+<code>version = "1.0.0"</code>) depends on the scale. Modest updates
+(e.g. bug fixes, addition of new functions, etc) will generally result
+in a former; big updates (a new module, refactoring, etc) would be the
+latter.</p>
+</section><section><h2 class="section-heading" id="wrap-up">Wrap-up<a class="anchor" aria-label="anchor" href="#wrap-up"></a></h2>
+<hr class="half-width"><p>Across all four blocks: a repeated block became a function (Block 1),
+the function joined others in a package (Block 2), the package became
+installable with a managed environment (Block 3), and now it’s
+documented well, and generic, to extend for new scientific questions
+without touching working code (Block 4).</p>
+<div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
 </div>
@@ -443,8 +690,12 @@ the repo to support it without duplicating the existing modules.</p>
 without asking you</li>
 <li>Docstring consistency matters more as a project grows past one
 file</li>
-<li>Reusing a repo well means updating it deliberately, not copy-pasting
-it</li>
+<li>A well-documented function’s docstring tells the reader what’s safe
+to extend, not just what the function currently does</li>
+<li>Reusing a repo well means extending generic functions with new
+data/config, not copy-pasting or editing working code</li>
+<li>Bumping a version number and tagging the commit is enough to keep
+“what did I run this with” answerable later</li>
 </ul></div>
 </div>
 </div>
@@ -461,7 +712,7 @@ any links that you are not going to use.
       <div class="d-none d-sm-none d-md-block">
         <a class="chapter-link" href="03-repo-environments.html" rel="prev">
           <i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>
-          Previous: Building a
+          Previous: Building a Repository and Managing...
         </a>
         <a class="chapter-link float-end" href="index.html" rel="next">
           Home
@@ -490,7 +741,7 @@ any links that you are not going to use.
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
 
         <p>Template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">CC-BY 4.0</a> by <a href="https://carpentries.org/" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/" class="external-link">sandpaper (0.20.2)</a>, <a href="https://github.com/carpentries/pegboard/tree/" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/carpentries/varnish/tree/" class="external-link">varnish (1.1.1)</a></p>
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/" class="external-link">sandpaper (0.21.1)</a>, <a href="https://github.com/carpentries/pegboard/tree/" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/carpentries/varnish/tree/" class="external-link">varnish (1.1.3)</a></p>
 		</div>
 		</footer></div> <!-- / div.container -->
 	<div id="to-top">
@@ -512,8 +763,8 @@ any links that you are not going to use.
   "url": "https://FIXME.github.io/python-intermediate-workshop/04-documentation-reuse.html",
   "identifier": "https://FIXME.github.io/python-intermediate-workshop/04-documentation-reuse.html",
   "dateCreated": "2026-07-13",
-  "dateModified": "2026-07-13",
-  "datePublished": "2026-08-25"
+  "dateModified": "2026-10-12",
+  "datePublished": "2026-10-12"
 }
 
   </script><script>
