@@ -1,0 +1,2 @@
+starter-files/data/gi01sumo_nsif_ctd.nc filter=lfs diff=lfs merge=lfs -text
+starter-files/data/gi01sumo_nsif_dosta.nc filter=lfs diff=lfs merge=lfs -text
