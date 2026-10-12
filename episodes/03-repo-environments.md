@@ -24,7 +24,7 @@ exercises: 50
 ## What goes in a repo
 
 By the end of Block 2, `mooring_tools/` is three modules and an
-`__init__.py`, sitting next to `messy_analysis.ipynb`. That's enough to
+`__init__.py`, sitting next to `first_analysis.ipynb`. That's enough to
 import from this notebook. It's not enough to `pip install`, share with 
 a colleague, or use from a notebook anywhere else on your machine. 
 For that, the package needs a proper home:
@@ -42,7 +42,7 @@ mooring-tools/
 │       ├── plotting.py
 │       └── merge.py
 ├── notebooks/
-│   └── messy_analysis.ipynb
+│   └── first_analysis.ipynb
 └── data/
     ├── gs01sumo_nsif_ctd.nc
     └── gs01sumo_nsif_dosta.nc
@@ -64,7 +64,7 @@ A few things to note about the layout:
 
 Create this directory structure, moving `stats.py`, `plotting.py`, and
 `merge.py` (and `__init__.py`) into `src/mooring_tools/`, and
-`messy_analysis.ipynb` into `notebooks/`. Don't worry about
+`first_analysis.ipynb` into `notebooks/`. Don't worry about
 `pyproject.toml` yet.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::

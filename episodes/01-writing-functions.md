@@ -23,8 +23,8 @@ exercises: 40
 
 ## Why write functions?
 
-Open `messy_analysis.ipynb` from the setup materials. It loads a full-year of
-data from the [OOI](https://oceanobservatories.org/) **GI01SUMO** (**G**lobal **I**rminger Sea Array **Su**rface **Mo**oring) **NSIF** (**N**ear-**S**urface **I**nstrument **F**rame) and computes 15-minute burst-median statistics for the CTD (temperature, salinity) and the DOSTA (dissolved oxygen). It calculates the *same*
+Open `first_analysis.ipynb` from the setup materials. It loads a full-year of
+data from the [OOI](https://oceanobservatories.org/) **GI01SUMO** (**G**lobal **I**rminger Sea Array **Su**rface **Mo**oring) **NSIF** (**N**ear-**S**urface **I**nstrument **F**rame) and computes 15-minute burst-median statistics for the CTD (temperature, salinity) and the DOSTA (dissolved oxygen). It calculates the same
 statistics for both instruments, with a six-line block copy-pasted and
 lightly edited between them.
 
@@ -32,7 +32,7 @@ lightly edited between them.
 
 ## Challenge 1: Spot the repetition
 
-Skim `messy_analysis.ipynb`. Without changing any code yet, identify (you can write a
+Skim `first_analysis.ipynb`. Without changing any code yet, identify (you can write a
 comment at the top of the file) which blocks of code are doing "the same
 thing" to different data.
 
@@ -84,7 +84,7 @@ Key parts to narrate as you write:
 
 ## Challenge 2: Extract a function
 
-Working from `messy_analysis.ipynb`, extract the repeated resampling block into
+Working from `first_analysis.ipynb`, extract the repeated resampling block into
 `resample_burst_stats` and call it twice: once for the CTD dataframe, once
 for the DOSTA dataframe.
 
@@ -165,7 +165,7 @@ table are dataframes, and `stats` is what gets returned.
 
 A docstring is the first statement inside a function, written as a triple-quoted
 string. It's what shows up when someone runs `help(resample_burst_stats)`.
-`messy_analysis.ipynb` already has one good example to look at:
+`first_analysis.ipynb` already has one good example to look at:
 `fill_harmonic_gaps`, which fills gaps in the burst-median series using a
 linear-trend-plus-harmonic fit. It's already written as a clean, documented
 function. Use it as a reference example.

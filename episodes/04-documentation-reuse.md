@@ -86,7 +86,7 @@ scalar\_vars = [v for v in ctd.data\_vars if ctd[v].dims == ("time",) and np.iss
 ctd\_stats = resample\_burst_\stats(ctd[scalar\_vars].to\_\dataframe())
 \`\`\`
 
-See \`notebooks/messy\_analysis\.ipynb\` for a full worked example.
+See \`notebooks/first\_analysis\.ipynb\` for a full worked example.
 
 ## Data
 
