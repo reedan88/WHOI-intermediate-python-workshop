@@ -24,13 +24,13 @@ life_cycle: 'pre-alpha'
 license: 'CC-BY 4.0'
 
 # Link to the source repository for this lesson
-source: 'https://github.com/FIXME/python-intermediate-workshop' # FIXME: update once you create the GitHub repo
+source: 'https://github.com/reedan88/WHOI-intermediate-python-workshop'
 
 # Default branch of your lesson
 branch: 'main'
 
 # Who to contact if there are any issues
-contact: 'FIXME@example.org' # FIXME: your contact email
+contact: 'areed@whoi.edu'
 
 # Navigation ------------------------------------------------
 # Order of episodes in your lesson
