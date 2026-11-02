@@ -436,16 +436,28 @@ a terminal, with everything happenning in
 <li>Docstrings are introduced early (Block 1, at the function level) and
 revisited at the project level in Block 4. This is intentional. Flag the
 callback for learners so it doesn’t feel repetitive.</li>
-<li>Block 3’s environment challenge assumes learners already have Python
-and git installed per the setup page. Confirm this and remind learners
-that having python, Jupiter, and the associated packages installed is a
-prereq.</li>
+<li>The workshop uses <code>uv</code> for Python, environments, and
+packages, replacing <code>venv</code>, <code>pip</code>, and
+<code>conda</code>. Block 3’s challenges assume learners have installed
+<code>uv</code> and <code>git</code> per the setup page, and have run
+the “Check your setup” command. The The first run downloads several
+hundred megabytes (<code>xarray</code>/<code>netCDF4</code>/JupyterLab
+and their dependencies) so the downloads <strong>MUST</strong> be run
+before the workshop. We will <strong>NOT</strong> take in-workshop time
+to troubleshoot installs.</li>
 </ul></section><section><h2 class="section-heading" id="common-sticking-points">Common sticking points<a class="anchor" aria-label="anchor" href="#common-sticking-points"></a>
 </h2>
 <hr class="half-width">
 <ul>
 <li>Clearly distinguish “module” vs “package” and the callout in Episode
 2 explicitly which explicitly addresses this difference.</li>
+<li>“<code>uv: command not found</code>” is the most common Block 3
+derailment: uv was installed but the learner’s terminal was opened
+beforehand. Have them close and reopen the terminal. A second common one
+is launching Jupyter without <code>uv run</code>, so the notebook can’t
+import <code>mooring_tools</code>; consider a TA circulating during
+Challenges 2–3 specifically. There is no activation step to
+troubleshoot.</li>
 <li>
 <code>PATH</code> and environment activation issues during Block 3
 may be an issue.</li>
@@ -461,6 +473,13 @@ pattern in Episode 2 is worth demonstrating live (edit a function in
 <code>stats.py</code>, re-run a notebook cell, show the change take
 effect without restarting the kernel). It’s a detail that makes the
 notebook + module workflow feel natural.</li>
+<li>Episode 4’s density-integration challenge (Challenge 3) is verified
+to work with zero edits to <code>resample_burst_stats</code>,
+<code>flag_and_flatten</code>, or <code>merge_ctd_dosta</code>. The only
+changes should be to <code>VARIABLE_ATTRS</code> and the
+<code>keep_vars</code> list change. If a learner’s version requires
+editing a function body, that’s a signal something drifted from what
+should have been done earlier in the workshop.</li>
 </ul>
 <!--
 Place links that you need to refer to multiple times across pages here. Delete

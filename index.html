@@ -208,6 +208,7 @@
       <div class="accordion-body">
         <ul><li><a href="#data-sets">Data Sets</a></li>
 <li><a href="#software-setup">Software Setup</a></li>
+<li><a href="#check-your-setup-before-the-workshop">Check your setup before the workshop</a></li>
         </ul></div><!--/div.accordion-body-->
     </div><!--/div.accordion-collapse-->
 
@@ -356,64 +357,42 @@ Environments</li>
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
  --></section><section id="setup"><section><h2 class="section-heading" id="data-sets">Data Sets<a class="anchor" aria-label="anchor" href="#data-sets"></a></h2>
-<hr class="half-width"><p>Download the <a href="starter-files">starter files</a> and unzip them
-to your Desktop before the workshop. This contains:</p>
+<hr class="half-width"><p>Download the <a href="starter-files/data">starter files</a> and unzip
+them to your Desktop before the workshop. This contains:</p>
 <ul><li>
 <code>first_analysis.ipynb</code>: a deliberately “messy” Jupyter
 notebook that we refactor throughout the two sessions. Meant to reflect
 a type of exploratory notebook someone would use for initial data
 analysis/visualization.</li>
 <li>
-<code>data/gi01sumo_nsif_ctd.nc</code>,
-<code>data/gi01sumo_nsif_dosta.nc</code> — one week (2020-09-01 to
-2020-09-08) of real <a href="https://oceanobservatories.org/" class="external-link">OOI</a>
-Global Irminger Sea Array (GI01SUMO) Near-Surface Instrument Frame
-(NSIF) data: CTD (temperature, salinity, pressure) and DOSTA (dissolved
-oxygen). The data files contain a full-deployments worth of data but
-with only the relevant parameters retained. Downloading a similar
-dataset from the OOI Data Explorer will yield a dataset with a
-signficant number of extra, lower-processing-level parameters and
-engineering data.</li>
-</ul><p>This data requires <code>xarray</code>, <code>netCDF4</code>,
-<code>pandas</code>, <code>numpy</code>, <code>Jupyter</code>, and
-<code>matplotlib</code>. These should all be installed ahead of time,
-although Block 3 deals specifically with library and package management
-and environments.</p>
-<div class="codewrapper sourceCode" id="cb1">
-<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1" aria-label="code-block-1-1"></a><span class="ex">pip</span> install xarray netCDF4 pandas numpy matplotlib jupyter</span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1" aria-label="code-block-1-2"></a><span class="ex">python3</span> <span class="at">-c</span> <span class="st">"import xarray as xr; print(xr.open_dataset('data/gi01sumo_nsif_ctd.nc'))"</span></span></code></pre>
-</div>
-</section><section><h2 class="section-heading" id="software-setup">Software Setup<a class="anchor" aria-label="anchor" href="#software-setup"></a></h2>
+<code>data/gi01sumo_nsif_ctd.nc</code> and
+<code>data/gi01sumo_nsif_dosta.nc</code>: these are a full deployment of
+real <a href="https://oceanobservatories.org/" class="external-link">OOI</a> Global Irminger
+Sea Array (GI01SUMO) Near-Surface Instrument Frame (NSIF) data: CTD
+(temperature, salinity, pressure) and DOSTA (dissolved oxygen). The data
+files contain a full-deployments worth of data but with only the
+relevant parameters retained. Downloading a similar dataset from the OOI
+Data Explorer will yield a dataset with a signficant number of extra,
+lower-processing-level parameters and engineering data.</li>
+</ul></section><section><h2 class="section-heading" id="software-setup">Software Setup<a class="anchor" aria-label="anchor" href="#software-setup"></a></h2>
 <hr class="half-width"><p>This workshop is written for a <strong>Jupyter notebook</strong>
-workflow and interactive programming development approach. Terminal work
-should be limited, but there will be a few points where learners will
-need to use the command line for a couple of things. That said, if the
-learner wishes to use an IDE (such as VS-Code) they are welcome to.</p>
-<div id="details" class="callout discussion">
-<div class="callout-square">
-<i class="callout-icon" data-feather="message-circle"></i>
-</div>
-<span class="callout-header">Discussion</span>
-<div id="details" class="callout-inner">
-<h3 class="callout-title">Details</h3>
-<div class="callout-content">
+workflow throughout. You won’t need to run scripts from a terminal or
+work in a full IDE, though either is fine if you already prefer one
+(e.g. PyCharm, VSCode, etc). You will use the terminal for a few short
+commands.</p>
 <p>You will need:</p>
-<ol style="list-style-type: decimal"><li><strong>Python 3.10+</strong></li>
+<ol style="list-style-type: decimal"><li>
+<strong>uv</strong>, a tool that installs Python, creates
+environments, and installs packages. It replaces <code>venv</code>,
+<code>pip</code>, and (for this workshop) <code>conda</code>. You do
+<strong>not</strong> need to install Python separately; uv will download
+a suitable version when needed.</li>
 <li>
-<strong>Jupyter</strong> (<code>pip install jupyter</code>, or
-JupyterLab) — Optional: A code editor with Python support (VS Code’s
-Jupyter extension works well for editing the <code>.py</code> modules
-you’ll write alongside your notebook)</li>
-<li>
-<strong>git</strong>, and a free <a href="https://github.com" class="external-link">GitHub</a> account</li>
-<li>The ability to create a virtual environment (<code>venv</code>,
-<code>conda</code>, or <code>mamba</code>)</li>
-</ol></div>
-</div>
-</div>
-<div id="accordionSpoiler1" class="accordion spoiler-accordion accordion-flush">
+<strong>git</strong>, and a free <a href="https://github.com" class="external-link">GitHub</a> account.</li>
+<li>Optionally, a code editor with Python support (VS Code’s Jupyter
+extension works well for editing the <code>.py</code> modules you’ll
+write alongside your notebook).</li>
+</ol><div id="accordionSpoiler1" class="accordion spoiler-accordion accordion-flush">
 <div class="accordion-item">
 <button class="accordion-button spoiler-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSpoiler1" aria-expanded="false" aria-controls="collapseSpoiler1">
   <h3 class="accordion-header" id="headingSpoiler1">
@@ -421,15 +400,22 @@ you’ll write alongside your notebook)</li>
   Windows
   </h3>
 </button>
-<div id="collapseSpoiler1" class="accordion-collapse collapse" data-bs-parent="#accordionSpoiler1" aria-labelledby="headingSpoiler1">
+<div id="collapseSpoiler1" class="accordion-collapse collapse" aria-labelledby="headingSpoiler1" data-bs-parent="#accordionSpoiler1">
 <div class="accordion-body">
-<ol style="list-style-type: decimal"><li>Install Python from <a href="https://python.org" class="external-link">python.org</a> —
-check “Add Python to PATH” during install.</li>
-<li>Install <a href="https://git-scm.com/download/win" class="external-link">Git for
-Windows</a>, which includes Git Bash.</li>
-<li>
-<code>pip install jupyter</code>, then confirm it launches with
-<code>jupyter notebook</code> or <code>jupyter lab</code>.</li>
+<ol style="list-style-type: decimal"><li>
+<p>Open PowerShell and install uv:</p>
+<div class="codewrapper sourceCode" id="cb1">
+<h3 class="code-label">POWERSHELL<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode powershell" tabindex="0"><code class="sourceCode powershell"><span id="cb1-1"><a href="#cb1-1" tabindex="-1" aria-label="code-block-1-1"></a>powershell <span class="op">-</span>ExecutionPolicy ByPass <span class="op">-</span>c <span class="st">"irm https://astral.sh/uv/install.ps1 | iex"</span></span></code></pre>
+</div>
+<p>or, if you use WinGet:
+<code>winget install --id=astral-sh.uv -e</code>.</p>
+</li>
+<li><p>Install <a href="https://git-scm.com/download/win" class="external-link">Git for
+Windows</a>, which includes Git Bash.</p></li>
+<li><p><strong>Close and reopen</strong> your terminal, then check with
+<code>uv --version</code>.</p></li>
 </ol></div>
 </div>
 </div>
@@ -442,15 +428,21 @@ Windows</a>, which includes Git Bash.</li>
   MacOS
   </h3>
 </button>
-<div id="collapseSpoiler2" class="accordion-collapse collapse" data-bs-parent="#accordionSpoiler2" aria-labelledby="headingSpoiler2">
+<div id="collapseSpoiler2" class="accordion-collapse collapse" aria-labelledby="headingSpoiler2" data-bs-parent="#accordionSpoiler2">
 <div class="accordion-body">
-<ol style="list-style-type: decimal"><li>Install Python 3 via <a href="https://python.org" class="external-link">python.org</a> or
-<code>brew install python</code>.</li>
-<li>Git is usually pre-installed; verify with <code>git --version</code>
-in Terminal.</li>
-<li>
-<code>pip install jupyter</code>, then confirm it launches with
-<code>jupyter notebook</code> or <code>jupyter lab</code>.</li>
+<ol style="list-style-type: decimal"><li>
+<p>Install uv, in Terminal:</p>
+<div class="codewrapper sourceCode" id="cb2">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1" aria-label="code-block-2-1"></a><span class="ex">curl</span> <span class="at">-LsSf</span> https://astral.sh/uv/install.sh <span class="kw">|</span> <span class="fu">sh</span></span></code></pre>
+</div>
+<p>or, if you use Homebrew: <code>brew install uv</code>.</p>
+</li>
+<li><p>Git is usually pre-installed; verify with
+<code>git --version</code> in Terminal.</p></li>
+<li><p><strong>Close and reopen</strong> Terminal, then check with
+<code>uv --version</code>.</p></li>
 </ol></div>
 </div>
 </div>
@@ -463,16 +455,62 @@ in Terminal.</li>
   Linux
   </h3>
 </button>
-<div id="collapseSpoiler3" class="accordion-collapse collapse" data-bs-parent="#accordionSpoiler3" aria-labelledby="headingSpoiler3">
+<div id="collapseSpoiler3" class="accordion-collapse collapse" aria-labelledby="headingSpoiler3" data-bs-parent="#accordionSpoiler3">
 <div class="accordion-body">
-<ol style="list-style-type: decimal"><li>Python 3 is usually pre-installed; verify with
-<code>python3 --version</code>.</li>
-<li>Install git via your package manager,
-e.g. <code>sudo apt install git</code>.</li>
-<li>
-<code>pip install jupyter</code>, then confirm it launches with
-<code>jupyter notebook</code> or <code>jupyter lab</code>.</li>
+<ol style="list-style-type: decimal"><li>
+<p>Install uv:</p>
+<div class="codewrapper sourceCode" id="cb3">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1" aria-label="code-block-3-1"></a><span class="ex">curl</span> <span class="at">-LsSf</span> https://astral.sh/uv/install.sh <span class="kw">|</span> <span class="fu">sh</span></span></code></pre>
+</div>
+</li>
+<li><p>Install git via your package manager,
+e.g. <code>sudo apt install git</code>.</p></li>
+<li><p><strong>Close and reopen</strong> your terminal, then check with
+<code>uv --version</code>.</p></li>
 </ol></div>
+</div>
+</div>
+</div>
+<p>If you already have <code>pip</code>, <code>pip install uv</code>
+also works, but the installers above are preferred because they don’t
+depend on any particular Python.</p>
+</section><section><h2 class="section-heading" id="check-your-setup-before-the-workshop">Check your setup before the workshop<a class="anchor" aria-label="anchor" href="#check-your-setup-before-the-workshop"></a></h2>
+<hr class="half-width"><p>Do this once, with an internet connection, <strong>before</strong>
+the first session. It downloads the packages we use so that the workshop
+itself isn’t spent waiting on them. In a terminal, go to the unzipped
+starter-files folder and run:</p>
+<div class="codewrapper sourceCode" id="cb4">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" tabindex="-1" aria-label="code-block-4-1"></a><span class="bu">cd</span> Desktop/starter-files</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1" aria-label="code-block-4-2"></a><span class="ex">uv</span> run <span class="at">--no-project</span> <span class="at">--with</span> jupyterlab <span class="at">--with</span> xarray <span class="at">--with</span> netCDF4 <span class="at">--with</span> pandas <span class="at">--with</span> numpy <span class="at">--with</span> matplotlib jupyter lab</span></code></pre>
+</div>
+<p>The first run can take a few minutes and downloads several hundred
+megabytes. When it finishes, JupyterLab opens in your browser. Open
+<code>messy_analysis.ipynb</code> and run the first few cells; if the
+dataset prints, you are ready. Close JupyterLab by pressing
+<code>Ctrl+C</code> in the terminal.</p>
+<p>Run the same command again and it should start within seconds,
+because uv re-uses what it downloaded.</p>
+<p>This is the command we use in Blocks 1 and 2, before we have created
+a project of our own. In Block 3 you’ll replace it with a project that
+records these dependencies for you.</p>
+<div id="what---no-project-and---with-mean" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<span class="callout-header">Discussion</span>
+<div id="what---no-project-and---with-mean" class="callout-inner">
+<h3 class="callout-title">What <code>--no-project</code> and
+<code>--with</code> mean</h3>
+<div class="callout-content">
+<p><code>--with jupyterlab</code> (and the others) asks uv to build a
+temporary environment containing those packages and run the command
+inside it. <code>--no-project</code> stops uv from looking for a
+<code>pyproject.toml</code> in the current folder, since you don’t have
+one yet.</p>
 </div>
 </div>
 </div>
