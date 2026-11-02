@@ -34,15 +34,26 @@ the two blocks of each session.
 - Docstrings are introduced early (Block 1, at the function level) and
   revisited at the project level in Block 4. This is intentional. Flag the
   callback for learners so it doesn't feel repetitive.
-- Block 3's environment challenge assumes learners already have Python and
-  git installed per the setup page. Confirm this and remind learners that
-  having python, Jupiter, and the associated packages installed is a prereq.
+- The workshop uses `uv` for Python, environments, and packages, replacing
+  `venv`, `pip`, and `conda`. Block 3's challenges assume learners have
+  installed `uv` and `git` per the setup page, and have run the "Check your
+  setup" command. The  The first run downloads several hundred megabytes 
+  (`xarray`/`netCDF4`/JupyterLab and their dependencies) so the downloads **MUST**
+  be run before the workshop. We will **NOT** take in-workshop time to 
+  troubleshoot installs.
+
 
 
 ## Common sticking points
 
 - Clearly distinguish "module" vs "package" and the callout in Episode 2
   explicitly which explicitly addresses this difference.
+- "`uv: command not found`" is the most common Block 3 derailment: uv was
+  installed but the learner's terminal was opened beforehand. Have them
+  close and reopen the terminal. A second common one is launching Jupyter
+  without `uv run`, so the notebook can't import `mooring_tools`; consider a
+  TA circulating during Challenges 2–3 specifically. There is no activation
+  step to troubleshoot.
 - `PATH` and environment activation issues during Block 3 may be an issue.
 - Episode 2's merge-module challenge (Challenge 3) reproduces two real bugs
   from the source notebook: a `MergeError` from an un-flattened DOSTA
@@ -54,4 +65,10 @@ the two blocks of each session.
   worth demonstrating live (edit a function in `stats.py`, re-run a
   notebook cell, show the change take effect without restarting the
   kernel). It's a detail that makes the notebook + module workflow feel natural.
+- Episode 4's density-integration challenge (Challenge 3) is verified to work
+  with zero edits to `resample_burst_stats`, `flag_and_flatten`, or
+  `merge_ctd_dosta`. The only changes should be to `VARIABLE_ATTRS` and 
+  the `keep_vars` list change.  If a learner's version requires editing a 
+  function body, that's a signal something drifted from what should have been
+  done earlier in the workshop.
 
