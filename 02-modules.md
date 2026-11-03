@@ -395,7 +395,7 @@ ctd_flat = flag_and_flatten(ctd_stats, was_filled_ctd,
 dosta_flat = flag_and_flatten(dosta_stats, was_filled_dosta,
                                ["oxygen_concentration_corrected"])
 merged_ds = merge_ctd_dosta(ctd_flat, dosta_flat)
-save_merged_dataset(merged_ds, "gs01sumo_merged.nc")
+save_merged_dataset(merged_ds, "gi01sumo_merged.nc")
 ```
 
 :::::::::::::::::::::::::::::::::

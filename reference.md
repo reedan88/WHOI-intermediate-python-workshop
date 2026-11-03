@@ -18,7 +18,24 @@ repository (repo)
 
 virtual environment
 : An isolated Python installation with its own set of installed packages,
-  used to keep a project's dependencies separate from other projects.
+  used to keep a project's dependencies separate from other projects. In a
+  uv project this lives in a `.venv` folder that uv creates and manages for
+  you.
+
+uv
+: A tool that manages Python versions, virtual environments, and project
+  dependencies. It replaces separate use of `venv`, `pip`, and `pip freeze`
+  in this workshop.
+
+lock file (`uv.lock`)
+: A file uv generates that records the exact version of every package your
+  project depends on, for every supported platform and Python version.
+  Committed to git so anyone can recreate the same environment.
+
+editable install
+: Installing a package so Python imports it directly from your source
+  folder instead of a copy. Edits to your code take effect immediately.
+  `uv sync` installs your own project this way.
 
 docstring
 : A string literal placed as the first statement in a function, class, or
