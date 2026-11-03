@@ -396,15 +396,22 @@ or repeated</li>
 <li>Separate the installable package (<code>src/mooring_tools/</code>)
 from notebooks and data</li>
 <li>A <code>src/</code> layout turns “the package isn’t actually
-installed” from a silent bug into an error with a traceback</li>
+installed” from a silent bug into a raised error</li>
 <li>
-<code>pip install -e .</code> installs your package so edits to
-<code>src/</code> take effect immediately, from any project, without
-reinstalling</li>
+<code>uv init --lib</code> creates the project skeleton;
+<code>uv add</code> installs a dependency and records it in
+<code>pyproject.toml</code> and <code>uv.lock</code>
+</li>
 <li>
-<code>pyproject.toml</code> declares what your code needs (loose
-bounds); <code>requirements.txt</code>/<code>pip freeze</code> records
-exactly what’s installed (exact pins)</li>
+<code>uv run</code> runs a command in the project’s environment with
+nothing to activate; the <code>.venv</code> folder is disposable and
+never committed</li>
+<li>
+<code>pyproject.toml</code> declares what your code needs (minimum
+versions); <code>uv.lock</code> records exactly what’s installed: commit
+both, and reproduction is <code>git clone</code> plus
+<code>uv sync</code>
+</li>
 </ul></section><section id="04-documentation-reuse"><h2 class="section-heading"><a href="04-documentation-reuse.html">Documentation and Reuse</a></h2>
 <hr class="half-width">
 <ul>

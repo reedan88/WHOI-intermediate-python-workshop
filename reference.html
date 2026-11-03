@@ -305,7 +305,7 @@
       </div>
     </nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Reference</h1>
-        <p>Last updated on 2026-10-12 |
+        <p>Last updated on 2026-11-03 |
 
         <a href="https://github.com/reedan88/WHOI-intermediate-python-workshop/edit/main/learners/reference.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -337,7 +337,27 @@ project.
 <dt>virtual environment</dt>
 <dd>
 An isolated Python installation with its own set of installed packages,
-used to keep a project’s dependencies separate from other projects.
+used to keep a project’s dependencies separate from other projects. In a
+uv project this lives in a <code>.venv</code> folder that uv creates and
+manages for you.
+</dd>
+<dt>uv</dt>
+<dd>
+A tool that manages Python versions, virtual environments, and project
+dependencies. It replaces separate use of <code>venv</code>,
+<code>pip</code>, and <code>pip freeze</code> in this workshop.
+</dd>
+<dt>lock file (<code>uv.lock</code>)</dt>
+<dd>
+A file uv generates that records the exact version of every package your
+project depends on, for every supported platform and Python version.
+Committed to git so anyone can recreate the same environment.
+</dd>
+<dt>editable install</dt>
+<dd>
+Installing a package so Python imports it directly from your source
+folder instead of a copy. Edits to your code take effect immediately.
+<code>uv sync</code> installs your own project this way.
 </dd>
 <dt>docstring</dt>
 <dd>
@@ -425,7 +445,7 @@ any links that you are not going to use.
   "url": "https://reedan88.github.io/WHOI-intermediate-python-workshop/reference.html",
   "identifier": "https://reedan88.github.io/WHOI-intermediate-python-workshop/reference.html",
   "dateCreated": "2026-07-13",
-  "dateModified": "2026-10-12",
+  "dateModified": "2026-11-03",
   "datePublished": "2026-11-03"
 }
 

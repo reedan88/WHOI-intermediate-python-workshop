@@ -693,7 +693,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-02-modules"><p>Content from <a href="02-modules.html">Organizing Functions into Modules</a></p>
 <hr>
-<p>Last updated on 2026-10-12 |
+<p>Last updated on 2026-11-03 |
 
         <a href="https://github.com/reedan88/WHOI-intermediate-python-workshop/edit/main/episodes/02-modules.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -1184,7 +1184,7 @@ now, which is what the original notebook was missing:</p>
 <span id="cb12-3"><a href="#cb12-3" tabindex="-1" aria-label="code-block-12-3"></a>dosta_flat <span class="op">=</span> flag_and_flatten(dosta_stats, was_filled_dosta,</span>
 <span id="cb12-4"><a href="#cb12-4" tabindex="-1" aria-label="code-block-12-4"></a>                               [<span class="st">"oxygen_concentration_corrected"</span>])</span>
 <span id="cb12-5"><a href="#cb12-5" tabindex="-1" aria-label="code-block-12-5"></a>merged_ds <span class="op">=</span> merge_ctd_dosta(ctd_flat, dosta_flat)</span>
-<span id="cb12-6"><a href="#cb12-6" tabindex="-1" aria-label="code-block-12-6"></a>save_merged_dataset(merged_ds, <span class="st">"gs01sumo_merged.nc"</span>)</span></code></pre>
+<span id="cb12-6"><a href="#cb12-6" tabindex="-1" aria-label="code-block-12-6"></a>save_merged_dataset(merged_ds, <span class="st">"gi01sumo_merged.nc"</span>)</span></code></pre>
 </div>
 </div>
 </div>
@@ -1288,7 +1288,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-03-repo-environments"><p>Content from <a href="03-repo-environments.html">Building a Repository and Managing Environments</a></p>
 <hr>
-<p>Last updated on 2026-10-12 |
+<p>Last updated on 2026-11-03 |
 
         <a href="https://github.com/reedan88/WHOI-intermediate-python-workshop/edit/main/episodes/03-repo-environments.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
@@ -1315,14 +1315,14 @@ any links that you are not going to use.
 <div class="inner bordered">
 <h3 class="card-title">Objectives</h3>
 <ul>
-<li>Lay out a repository with a <code>src/</code> (aka “source”)
-package, notebooks, and data kept separate</li>
-<li>Create an isolated virtual environment and install the project into
-it in “editable” mode</li>
+<li>Create a project with <code>uv</code> and lay out a repository with
+a <code>src/</code> package, notebooks, and data kept separate</li>
+<li>Add dependencies to a project and explain what
+<code>pyproject.toml</code> and <code>uv.lock</code> each record</li>
+<li>Run a Jupyter notebook inside the project’s environment and import
+your own package from it</li>
 <li>Explain why a <code>src/</code> layout catches packaging bugs that a
 flat layout hides</li>
-<li>Generate a dependency file that lets someone else reproduce your
-environment</li>
 </ul>
 </div>
 </div>
@@ -1335,14 +1335,16 @@ environment</li>
 <p>By the end of Block 2, <code>mooring_tools/</code> is three modules
 and an <code>__init__.py</code>, sitting next to
 <code>first_analysis.ipynb</code>. That’s enough to import from this
-notebook. It’s not enough to <code>pip install</code>, share with a
-colleague, or use from a notebook anywhere else on your machine. For
-that, the package needs a proper home:</p>
-<pre class="text"><code>mooring-tools/
+notebook. It’s not enough to share with a colleague, or use from a
+notebook anywhere else on your machine. For that, the package needs a
+proper home:</p>
+<pre class="text"><code>gs01sumo-mooring-tools/
 ├── .gitignore
+├── .python-version
 ├── LICENSE
 ├── README.md
 ├── pyproject.toml
+├── uv.lock
 ├── src/
 │   └── mooring_tools/
 │       ├── __init__.py
@@ -1352,17 +1354,26 @@ that, the package needs a proper home:</p>
 ├── notebooks/
 │   └── first_analysis.ipynb
 └── data/
-    ├── gs01sumo_nsif_ctd.nc
-    └── gs01sumo_nsif_dosta.nc</code></pre>
+    ├── gi01sumo_nsif_ctd.nc
+    └── gi01sumo_nsif_dosta.nc</code></pre>
 <p>A few things to note about the layout:</p>
 <ul>
 <li>
-<code>src/mooring_tools/</code>, not just
-<code>mooring_tools/</code> as the repo root.</li>
+<strong><code>src/mooring_tools/</code></strong>, not just
+<strong><code>mooring_tools/</code></strong> as the repo root.</li>
 <li>
-<code>notebooks/</code> and <code>data/</code> are separate from the
-package. The package is code meant to be imported; the notebook is one
-particular analysis that uses it.</li>
+<strong><code>notebooks/</code></strong> and
+<strong><code>data/</code></strong> are separate from the package. The
+package is code meant to be imported; the notebook is one particular
+analysis that uses it.</li>
+<li>
+<strong><code>pyproject.toml</code></strong> and
+<strong><code>uv.lock</code></strong> describe the project and the exact
+packages it was run with. Both are committed. We’ll build them up over
+this block.</li>
+<li>
+<strong><code>.python-version</code></strong> records which version
+of Python the project is developed with.</li>
 <li>
 <strong><code>.gitignore</code></strong> keeps generated/environment
 files out of version control, such as the venv folder,
@@ -1370,7 +1381,53 @@ files out of version control, such as the venv folder,
 <li>
 <strong><code>LICENSE</code></strong> states what others are allowed
 to do with the code.</li>
+</ul></section><section><h2 class="section-heading" id="creating-the-project-with-uv">Creating the project with uv<a class="anchor" aria-label="anchor" href="#creating-the-project-with-uv"></a>
+</h2>
+<hr class="half-width">
+<p>You could create all of that by hand. Instead, we’ll let <a href="https://docs.astral.sh/uv/" class="external-link">uv</a> create the skeleton.
+<code>uv</code> is one tool that replaces several you may have used
+separately: it installs Python itself, creates virtual environments,
+installs packages, and records what it installed. Confirm it’s
+available:</p>
+<div class="codewrapper sourceCode" id="cb2">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1" aria-label="code-block-2-1"></a><span class="ex">uv</span> <span class="at">--version</span></span></code></pre>
+</div>
+<p>Then create the project:</p>
+<div class="codewrapper sourceCode" id="cb3">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1" aria-label="code-block-3-1"></a><span class="ex">uv</span> init <span class="at">--lib</span> <span class="at">--name</span> mooring-tools gi01sumo-mooring-tools</span></code></pre>
+</div>
+<ul>
+<li>
+<code>--lib</code> asks for a <strong>library</strong> layout: a
+<code>src/</code> folder with a package inside it, ready to be imported
+by other code.</li>
+<li>
+<code>--name mooring-tools</code> is the name the project is
+installed under. The folder is named
+<code>gi01sumo-mooring-tools</code>, so we give the name
+explicitly.</li>
+<li>uv also runs <code>git init</code> for you, so the folder is already
+a repository.</li>
 </ul>
+<div id="two-names-for-one-thing" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<span class="callout-header">Callout</span>
+<div id="two-names-for-one-thing" class="callout-inner">
+<h3 class="callout-title">Two names for one thing</h3>
+<div class="callout-content">
+<p>The project is called <code>mooring-tools</code> (with a hyphen) but
+you import it as <code>mooring_tools</code> (with an underscore). The
+first is the name used to install and publish it; the second is a Python
+identifier, so it can’t contain a hyphen. <code>uv</code> turns one into
+the other automatically. If you see
+<code>ModuleNotFoundError: No module named 'mooring-tools'</code>,
+that’s the mix-up.</p>
 <div id="challenge-1-lay-out-the-repository" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
@@ -1379,36 +1436,46 @@ to do with the code.</li>
 <div id="challenge-1-lay-out-the-repository" class="callout-inner">
 <h3 class="callout-title">Challenge 1: Lay out the repository</h3>
 <div class="callout-content">
-<p>Create this directory structure, moving <code>stats.py</code>,
-<code>plotting.py</code>, and <code>merge.py</code> (and
-<code>__init__.py</code>) into <code>src/mooring_tools/</code>, and
-<code>first_analysis.ipynb</code> into <code>notebooks/</code>. Don’t
-worry about <code>pyproject.toml</code> yet.</p>
+<ol style="list-style-type: decimal">
+<li>Run the <code>uv init</code> command above, then <code>cd</code>
+into the new folder and look at what it created (<code>ls -a</code>, or
+<code>dir</code> on Windows).</li>
+<li>
+<code>uv init</code> puts a placeholder <code>hello()</code>
+function in <code>src/mooring_tools/__init__.py</code>. Replace that
+file with your <code>__init__.py</code> from Block 2, and move
+<code>stats.py</code>, <code>plotting.py</code>, and
+<code>merge.py</code> into <code>src/mooring_tools/</code>.</li>
+<li>Create <code>notebooks/</code> and <code>data/</code>, and move
+<code>first_analysis.ipynb</code> and the two <code>.nc</code> files
+into them. (Update the data paths in the notebook to
+<code>../data/...</code>.)</li>
+</ol>
 </div>
 </div>
 </div>
-</section><section><h2 class="section-heading" id="why-src-specifically">Why <code>src/</code>, specifically<a class="anchor" aria-label="anchor" href="#why-src-specifically"></a>
+<div class="section level2">
+<h2 id="why-src-specifically">Why <code>src/</code>, specifically<a class="anchor" aria-label="anchor" href="#why-src-specifically"></a>
 </h2>
-<hr class="half-width">
 <p>Compare two layouts, both without the package actually installed:</p>
-<div class="codewrapper sourceCode" id="cb2">
+<div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1" aria-label="code-block-2-1"></a><span class="co"># flat layout: mooring_tools/ directly at the repo root</span></span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1" aria-label="code-block-2-2"></a><span class="bu">cd</span> flat-layout-repo</span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1" aria-label="code-block-2-3"></a><span class="ex">python3</span> <span class="at">-c</span> <span class="st">"import mooring_tools"</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" tabindex="-1" aria-label="code-block-4-1"></a><span class="co"># flat layout: mooring_tools/ directly at the repo root</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1" aria-label="code-block-4-2"></a><span class="bu">cd</span> flat-layout-repo</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1" aria-label="code-block-4-3"></a><span class="ex">python3</span> <span class="at">-c</span> <span class="st">"import mooring_tools"</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>(imports successfully — from mooring_tools/__init__.py right there in the folder)</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb4">
+<div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" tabindex="-1" aria-label="code-block-4-1"></a><span class="co"># src layout: mooring_tools/ inside src/</span></span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1" aria-label="code-block-4-2"></a><span class="bu">cd</span> src-layout-repo</span>
-<span id="cb4-3"><a href="#cb4-3" tabindex="-1" aria-label="code-block-4-3"></a><span class="ex">python3</span> <span class="at">-c</span> <span class="st">"import mooring_tools"</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" tabindex="-1" aria-label="code-block-6-1"></a><span class="co"># src layout: mooring_tools/ inside src/</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1" aria-label="code-block-6-2"></a><span class="bu">cd</span> src-layout-repo</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1" aria-label="code-block-6-3"></a><span class="ex">python3</span> <span class="at">-c</span> <span class="st">"import mooring_tools"</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1422,37 +1489,39 @@ repo even if the package was never actually installed, or if the install
 is broken. The bug only shows up later, when someone tries to use the
 package from outside the repo and it’s nowhere to be found. With
 <code>src/</code>, that failure happens immediately.</p>
+</div>
+</div>
+</div>
+</div>
 </section><section><h2 class="section-heading" id="environments">Environments<a class="anchor" aria-label="anchor" href="#environments"></a>
 </h2>
 <hr class="half-width">
 <p>Every Python installation on your machine has one set of installed
 packages by default. If two projects need different, incompatible
 versions of the same library, installing globally means only one project
-can work at a time. A virtual environment gives each project its own
-isolated set of installed packages.</p>
-<div class="codewrapper sourceCode" id="cb6">
-<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" tabindex="-1" aria-label="code-block-6-1"></a><span class="ex">python3</span> <span class="at">-m</span> venv .venv</span>
-<span id="cb6-2"><a href="#cb6-2" tabindex="-1" aria-label="code-block-6-2"></a></span>
-<span id="cb6-3"><a href="#cb6-3" tabindex="-1" aria-label="code-block-6-3"></a><span class="co"># activate it:</span></span>
-<span id="cb6-4"><a href="#cb6-4" tabindex="-1" aria-label="code-block-6-4"></a><span class="bu">source</span> .venv/bin/activate        <span class="co"># macOS/Linux</span></span>
-<span id="cb6-5"><a href="#cb6-5" tabindex="-1" aria-label="code-block-6-5"></a><span class="ex">.venv\Scripts\activate</span>            <span class="co"># Windows</span></span></code></pre>
-</div>
-<p>Once activated, <code>pip install</code> only affects this
-environment. Other projects, and the system Python, are untouched.</p>
-<div id="challenge-2-create-an-environment" class="callout challenge">
+can work at a time. A <strong>virtual environment</strong> gives each
+project its own isolated set of installed packages.</p>
+<p>With uv you don’t create or activate one yourself. The first time you
+add a dependency (next section), uv creates a <code>.venv</code> folder
+in the project and installs into it. Every <code>uv run ...</code>
+command then uses that environment automatically, from the project
+folder or any folder inside it. There is no <code>activate</code> step
+to forget, and no way to install into the wrong environment by
+accident.</p>
+<div id="the-.venv-folder-is-disposable" class="callout">
 <div class="callout-square">
-<i class="callout-icon" data-feather="zap"></i>
+<i class="callout-icon" data-feather="bell"></i>
 </div>
-<span class="callout-header">Challenge</span>
-<div id="challenge-2-create-an-environment" class="callout-inner">
-<h3 class="callout-title">Challenge 2: Create an environment</h3>
+<span class="callout-header">Callout</span>
+<div id="the-.venv-folder-is-disposable" class="callout-inner">
+<h3 class="callout-title">The <code>.venv</code> folder is
+disposable</h3>
 <div class="callout-content">
-<p>Create a virtual environment for <code>mooring-tools</code> and
-activate it. Confirm you’re in it: <code>which python</code>
-(macOS/Linux) or <code>where python</code> (Windows) should point inside
-the <code>.venv</code> folder, not your system Python.</p>
+<p>Nothing in <code>.venv</code> is precious. If it ever gets into a
+confusing state, delete the folder and run <code>uv sync</code>.
+<code>uv</code> will rebuild it from the project files. That is also why
+<code>.venv</code> is in <code>.gitignore</code>: it’s machine-specific,
+and fully recreatable.</p>
 </div>
 </div>
 </div>
@@ -1462,73 +1531,105 @@ the <code>.venv</code> folder, not your system Python.</p>
 <p><code>pyproject.toml</code> (Tom’s Obvious Minimal Language), at the
 repo root, is what turns a <code>src/</code> folder into something
 <code>pip</code> understands:</p>
-<div class="codewrapper sourceCode" id="cb7">
+<div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">TOML<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode toml" tabindex="0"><code class="sourceCode toml"><span id="cb7-1"><a href="#cb7-1" tabindex="-1" aria-label="code-block-7-1"></a><span class="kw">[build-system]</span></span>
-<span id="cb7-2"><a href="#cb7-2" tabindex="-1" aria-label="code-block-7-2"></a><span class="dt">requires</span> <span class="op">=</span> <span class="op">[</span><span class="st">"setuptools&gt;=68"</span><span class="op">]</span></span>
-<span id="cb7-3"><a href="#cb7-3" tabindex="-1" aria-label="code-block-7-3"></a><span class="dt">build-backend</span> <span class="op">=</span> <span class="st">"setuptools.build_meta"</span></span>
-<span id="cb7-4"><a href="#cb7-4" tabindex="-1" aria-label="code-block-7-4"></a></span>
-<span id="cb7-5"><a href="#cb7-5" tabindex="-1" aria-label="code-block-7-5"></a><span class="kw">[project]</span></span>
-<span id="cb7-6"><a href="#cb7-6" tabindex="-1" aria-label="code-block-7-6"></a><span class="dt">name</span> <span class="op">=</span> <span class="st">"mooring_tools"</span></span>
-<span id="cb7-7"><a href="#cb7-7" tabindex="-1" aria-label="code-block-7-7"></a><span class="dt">version</span> <span class="op">=</span> <span class="st">"0.1.0"</span></span>
-<span id="cb7-8"><a href="#cb7-8" tabindex="-1" aria-label="code-block-7-8"></a><span class="dt">description</span> <span class="op">=</span> <span class="st">"Burst-statistics, plotting, and merge utilities for OOI CTD/DOSTA data"</span></span>
-<span id="cb7-9"><a href="#cb7-9" tabindex="-1" aria-label="code-block-7-9"></a><span class="dt">readme</span> <span class="op">=</span> <span class="st">"README.md"</span></span>
-<span id="cb7-10"><a href="#cb7-10" tabindex="-1" aria-label="code-block-7-10"></a><span class="dt">requires-python</span> <span class="op">=</span> <span class="st">"&gt;=3.10"</span></span>
-<span id="cb7-11"><a href="#cb7-11" tabindex="-1" aria-label="code-block-7-11"></a><span class="dt">license</span> <span class="op">=</span> <span class="op">{ </span><span class="dt">text</span><span class="op"> =</span> <span class="st">"MIT"</span><span class="op"> }</span></span>
-<span id="cb7-12"><a href="#cb7-12" tabindex="-1" aria-label="code-block-7-12"></a><span class="dt">authors</span> <span class="op">=</span> <span class="op">[</span></span>
-<span id="cb7-13"><a href="#cb7-13" tabindex="-1" aria-label="code-block-7-13"></a>    <span class="op">{ </span><span class="dt">name</span><span class="op"> =</span> <span class="st">"Your Name"</span><span class="op">, </span><span class="dt">email</span><span class="op"> =</span> <span class="st">"you@example.org"</span><span class="op"> },</span></span>
-<span id="cb7-14"><a href="#cb7-14" tabindex="-1" aria-label="code-block-7-14"></a><span class="op">]</span></span>
-<span id="cb7-15"><a href="#cb7-15" tabindex="-1" aria-label="code-block-7-15"></a><span class="dt">dependencies</span> <span class="op">=</span> <span class="op">[</span></span>
-<span id="cb7-16"><a href="#cb7-16" tabindex="-1" aria-label="code-block-7-16"></a>    <span class="st">"xarray&gt;=2024.1"</span><span class="op">,</span></span>
-<span id="cb7-17"><a href="#cb7-17" tabindex="-1" aria-label="code-block-7-17"></a>    <span class="st">"netCDF4&gt;=1.6"</span><span class="op">,</span></span>
-<span id="cb7-18"><a href="#cb7-18" tabindex="-1" aria-label="code-block-7-18"></a>    <span class="st">"pandas&gt;=2.0"</span><span class="op">,</span></span>
-<span id="cb7-19"><a href="#cb7-19" tabindex="-1" aria-label="code-block-7-19"></a>    <span class="st">"numpy&gt;=1.24"</span><span class="op">,</span></span>
-<span id="cb7-20"><a href="#cb7-20" tabindex="-1" aria-label="code-block-7-20"></a>    <span class="st">"matplotlib&gt;=3.7"</span><span class="op">,</span></span>
-<span id="cb7-21"><a href="#cb7-21" tabindex="-1" aria-label="code-block-7-21"></a><span class="op">]</span></span>
-<span id="cb7-22"><a href="#cb7-22" tabindex="-1" aria-label="code-block-7-22"></a></span>
-<span id="cb7-23"><a href="#cb7-23" tabindex="-1" aria-label="code-block-7-23"></a><span class="kw">[project.optional-dependencies]</span></span>
-<span id="cb7-24"><a href="#cb7-24" tabindex="-1" aria-label="code-block-7-24"></a><span class="dt">notebook</span> <span class="op">=</span> <span class="op">[</span><span class="st">"jupyter"</span><span class="op">]</span></span>
-<span id="cb7-25"><a href="#cb7-25" tabindex="-1" aria-label="code-block-7-25"></a></span>
-<span id="cb7-26"><a href="#cb7-26" tabindex="-1" aria-label="code-block-7-26"></a><span class="kw">[tool.setuptools.packages.find]</span></span>
-<span id="cb7-27"><a href="#cb7-27" tabindex="-1" aria-label="code-block-7-27"></a><span class="dt">where</span> <span class="op">=</span> <span class="op">[</span><span class="st">"src"</span><span class="op">]</span></span></code></pre>
+<pre class="sourceCode toml" tabindex="0"><code class="sourceCode toml"><span id="cb8-1"><a href="#cb8-1" tabindex="-1" aria-label="code-block-8-1"></a><span class="kw">[project]</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1" aria-label="code-block-8-2"></a><span class="dt">name</span> <span class="op">=</span> <span class="st">"mooring-tools"</span></span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1" aria-label="code-block-8-3"></a><span class="dt">version</span> <span class="op">=</span> <span class="st">"0.1.0"</span></span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1" aria-label="code-block-8-4"></a><span class="dt">description</span> <span class="op">=</span> <span class="st">"Add your description here"</span></span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1" aria-label="code-block-8-5"></a><span class="dt">readme</span> <span class="op">=</span> <span class="st">"README.md"</span></span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1" aria-label="code-block-8-6"></a><span class="dt">authors</span> <span class="op">=</span> <span class="op">[</span></span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1" aria-label="code-block-8-7"></a>    <span class="op">{ </span><span class="dt">name</span><span class="op"> =</span> <span class="st">"Your Name"</span><span class="op">, </span><span class="dt">email</span><span class="op"> =</span> <span class="st">"you@example.org"</span><span class="op"> }</span></span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1" aria-label="code-block-8-8"></a><span class="op">]</span></span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1" aria-label="code-block-8-9"></a><span class="dt">requires-python</span> <span class="op">=</span> <span class="st">"&gt;=3.14"</span></span>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1" aria-label="code-block-8-10"></a><span class="dt">dependencies</span> <span class="op">=</span> <span class="op">[]</span></span>
+<span id="cb8-11"><a href="#cb8-11" tabindex="-1" aria-label="code-block-8-11"></a></span>
+<span id="cb8-12"><a href="#cb8-12" tabindex="-1" aria-label="code-block-8-12"></a><span class="kw">[build-system]</span></span>
+<span id="cb8-13"><a href="#cb8-13" tabindex="-1" aria-label="code-block-8-13"></a><span class="dt">requires</span> <span class="op">=</span> <span class="op">[</span><span class="st">"uv_build&gt;=0.11.32,&lt;0.12.0"</span><span class="op">]</span></span>
+<span id="cb8-14"><a href="#cb8-14" tabindex="-1" aria-label="code-block-8-14"></a><span class="dt">build-backend</span> <span class="op">=</span> <span class="st">"uv_build"</span></span></code></pre>
 </div>
-<p>The last two lines are what tell <code>setuptools</code> to look
-inside <code>src/</code> for packages, rather than the repo root. With
-this in place:</p>
-<div class="codewrapper sourceCode" id="cb8">
+<p>Two things need your attention before we go on. (Your version numbers
+and author will differ.)</p>
+<ul>
+<li>
+<strong><code>requires-python</code></strong> defaults to the
+version of Python uv found on <em>your</em> machine. If yours is 3.14, a
+colleague on 3.11 would be told they cannot install your package, for no
+real reason. Our code runs fine on older versions, so relax it to
+<code>"&gt;=3.10"</code>.</li>
+<li>
+<strong><code>description</code></strong> should say what the
+package does. Make it
+<code>"Burst-statistics, plotting, and merge utilities for OOI GS01SUMO CTD/DOSTA data"</code>.</li>
+</ul>
+<p>The <code>[build-system]</code> table tells tools how to turn
+<code>src/</code> into an installable package. uv fills it in; you don’t
+need to edit it.</p>
+</section><section><h2 class="section-heading" id="adding-dependencies">Adding dependencies<a class="anchor" aria-label="anchor" href="#adding-dependencies"></a>
+</h2>
+<hr class="half-width">
+<p>Our code needs <code>xarray</code>, <code>netCDF4</code>,
+<code>pandas</code>, <code>numpy</code>, and <code>matplotlib</code>.
+Add them with:</p>
+<div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" tabindex="-1" aria-label="code-block-8-1"></a><span class="ex">pip</span> install <span class="at">-e</span> .</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" tabindex="-1" aria-label="code-block-9-1"></a><span class="ex">uv</span> add xarray netcdf4 pandas numpy matplotlib</span></code></pre>
 </div>
-<p>This command installs <code>mooring_tools</code> in <strong>editable
-mode</strong> (this is the <code>-e .</code>). <code>pip</code> points
-at your <code>src/mooring_tools/</code> files directly rather than
-copying them, so edits you make take effect immediately without
-reinstalling.</p>
-<div id="challenge-3-install-the-package-into-your-environment" class="callout challenge">
+<p>That one command does three things:</p>
+<ol style="list-style-type: decimal">
+<li>creates <code>.venv</code> if it doesn’t exist yet,</li>
+<li>installs the packages (and everything they depend on) into it</li>
+<li>records them in two places.</li>
+</ol>
+<p>Look at <code>pyproject.toml</code> again:</p>
+<div class="codewrapper sourceCode" id="cb10">
+<h3 class="code-label">TOML<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode toml" tabindex="0"><code class="sourceCode toml"><span id="cb10-1"><a href="#cb10-1" tabindex="-1" aria-label="code-block-10-1"></a><span class="dt">dependencies</span> <span class="op">=</span> <span class="op">[</span></span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1" aria-label="code-block-10-2"></a>    <span class="st">"matplotlib&gt;=3.10.9"</span><span class="op">,</span></span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1" aria-label="code-block-10-3"></a>    <span class="st">"netcdf4&gt;=1.7.3"</span><span class="op">,</span></span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1" aria-label="code-block-10-4"></a>    <span class="st">"numpy&gt;=2.2.6"</span><span class="op">,</span></span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1" aria-label="code-block-10-5"></a>    <span class="st">"pandas&gt;=2.3.3"</span><span class="op">,</span></span>
+<span id="cb10-6"><a href="#cb10-6" tabindex="-1" aria-label="code-block-10-6"></a>    <span class="st">"xarray&gt;=2025.6.1"</span><span class="op">,</span></span>
+<span id="cb10-7"><a href="#cb10-7" tabindex="-1" aria-label="code-block-10-7"></a><span class="op">]</span></span></code></pre>
+</div>
+<p>uv has written a <strong>minimum</strong> version for each one: the
+version it installed, or the oldest version that works with the oldest
+Python you allow. This says what your code needs to run at all, loose
+enough not to fight with other projects.</p>
+<p>For notebooks, add JupyterLab as a <strong>development</strong>
+dependency. This is something you need to work on the project, but that
+someone else who is only using <code>mooring_tools</code> does not:</p>
+<div class="codewrapper sourceCode" id="cb11">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" tabindex="-1" aria-label="code-block-11-1"></a><span class="ex">uv</span> add <span class="at">--dev</span> jupyterlab</span></code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb12">
+<h3 class="code-label">TOML<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode toml" tabindex="0"><code class="sourceCode toml"><span id="cb12-1"><a href="#cb12-1" tabindex="-1" aria-label="code-block-12-1"></a><span class="kw">[dependency-groups]</span></span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1" aria-label="code-block-12-2"></a><span class="dt">dev</span> <span class="op">=</span> <span class="op">[</span></span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1" aria-label="code-block-12-3"></a>    <span class="st">"jupyterlab&gt;=4.6.5"</span><span class="op">,</span></span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1" aria-label="code-block-12-4"></a><span class="op">]</span></span></code></pre>
+</div>
+<div id="challenge-2-set-up-the-projects-dependencies" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <span class="callout-header">Challenge</span>
-<div id="challenge-3-install-the-package-into-your-environment" class="callout-inner">
-<h3 class="callout-title">Challenge 3: Install the package into your
-environment</h3>
+<div id="challenge-2-set-up-the-projects-dependencies" class="callout-inner">
+<h3 class="callout-title">Challenge 2: Set up the project’s
+dependencies</h3>
 <div class="callout-content">
-<p>Write the <code>pyproject.toml</code> above (adjust name/email), then
-run <code>pip install -e .</code> from the repo root. Confirm it worked
-by opening a Python shell from a different directory entirely and
-running:</p>
-<div class="codewrapper sourceCode" id="cb9">
-<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" tabindex="-1" aria-label="code-block-9-1"></a><span class="im">import</span> mooring_tools</span>
-<span id="cb9-2"><a href="#cb9-2" tabindex="-1" aria-label="code-block-9-2"></a><span class="im">from</span> mooring_tools.stats <span class="im">import</span> resample_burst_stats</span>
-<span id="cb9-3"><a href="#cb9-3" tabindex="-1" aria-label="code-block-9-3"></a><span class="bu">print</span>(mooring_tools.<span class="va">__file__</span>)</span></code></pre>
-</div>
-<p>The printed path should point at your repo’s
-<code>src/mooring_tools/</code>, even though you are working in a
-different folder.</p>
+<p>In the project folder, fix <code>requires-python</code> and
+<code>description</code> in <code>pyproject.toml</code>, then run both
+<code>uv add</code> commands above. Open <code>pyproject.toml</code> and
+confirm the <code>dependencies</code> and
+<code>[dependency-groups]</code> tables were filled in for you. Which
+new files and folders has uv created?</p>
 </div>
 </div>
 </div>
@@ -1537,89 +1638,233 @@ different folder.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
-<p>If this raises <code>ModuleNotFoundError</code>, the most common
-cause is running <code>pip install -e .</code> with the wrong
-environment active. Double check <code>which pip</code> points inside
-<code>.venv</code> before installing.</p>
+<p><code>.venv/</code> (the environment, git-ignored) and
+<code>uv.lock</code> (the exact record of what was installed, which we
+look at shortly). <code>pyproject.toml</code> itself was edited by
+<code>uv add</code>.</p>
+<p>Your minimum versions will differ from the ones above, because they
+reflect whatever was current when you ran the command.</p>
 </div>
 </div>
 </div>
 </div>
-</section><section><h2 class="section-heading" id="package-management-pinning-dependencies">Package management: pinning dependencies<a class="anchor" aria-label="anchor" href="#package-management-pinning-dependencies"></a>
+</section><section><h2 class="section-heading" id="running-code-in-the-project">Running code in the project<a class="anchor" aria-label="anchor" href="#running-code-in-the-project"></a>
 </h2>
 <hr class="half-width">
-<p><code>pyproject.toml</code>’s <code>dependencies</code> list uses
-minimum versions (<code>xarray&gt;=2024.1</code>), enough to achieve
-what’s required, loose enough to not fight with other projects. For
-<em>exact reproducibility</em> generate a fully pinned lock file from
-your working environment:</p>
-<div class="codewrapper sourceCode" id="cb10">
+<p>To run a command inside the project’s environment, put
+<code>uv run</code> in front of it:</p>
+<div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" tabindex="-1" aria-label="code-block-10-1"></a><span class="ex">pip</span> freeze <span class="op">&gt;</span> requirements.txt</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" tabindex="-1" aria-label="code-block-13-1"></a><span class="ex">uv</span> run python <span class="at">-c</span> <span class="st">"import mooring_tools; print(mooring_tools.__file__)"</span></span></code></pre>
 </div>
-<p>From this project’s tested environment, that produces something
-like:</p>
-<pre class="text"><code>matplotlib==3.11.2
-netCDF4==1.7.4
-numpy==2.4.6
-pandas==3.0.6
-xarray==2026.7.0
--e /path/to/mooring-tools</code></pre>
-<p>The distinction matters: <code>pyproject.toml</code> says what your
-<em>code</em> needs to run at all; <code>requirements.txt</code> (or a
-proper lock file) says exactly what <em>this specific environment</em>
-has installed, version by version. A colleague reproducing your result
-wants the second one.</p>
-<div id="challenge-4-generate-a-lock-file" class="callout challenge">
+<p>The printed path should point into your repo’s
+<code>src/mooring_tools/</code>. uv installs your own package into
+<code>.venv</code> in editable mode: Python imports it directly from
+your <code>src/</code> files rather than from a copy, so edits you make
+take effect immediately without reinstalling (This is the persistent
+cousin of Block 2’s <code>%autoreload</code>).</p>
+<p>Now start JupyterLab inside the project:</p>
+<div class="codewrapper sourceCode" id="cb14">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" tabindex="-1" aria-label="code-block-14-1"></a><span class="ex">uv</span> run jupyter lab</span></code></pre>
+</div>
+<p>Open <code>notebooks/first_analysis.ipynb</code>. The notebook’s
+kernel is the project’s <code>.venv</code> Python, so
+<code>import mooring_tools</code> simply works.</p>
+<div id="challenge-3-use-the-package-from-a-notebook" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <span class="callout-header">Challenge</span>
-<div id="challenge-4-generate-a-lock-file" class="callout-inner">
-<h3 class="callout-title">Challenge 4: Generate a lock file</h3>
+<div id="challenge-3-use-the-package-from-a-notebook" class="callout-inner">
+<h3 class="callout-title">Challenge 3: Use the package from a
+notebook</h3>
 <div class="callout-content">
-<p>Run <code>pip freeze &gt; requirements.txt</code> in your activated
-environment. Then, starting from a fresh virtual environment, confirm a
-teammate could reproduce it with
-<code>pip install -r requirements.txt</code>.</p>
+<p>Launch JupyterLab with <code>uv run jupyter lab</code> from the repo
+root. In a new notebook inside <code>notebooks/</code>, run:</p>
+<div class="codewrapper sourceCode" id="cb15">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" tabindex="-1" aria-label="code-block-15-1"></a><span class="im">import</span> mooring_tools</span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1" aria-label="code-block-15-2"></a><span class="im">from</span> mooring_tools.stats <span class="im">import</span> resample_burst_stats</span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1" aria-label="code-block-15-3"></a><span class="bu">print</span>(mooring_tools.<span class="va">__file__</span>)</span></code></pre>
+</div>
+<p>Then change the body of a function in
+<code>src/mooring_tools/stats.py</code> (for example, the default
+<code>freq</code>), and call it again. Do you need to restart the
+kernel? (Remember what <code>%autoreload 2</code> did in Block 2.)</p>
 </div>
 </div>
 </div>
-<div id="gitignore-for-this-project" class="callout">
+<div id="accordionSolution2" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
+  <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
+</button>
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div class="accordion-body">
+<p>The printed path points at your repo’s
+<code>src/mooring_tools/</code>. Whether the edit shows up without a
+restart depends on whether you ran <code>%load_ext autoreload</code> and
+<code>%autoreload 2</code>: the editable install makes the package
+findable from anywhere, while <code>autoreload</code> makes
+already-imported code refresh in a running kernel.</p>
+<p>If <code>import mooring_tools</code> raises
+<code>ModuleNotFoundError</code>, the notebook is almost certainly
+running in a different Python than the project’s. Check that you started
+JupyterLab with <code>uv run jupyter lab</code>, not with a
+<code>jupyter</code> installed elsewhere on your machine.</p>
+</div>
+</div>
+</div>
+</div>
+</section><section><h2 class="section-heading" id="package-management-the-lock-file">Package management: the lock file<a class="anchor" aria-label="anchor" href="#package-management-the-lock-file"></a>
+</h2>
+<hr class="half-width">
+<p><code>pyproject.toml</code> has loose, minimum versions. For exact
+reproducibility look at the other file uv created: <code>uv.lock</code>.
+It records the exact version of every package in the environment,
+including the ones you never asked for directly (<code>xarray</code>
+pulls in <code>packaging</code>, <code>pandas</code> pulls in
+<code>python-dateutil</code>, and so on):</p>
+<pre class="text"><code>[[package]]
+name = "xarray"
+version = "2026.9.0"
+...</code></pre>
+<p>(You don’t write or edit <code>uv.lock</code>; uv maintains it every
+time you <code>uv add</code>, <code>uv remove</code>, or
+<code>uv lock</code>.)</p>
+<p>The difference between <code>pyproject.toml</code> and
+<code>uv.lock</code> is that the former declares what is needed to run
+your code whereas the latter states exactly what your environment has
+installed at the time that <code>uv</code> was run. installed, version
+by version. The lock file covers every platform and Python version your
+project supports, so a lock file made on a Mac works on Windows and
+Linux.</p>
+<p>Commit both files. Then reproducing your environment on a new machine
+is:</p>
+<div class="codewrapper sourceCode" id="cb17">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" tabindex="-1" aria-label="code-block-17-1"></a><span class="fu">git</span> clone <span class="op">&lt;</span>repo-url<span class="op">&gt;</span></span>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1" aria-label="code-block-17-2"></a><span class="bu">cd</span> gi01sumo-mooring-tools</span>
+<span id="cb17-3"><a href="#cb17-3" tabindex="-1" aria-label="code-block-17-3"></a><span class="ex">uv</span> sync</span></code></pre>
+</div>
+<p><code>uv sync</code> creates <code>.venv</code> and installs exactly
+what <code>uv.lock</code> says. If the right Python isn’t installed on
+the new machine, uv downloads it too.</p>
+<div id="challenge-4-reproduce-your-environment" class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
+</div>
+<span class="callout-header">Challenge</span>
+<div id="challenge-4-reproduce-your-environment" class="callout-inner">
+<h3 class="callout-title">Challenge 4: Reproduce your environment</h3>
+<div class="callout-content">
+<p>Commit your work (<code>git add .</code> then
+<code>git commit</code>). Then, in a <em>different</em> folder, clone
+your own repo and run <code>uv sync</code>. Compare the output of
+<code>uv run python -c "import xarray; print(xarray.__version__)"</code>
+in the clone and in your original. What do you expect?</p>
+<p>When that works, delete the <code>.venv</code> folder in your
+<em>original</em> project and run <code>uv sync</code> again. How long
+does it take compared to the first time?</p>
+</div>
+</div>
+</div>
+<div id="accordionSolution3" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
+  <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
+</button>
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div class="accordion-body">
+<p>The versions match, because both environments were built from the
+same <code>uv.lock</code>.</p>
+<p>Rebuilding is much faster the second time: uv keeps a cache of
+everything it has already downloaded, so a rebuild is mostly linking
+files from that cache into a new <code>.venv</code>.</p>
+</div>
+</div>
+</div>
+</div>
+</section><section><h2 class="section-heading" id="changing-your-mind-later">Changing your mind later<a class="anchor" aria-label="anchor" href="#changing-your-mind-later"></a>
+</h2>
+<hr class="half-width">
+<p>You’ll rarely get the dependency list right the first time. The same
+commands work whenever you need them:</p>
+<div class="codewrapper sourceCode" id="cb18">
+<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" tabindex="-1" aria-label="code-block-18-1"></a><span class="ex">uv</span> add scipy           <span class="co"># new dependency</span></span>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1" aria-label="code-block-18-2"></a><span class="ex">uv</span> remove scipy        <span class="co"># no longer needed</span></span>
+<span id="cb18-3"><a href="#cb18-3" tabindex="-1" aria-label="code-block-18-3"></a><span class="ex">uv</span> lock <span class="at">--upgrade</span>      <span class="co"># move to the newest versions allowed, then...</span></span>
+<span id="cb18-4"><a href="#cb18-4" tabindex="-1" aria-label="code-block-18-4"></a><span class="ex">uv</span> sync                <span class="co"># ...bring .venv in line with uv.lock</span></span></code></pre>
+</div>
+<p>Each of these edits <code>pyproject.toml</code> and/or
+<code>uv.lock</code> for you, so the two files and the environment stay
+consistent. Commit the changed files together.</p>
+<div id="gitignore-and-what-to-commit" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <span class="callout-header">Callout</span>
-<div id="gitignore-for-this-project" class="callout-inner">
+<div id="gitignore-and-what-to-commit" class="callout-inner">
 <h3 class="callout-title">
-<code>.gitignore</code> for this project</h3>
+<code>.gitignore</code> and what to
+commit</h3>
 <div class="callout-content">
-<p>Virtual environments and Jupyter checkpoint files don’t belong in
-version control. A minimal <code>.gitignore</code> for this repo will
-look something like this:</p>
-<pre class="text"><code>.venv/
-__pycache__/
-*.pyc
-.ipynb_checkpoints/</code></pre>
+<p><code>uv init</code> already wrote a <code>.gitignore</code>
+containing <code>.venv</code>, <code>__pycache__/</code>,
+<code>*.py[oc]</code>, <code>build/</code>, <code>dist/</code>,
+<code>wheels/</code>, and <code>*.egg-info</code>. Add one line for
+Jupyter:</p>
+<pre class="text"><code>.ipynb_checkpoints/</code></pre>
+<p>Commit: <code>pyproject.toml</code>, <code>uv.lock</code>,
+<code>.python-version</code>, <code>README.md</code>,
+<code>LICENSE</code>, and everything under <code>src/</code> and
+<code>notebooks/</code>. Don’t commit <code>.venv/</code>.</p>
 <p>If your data files are large or sensitive, consider whether
 <code>data/</code> belongs in <code>.gitignore</code> too, with a note
 in the README on where to get it.</p>
 </div>
 </div>
 </div>
+<div id="what-about-conda" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<span class="callout-header">Callout</span>
+<div id="what-about-conda" class="callout-inner">
+<h3 class="callout-title">What about conda?</h3>
+<div class="callout-content">
+<p>Many scientists use conda or mamba, and for good reason: it can
+install non-Python libraries (compilers, GDAL, and so on) that
+<code>uv</code> cannot. Every package in this workshop is available as a
+pre-built wheel for macOS, Windows, and Linux, so <code>uv</code> is
+enough here. If a future project needs non-Python system libraries,
+conda remains a sensible choice for that project. The ideas in this
+block — one environment per project, minimum versions in the project
+file, exact versions in a lock file, commit both — apply either way.</p>
+</div>
+</div>
+</div>
+
 </section><section><h2 class="section-heading" id="wrap-up">Wrap-up<a class="anchor" aria-label="anchor" href="#wrap-up"></a>
 </h2>
 <hr class="half-width">
 <p>By the end of this block, <code>mooring_tools</code> is a real,
-installable package: <code>src/</code> layout,
-<code>pyproject.toml</code>, an activated virtual environment it’s
-installed into with <code>pip install -e .</code>, and a
-<code>requirements.txt</code> capturing exactly what’s installed. Block
-4 adds the README and docstring pass that makes this repo usable by
-someone who isn’t you.</p>
+installable package: <code>src/</code> layout, a
+<code>pyproject.toml</code> declaring what it needs, a
+<code>uv.lock</code> recording exactly what was installed, and an
+environment that uv builds and uses without any activation. A colleague
+can reproduce all of it with <code>git clone</code> and
+<code>uv sync</code>. Block 4 adds the README and docstring pass that
+makes this repo usable by someone who isn’t you.</p>
 <div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
@@ -1631,15 +1876,22 @@ someone who isn’t you.</p>
 <li>Separate the installable package (<code>src/mooring_tools/</code>)
 from notebooks and data</li>
 <li>A <code>src/</code> layout turns “the package isn’t actually
-installed” from a silent bug into an error with a traceback</li>
+installed” from a silent bug into a raised error</li>
 <li>
-<code>pip install -e .</code> installs your package so edits to
-<code>src/</code> take effect immediately, from any project, without
-reinstalling</li>
+<code>uv init --lib</code> creates the project skeleton;
+<code>uv add</code> installs a dependency and records it in
+<code>pyproject.toml</code> and <code>uv.lock</code>
+</li>
 <li>
-<code>pyproject.toml</code> declares what your code needs (loose
-bounds); <code>requirements.txt</code>/<code>pip freeze</code> records
-exactly what’s installed (exact pins)</li>
+<code>uv run</code> runs a command in the project’s environment with
+nothing to activate; the <code>.venv</code> folder is disposable and
+never committed</li>
+<li>
+<code>pyproject.toml</code> declares what your code needs (minimum
+versions); <code>uv.lock</code> records exactly what’s installed: commit
+both, and reproduction is <code>git clone</code> plus
+<code>uv sync</code>
+</li>
 </ul>
 </div>
 </div>
@@ -1719,7 +1971,7 @@ user could actually run against
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">MARKDOWN<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1829,7 +2081,7 @@ type hints on the signature, and a full NumPy-style docstring (summary,
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1959,7 +2211,7 @@ all.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
