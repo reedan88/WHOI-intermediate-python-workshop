@@ -32,13 +32,12 @@ what it does, how to install it, an example, and where the data comes from.
 ## Challenge 1: Draft the README
 
 Write `README.md` for `mooring-tools`, covering: what the package
-does, install instructions (both `pip install -e .` and
-`pip install -r requirements.txt`), and a usage example a new user could
-actually run against `data/gs01sumo_nsif_ctd.nc`.
+does, install instructions (using `uv sync`), and a usage example a new user could
+actually run against `data/gi01sumo_nsif_ctd.nc`.
 
 :::::::::::::::::::::::: solution
 
-```markdown
+````markdown
 # mooring tools
 
 Burst-statistics, plotting, and merging utilities for OOI CTD/DOSTA
@@ -59,20 +58,26 @@ package takes raw CTD (temperature, salinity, pressure, density) and DOSTA
 
 ## Install
 
-\`\`\`bash
+This project uses [uv](https://docs.astral.sh/uv/) to manage Python and its
+packages. [Install uv](https://docs.astral.sh/uv/getting-started/installation/),
+then:
+
+```bash
 git clone <this-repo-url>
-cd mooring-tools
-python3 -m venv .venv
-source .venv/bin/activate      # .venv\\Scripts\\activate on Windows
-pip install -e .
-\`\`\`
+cd gi01sumo-mooring-tools
+uv sync
+```
 
-For exact reproducibility of a specific analysis, use the pinned
-\`requirements.txt\` instead of the loose bounds in \`pyproject.toml\`:
+`uv sync` creates a `.venv` folder and installs the exact package versions
+recorded in `uv.lock`, plus `mooring_tools` itself. Nothing needs to be
+activated: put `uv run` in front of any command to run it in this
+environment.
 
-\`\`\`bash
-pip install -r requirements.txt
-\`\`\`
+To work in a notebook:
+
+```bash
+uv run jupyter lab
+```
 
 ## Usage
 
@@ -96,7 +101,7 @@ record. The full dataset is available via the OOI Data Portal.
 ## License
 
 MIT — see \`LICENSE\`.
-```
+````
 
 :::::::::::::::::::::::::::::::::
 ::::::::::::::::::::::::::::::::::::::::::::::::
@@ -280,7 +285,10 @@ here are how you should handle these changes:
 
 - **Bump the version** in `pyproject.toml` (`version = "0.1.0"` →
   `"0.2.0"`) when you make a change someone else relying on the package
-  would care about.
+  would care about. `uv version --bump minor`
+  edits the `version` line in `pyproject.toml` for you (use `patch` for
+  bug fixes, `major` for breaking changes); `uv version` on its own prints
+  the current version.
 - **Tag the commit in git** (`git tag v0.2.0`) so "the version I ran this
   analysis with" is always recoverable later, even after further changes.
 
