@@ -81,26 +81,29 @@ uv run jupyter lab
 
 ## Usage
 
-\`\`\`python
-import xarray as xr
+```python
 import numpy as np
-from mooring\_tools.stats import resample\_burst\_stats
+import xarray as xr
+from mooring_tools.stats import resample_burst_stats
 
-ctd = xr.open\_dataset("data/gi01sumo\_nsif\_ctd.nc")
-scalar\_vars = [v for v in ctd.data\_vars if ctd[v].dims == ("time",) and np.issubdtype(ctd[v].dtype, np.number)]
-ctd\_stats = resample\_burst_\stats(ctd[scalar\_vars].to\_\dataframe())
-\`\`\`
+ctd = xr.open_dataset("data/gi01sumo_nsif_ctd.nc")
+scalar_vars = [v for v in ctd.data_vars if ctd[v].dims == ("time",) and np.issubdtype(ctd[v].dtype, np.number)]
+ctd_stats = resample_burst_stats(ctd[scalar_vars].to_dataframe())
+```
 
-See \`notebooks/first\_analysis\.ipynb\` for a full worked example.
+See `notebooks/first_analysis.ipynb` for a full worked example.
 
 ## Data
 
-\`data/\` contains an example OOI GI01SUMO deployment 7
-record. The full dataset is available via the OOI Data Portal.
+The `data/` folder is not part of this repository because the files are
+too large. It should contain `gi01sumo_nsif_ctd.nc` and
+`gi01sumo_nsif_dosta.nc`, a full deployment of real OOI GI01SUMO data. Get
+them from the workshop's starter-files download (see the lesson's Getting
+Started page), or download similar data from the OOI Data Explorer.
 
 ## License
 
-MIT — see \`LICENSE\`.
+MIT — see `LICENSE`.
 ````
 
 :::::::::::::::::::::::::::::::::
@@ -141,13 +144,22 @@ NumPy-style docstring (summary, `Parameters`, `Returns`).
 import pandas as pd
 import xarray as xr
 
+# Attributes that describe each variable
 VARIABLE_ATTRS = {
     "sea_water_temperature": {"units": "degrees_Celsius", "long_name": "Sea Water Temperature"},
     "sea_water_practical_salinity": {"units": "1", "long_name": "Sea Water Practical Salinity"},
     "sea_water_pressure": {"units": "dbar", "long_name": "Sea Water Pressure"},
-    "sea_water_density": {"units": "kg m-3", "long_name": "Sea Water Density"},
     "oxygen_concentration_corrected": {"units": "umol kg-1", "long_name": "Corrected Dissolved Oxygen Concentration"},
 }
+
+# Attributes that describe the statistic that was computed
+STAT_ATTRS = {
+    "median": {"comment": "Median of each 15-minute burst of samples"},
+    "mad": {"comment": "Median absolute deviation of each 15-minute burst of samples"},
+}
+
+# Attributes of the modeled flag, which is not in the units of the variable
+FLAG_ATTRS = {"units": "1", "comment": "Indicates whether a value was observed (0) or modeled (1)"}
 
 
 def flag_and_flatten(stats: pd.DataFrame, was_filled: pd.DataFrame, keep_vars: list[str]) -> pd.DataFrame:
@@ -160,8 +172,8 @@ def flag_and_flatten(stats: pd.DataFrame, was_filled: pd.DataFrame, keep_vars: l
         Output of `resample_burst_stats` (2-level column MultiIndex of
         (variable, stat)).
     was_filled : pandas.DataFrame
-        Boolean frame, same shape/columns as the "median" slice of `stats`,
-        True where that burst was gap-filled rather than observed.
+        Boolean frame with one column per variable, True where that burst
+        was gap-filled rather than observed.
     keep_vars : list[str]
         Which variables (first-level column names) to keep.
 
@@ -192,9 +204,9 @@ def merge_ctd_dosta(ctd_flat: pd.DataFrame, dosta_flat: pd.DataFrame) -> xr.Data
     Returns
     -------
     xarray.Dataset
-        Merged on the shared burst-median time index, with `units` and
-        `long_name` attached to each data variable listed in
-        `VARIABLE_ATTRS`. To support a new variable, add it to
+        Merged on the shared burst-median time index. Each data variable gets
+        the `units` and `long_name` listed for it in `VARIABLE_ATTRS`, plus a
+        comment describing the statistic. To support a new variable, add it to
         `VARIABLE_ATTRS` and include it in the `keep_vars` passed to
         `flag_and_flatten` -- no changes needed here.
     """
@@ -203,9 +215,15 @@ def merge_ctd_dosta(ctd_flat: pd.DataFrame, dosta_flat: pd.DataFrame) -> xr.Data
     ds = merged.to_xarray()
 
     for var in ds.data_vars:
-        base_name = var.rsplit("_", 1)[0] if var.endswith(("_median", "_mad")) else var
-        if base_name in VARIABLE_ATTRS:
-            ds[var].attrs.update(VARIABLE_ATTRS[base_name])
+        if var.endswith("_modeled_flag"):
+            ds[var].attrs.update(FLAG_ATTRS)
+            continue
+        for stat, stat_attrs in STAT_ATTRS.items():
+            if var.endswith(f"_{stat}"):
+                base_name = var[: -(len(stat) + 1)]
+                ds[var].attrs.update(VARIABLE_ATTRS.get(base_name, {}))
+                ds[var].attrs.update(stat_attrs)
+                break
 
     return ds
 
@@ -292,10 +310,24 @@ here are how you should handle these changes:
 - **Tag the commit in git** (`git tag v0.2.0`) so "the version I ran this
   analysis with" is always recoverable later, even after further changes.
 
-Version updates (e.g. `version = "0.2.0"` vs `version = "1.0.0"`) depends on
-the scale. Modest updates (e.g. bug fixes, addition of new functions, etc) 
-will generally result in a former; big updates (a new module, refactoring, etc)
-would be the latter.
+Which number to bump follows a widely used convention called
+[semantic versioning](https://semver.org/): version numbers look like
+`MAJOR.MINOR.PATCH`.
+
+- **Patch** (`0.1.0` → `0.1.1`, `uv version --bump patch`): bug fixes that
+  don't change how anyone uses the package.
+- **Minor** (`0.1.0` → `0.2.0`, `uv version --bump minor`): new features
+  that don't break existing code, such as adding a new function or
+  supporting density.
+- **Major** (`0.2.0` → `1.0.0`, `uv version --bump major`): changes that can
+  break code that used the old version, such as renaming a function or
+  changing what it returns.
+
+Commit the changed `pyproject.toml` and `uv.lock` together with the tag, so
+the version number and the recorded environment never disagree.
+
+Picking the work back up months later is the same two commands a new user
+runs: `uv sync` to rebuild `.venv` from `uv.lock`, then `uv run jupyter lab`.
 
 ## Wrap-up
 

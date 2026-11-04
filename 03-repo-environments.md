@@ -30,7 +30,7 @@ a colleague, or use from a notebook anywhere else on your machine.
 For that, the package needs a proper home:
 
 ```text
-gs01sumo-mooring-tools/
+gi01sumo-mooring-tools/
 ├── .gitignore
 ├── .python-version
 ├── LICENSE
@@ -99,6 +99,8 @@ and publish it; the second is a Python identifier, so it can't contain a
 hyphen. `uv` turns one into the other automatically. If you see
 `ModuleNotFoundError: No module named 'mooring-tools'`, that's the mix-up.
 
+::::::::::::::::::::::::::::::::::::::::::::::::
+
 ::::::::::::::::::::::::::::::::::::: challenge
 
 ## Challenge 1: Lay out the repository
@@ -112,6 +114,8 @@ hyphen. `uv` turns one into the other automatically. If you see
 3. Create `notebooks/` and `data/`, and move `first_analysis.ipynb` and the
    two `.nc` files into them. (Update the data paths in the notebook to
    `../data/...`.)
+4. Add a line `data/` to the `.gitignore` file that `uv init` created, so
+   the large data files are never committed.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -122,7 +126,7 @@ Compare two layouts, both without the package actually installed:
 ```bash
 # flat layout: mooring_tools/ directly at the repo root
 cd flat-layout-repo
-python3 -c "import mooring_tools"
+uv run --no-project python -c "import mooring_tools"
 ```
 ```output
 (imports successfully — from mooring_tools/__init__.py right there in the folder)
@@ -131,11 +135,14 @@ python3 -c "import mooring_tools"
 ```bash
 # src layout: mooring_tools/ inside src/
 cd src-layout-repo
-python3 -c "import mooring_tools"
+uv run --no-project python -c "import mooring_tools"
 ```
 ```output
 ModuleNotFoundError: No module named 'mooring_tools'
 ```
+
+(`--no-project` tells uv not to build an environment from a `pyproject.toml`,
+so that this really is "without the package installed.")
 
 With a flat layout, Python finds the package because your current
 directory is always searched first. That means `import mooring_tools`
@@ -143,8 +150,6 @@ can silently "work" from inside the repo even if the package was never
 actually installed, or if the install is broken. The bug only shows up
 later, when someone tries to use the package from outside the repo and
 it's nowhere to be found. With `src/`, that failure happens immediately.
-
-::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## Environments
 
@@ -172,9 +177,9 @@ fully recreatable.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-## Making the package installable
+## Describing the Project: pyproject.toml
 
-`pyproject.toml` (Tom's Obvious Minimal Language), at the repo root, is what turns a `src/` folder into something `pip` understands:
+`pyproject.toml`, at the repo root, is the file that describes your project to uv and to every other Python packaging tool. It is written in TOML (Tom's Obvious Minimal Language), a simple `key = value` format. Open the one `uv init` created:
 
 ```toml
 [project]
@@ -201,7 +206,7 @@ author will differ.)
   install your package, for no real reason. Our code runs fine on older
   versions, so relax it to `">=3.10"`.
 - **`description`** should say what the package does. Make it
-  `"Burst-statistics, plotting, and merge utilities for OOI GS01SUMO CTD/DOSTA data"`.
+  `"Burst-statistics, plotting, and merge utilities for OOI GI01SUMO CTD/DOSTA data"`.
 
 The `[build-system]` table tells tools how to turn `src/` into an
 installable package. uv fills it in; you don't need to edit it.
@@ -348,10 +353,11 @@ version = "2026.9.0"
 `uv add`, `uv remove`, or `uv lock`.)
 
 The difference between `pyproject.toml` and `uv.lock` is that the former
-declares what is needed to run your code whereas the latter states exactly
-what your environment has installed at the time that `uv` was run.
-installed, version by version. The lock file covers every platform and Python version your
-project supports, so a lock file made on a Mac works on Windows and Linux.
+declares what is needed to run your code, whereas the latter records exactly
+what was installed, version by version, the last time uv resolved your
+dependencies. A colleague reproducing your result wants the second one. The
+lock file covers every platform and Python version your project supports, so a
+lock file made on a Mac also works on Windows and Linux.
 
 Commit both files. Then reproducing your environment on a new machine is:
 
@@ -420,8 +426,9 @@ Commit: `pyproject.toml`, `uv.lock`, `.python-version`, `README.md`,
 `LICENSE`, and everything under `src/` and `notebooks/`. Don't commit
 `.venv/`.
 
-If your data files are large or sensitive, consider whether `data/`
-belongs in `.gitignore` too, with a note in the README on where to get it.
+We already added `data/` to `.gitignore`. Our files are far larger than
+GitHub accepts, and large or sensitive data in general rarely belongs in a
+code repository. Instead, the README says where to get the data.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 

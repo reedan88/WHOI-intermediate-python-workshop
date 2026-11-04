@@ -24,8 +24,10 @@ exercises: 40
 ## Why write functions?
 
 Open `first_analysis.ipynb` from the setup materials. It loads a full-year of
-data from the [OOI](https://oceanobservatories.org/) **GI01SUMO** (**G**lobal **I**rminger Sea Array **Su**rface **Mo**oring) **NSIF** (**N**ear-**S**urface **I**nstrument **F**rame) and computes 15-minute burst-median statistics for the CTD (temperature, salinity) and the DOSTA (dissolved oxygen). It calculates the same
-statistics for both instruments, with a six-line block copy-pasted and
+data from the [OOI](https://oceanobservatories.org/) **GI01SUMO** (**G**lobal **I**rminger Sea Array **Su**rface **Mo**oring) 
+**NSIF** (**N**ear-**S**urface **I**nstrument **F**rame) and computes 15-minute 
+burst-median statistics for the CTD (temperature, salinity) and the DOSTA (dissolved oxygen). 
+It calculates the same statistics for both instruments, with a six-line block copy-pasted and
 lightly edited between them.
 
 ::::::::::::::::::::::::::::::::::::: challenge
@@ -46,8 +48,8 @@ Only the input dataset changes between them.
 :::::::::::::::::::::::::::::::::
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-A good rule of thumb: **if you've written the same logic twice, it should be
-a function.** As you add instruments or expand your analysis, a bug fix means finding and fixing it in every copy. Functions turn that into one place.
+A good rule of thumb: if you've written the same logic twice, it should be
+a function. As you add instruments or expand your analysis, a bug fix means finding and fixing it in every copy. Functions turn that into one place.
 
 ## Function anatomy
 

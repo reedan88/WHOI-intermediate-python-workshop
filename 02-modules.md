@@ -157,7 +157,7 @@ Python's standard library. In an empty scratch folder:
 
 ```bash
 echo "pass" > random.py
-python3 -c "import numpy as np; np.random.rand(3)"
+uv run --no-project --with numpy python -c "import numpy as np; np.random.rand(3)"
 ```
 
 ```output
@@ -287,23 +287,37 @@ This is much cleaner and easier to read.
 ## Fixing real bugs while modularizing
 
 Scroll to the "Merge and save" section at the bottom of
-`first_analysis.ipynb` which is currently unfinished.
-
-```output
-MergeError: Not allowed to merge between different levels. (1 levels on the left, 2 on the right)
-```
-
-and
+`first_analysis.ipynb`. It is unfinished, and if you run the notebook from
+top to bottom it fails:
 
 ```output
 NameError: name 'ctd_ds' is not defined
 ```
 
+That one is a plain typo: the variable was named `ds`, not `ctd_ds`, and the
+mistake went unnoticed because the notebook was never re-run start to finish
+after that line was written.
+
+There are two more problems waiting just past the end of the notebook. The
+merged table still has 2-level (variable, statistic) column names, and
+netCDF files can only store variables with plain string names:
+
+```output
+TypeError: Invalid name ('sea_water_temperature', 'mad') for DataArray or Dataset key: must be either a string or None for serialization to netCDF or zarr files
+```
+
+The notebook starts to flatten the column names, but only for the CTD table.
+If you merge that flattened CTD table with the DOSTA table, which still has
+2-level columns, pandas refuses:
+
+```output
+MergeError: Not allowed to merge between different levels. (1 levels on the left, 2 on the right)
+```
+
 This is a common and useful side effect of turning exploratory code into
-functions: **writing a function forces you to be explicit about inputs and
-outputs**. Here, the merge fails because only `ctd_stats`'s columns were
-flattened to single-level names before merging; `dosta_stats` still has its original 2-level (variable, stat) columns, so pandas refuses to align them. The second error is a plain typo (`ctd_ds` instead of `ds`) that wasn't caught because the notebook was
-never run start-to-finish in-order after that line was written.
+functions: writing a function forces you to be explicit about inputs and
+outputs. If one function flattens a table and we call it for both
+instruments, the missing step becomes impossible to skip.
 
 ::::::::::::::::::::::::::::::::::::: challenge
 
@@ -314,8 +328,10 @@ Write `merge.py` with the following three functions:
 2.  A function to merge the flattened CTD and DOSTA tables and attach variable attributes (units, long names) from the original datasets
 3.  A function to save the result as a netCDF
 
-You will need to fix both bugs from the notebook along the
-way. 
+Use them to merge the CTD variables `sea_water_temperature`,
+`sea_water_practical_salinity`, and `sea_water_pressure` with the DOSTA variable
+`oxygen_concentration_corrected`, and save the result. You will need to fix
+the bugs described above along the way.
 
 :::::::::::::::::::::::: solution
 
@@ -326,29 +342,26 @@ way.
 import pandas as pd
 import xarray as xr
 
+# Attributes that describe each variable
 VARIABLE_ATTRS = {
-    "sea_water_temperature": 
-        {"units": "degrees_Celsius", 
-         "long_name": "Sea Water Temperature"},
-    "sea_water_practical_salinity": 
-        {"units": "1", 
-         "long_name": "Sea Water Practical Salinity"},
-    "sea_water_pressure": 
-        {"units": "dbar",
-         "long_name": "Sea Water Pressure"},
-    "oxygen_concentration_corrected": 
-        {"units": "umol kg-1", 
-         "long_name": "Corrected Dissolved Oxygen Concentration"},
-    "median":
-        {"comment": "This value represents the median value of the data collected using a 15-minute burst sampling approach"},
-    "mad":
-        {"comment": "This value is the median-absolute-deviation of each sampled burst"},
-    "modeled":
-        {"comment": "This flag indicates wether a value was observed (0) or modeled (1)"}
+    "sea_water_temperature": {"units": "degrees_Celsius", "long_name": "Sea Water Temperature"},
+    "sea_water_practical_salinity": {"units": "1", "long_name": "Sea Water Practical Salinity"},
+    "sea_water_pressure": {"units": "dbar", "long_name": "Sea Water Pressure"},
+    "oxygen_concentration_corrected": {"units": "umol kg-1", "long_name": "Corrected Dissolved Oxygen Concentration"},
 }
 
+# Attributes that describe the statistic that was computed
+STAT_ATTRS = {
+    "median": {"comment": "Median of each 15-minute burst of samples"},
+    "mad": {"comment": "Median absolute deviation of each 15-minute burst of samples"},
+}
 
-def flag_and_flatten(stats, was_filled, keep_vars):
+# Attributes of the modeled flag, which is not in the units of the variable
+FLAG_ATTRS = {"units": "1", "comment": "Indicates whether a value was observed (0) or modeled (1)"}
+
+
+
+def flag_and_flatten(stats: pd.DataFrame, was_filled: pd.DataFrame, keep_vars: list[str]) -> pd.DataFrame:
     """Restrict to `keep_vars`, add a modeled_flag per variable, and flatten
     the 2-level (variable, stat) columns into single flat names."""
     stats = stats.loc[:, keep_vars].copy()
@@ -359,29 +372,29 @@ def flag_and_flatten(stats, was_filled, keep_vars):
     return stats
 
 
-def merge_ctd_dosta(ctd_flat, dosta_flat, ctd, dosta):
+def merge_ctd_dosta(ctd_flat, dosta_flat):
     """Outer-merge flattened CTD and DOSTA tables and attach variable attributes."""
     merged = pd.merge(ctd_flat, dosta_flat, left_index=True, right_index=True, how="outer")
     merged.index.name = "time"
     ds = merged.to_xarray()
 
     for var in ds.data_vars:
-        base_name = var.rsplit("_", 1)[0] if var.endswith(("_median", "_mad")) else var
-        if base_name in VARIABLE_ATTRS:
-            ds[var].attrs.update(VARIABLE_ATTRS[base_name])
-        if var.endswith("_median"):
-            ds[var].attrs.update(VARIABLE_ATTRS['median'])
-        if var.endswith("_mad"):
-            ds[var].attrs.update(VARIABLE_ATTRS['mad'])
-        if var.endswith("_modeled"):
-            ds[var].attrs.update(VARIABLE_ATTRS['modeled'])
+        if var.endswith("_modeled_flag"):
+            ds[var].attrs.update(FLAG_ATTRS)
+            continue
+        for stat, stat_attrs in STAT_ATTRS.items():
+            if var.endswith(f"_{stat}"):
+                base_name = var[: -(len(stat) + 1)]
+                ds[var].attrs.update(VARIABLE_ATTRS.get(base_name, {}))
+                ds[var].attrs.update(stat_attrs)
+                break
 
     return ds
 
 
 def save_merged_dataset(ds, path):
     """Write a merged dataset to netCDF, with a couple of dataset-level attrs."""
-    ds.attrs.setdefault("source", "OOI GS01SUMO near-surface instrument frame (CTD + DOSTA)")
+    ds.attrs.setdefault("source", "OOI GI01SUMO near-surface instrument frame (CTD + DOSTA)")
     ds.attrs.setdefault("processing", "15-minute burst median/MAD; gaps filled with linear trend + harmonic fit")
     ds.to_netcdf(path)
 ```
@@ -390,9 +403,9 @@ Note that both CTD and DOSTA go through `flag_and_flatten` now, which is
 what the original notebook was missing:
 
 ```python
-ctd_flat = flag_and_flatten(ctd_stats, was_filled_ctd,
+ctd_flat = flag_and_flatten(ctd_stats, was_filled,
                              ["sea_water_temperature", "sea_water_practical_salinity", "sea_water_pressure"])
-dosta_flat = flag_and_flatten(dosta_stats, was_filled_dosta,
+dosta_flat = flag_and_flatten(dosta_stats, dosta_was_filled,
                                ["oxygen_concentration_corrected"])
 merged_ds = merge_ctd_dosta(ctd_flat, dosta_flat)
 save_merged_dataset(merged_ds, "gi01sumo_merged.nc")

@@ -2,124 +2,44 @@
 title: Setup
 ---
 
-## Data Sets
+## Before the workshop
 
-Download the [starter files](../starter-files/data) and unzip them to your
-Desktop before the workshop. This contains:
+Please complete the [Getting Started](getting-started.md) page **before
+Session 1**. It walks you through installing the three things you need
+(git, uv, and a GitHub account), downloading the workshop files, and testing
+that everything works. We will not have time to troubleshoot installations
+during the sessions.
+
+## The workshop files
+
+The starter files are distributed as a single zip file, `starter-files.zip`,
+on the lesson's
+[Releases page](https://github.com/reedan88/WHOI-intermediate-python-workshop/releases/latest).
+It contains:
 
 - `first_analysis.ipynb`: a deliberately "messy" Jupyter notebook that we
-  refactor throughout the two sessions. Meant to reflect a type of exploratory
-  notebook someone would use for initial data analysis/visualization.
-- `data/gi01sumo_nsif_ctd.nc` and `data/gi01sumo_nsif_dosta.nc`: these are
-  a full deployment of real [OOI](https://oceanobservatories.org/)
-  Global Irminger Sea Array (GI01SUMO) Near-Surface Instrument Frame (NSIF) data:
-  CTD (temperature, salinity, pressure) and DOSTA (dissolved oxygen). The data files
-  contain a full-deployments worth of data but with only the relevant parameters
-  retained. Downloading a similar dataset from the OOI Data Explorer will yield a dataset
-  with a signficant number of extra, lower-processing-level parameters and engineering
-  data.
+  refactor throughout the two sessions. It reflects the kind of exploratory
+  notebook someone would use for initial data analysis and visualization.
+- `data/gi01sumo_nsif_ctd.nc` and `data/gi01sumo_nsif_dosta.nc`: a full
+  deployment of real [OOI](https://oceanobservatories.org/) data from the
+  Global Irminger Sea Array (GI01SUMO) Near-Surface Instrument Frame (NSIF):
+  CTD (temperature, salinity, pressure, density) and DOSTA (dissolved
+  oxygen). The files keep only the relevant parameters. Downloading a similar
+  dataset from the OOI Data Explorer yields many more lower-processing-level
+  parameters and engineering data.
 
+The data files are large (roughly 120 MB for the CTD and 800 MB for the DOSTA).
 
-## Software Setup
+## Software
 
-This workshop is written for a **Jupyter notebook** workflow throughout.
-You won't need to run scripts from a terminal or work in a full IDE, though
-either is fine if you already prefer one (e.g. PyCharm, VSCode, etc). 
-You will use the terminal for a few short commands.
-
-You will need:
+You need three things, all covered in [Getting Started](getting-started.md):
 
 1. **uv**, a tool that installs Python, creates environments, and installs
    packages. It replaces `venv`, `pip`, and (for this workshop) `conda`. You
-   do **not** need to install Python separately; uv will download a suitable
-   version when needed.
-2. **git**, and a free [GitHub](https://github.com) account.
-3. Optionally, a code editor with Python support (VS Code's Jupyter
-   extension works well for editing the `.py` modules you'll write
-   alongside your notebook).
+   do **not** need to install Python separately.
+2. **git**.
+3. A free [GitHub](https://github.com) account.
 
-:::::::::::::::: spoiler
-
-### Windows
-
-1. Open PowerShell and install uv:
-
-   ```powershell
-   powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
-   ```
-
-   or, if you use WinGet: `winget install --id=astral-sh.uv -e`.
-2. Install [Git for Windows](https://git-scm.com/download/win), which
-   includes Git Bash.
-3. **Close and reopen** your terminal, then check with `uv --version`.
-
-::::::::::::::::::::::::
-
-:::::::::::::::: spoiler
-
-### MacOS
-
-1. Install uv, in Terminal:
-
-   ```bash
-   curl -LsSf https://astral.sh/uv/install.sh | sh
-   ```
-
-   or, if you use Homebrew: `brew install uv`.
-2. Git is usually pre-installed; verify with `git --version` in Terminal.
-3. **Close and reopen** Terminal, then check with `uv --version`.
-
-::::::::::::::::::::::::
-
-:::::::::::::::: spoiler
-
-### Linux
-
-1. Install uv:
-
-   ```bash
-   curl -LsSf https://astral.sh/uv/install.sh | sh
-   ```
-
-2. Install git via your package manager, e.g. `sudo apt install git`.
-3. **Close and reopen** your terminal, then check with `uv --version`.
-
-::::::::::::::::::::::::
-
-If you already have `pip`, `pip install uv` also works, but the installers
-above are preferred because they don't depend on any particular Python.
-
-## Check your setup before the workshop
-
-Do this once, with an internet connection, **before** the first session. It
-downloads the packages we use so that the workshop itself isn't spent
-waiting on them. In a terminal, go to the unzipped starter-files folder
-and run:
-
-```bash
-cd Desktop/starter-files
-uv run --no-project --with jupyterlab --with xarray --with netCDF4 --with pandas --with numpy --with matplotlib jupyter lab
-```
-
-The first run can take a few minutes and downloads several hundred
-megabytes. When it finishes, JupyterLab opens in your browser. Open
-`messy_analysis.ipynb` and run the first few cells; if the dataset prints,
-you are ready. Close JupyterLab by pressing `Ctrl+C` in the terminal.
-
-Run the same command again and it should start within seconds, because uv
-re-uses what it downloaded.
-
-This is the command we use in Blocks 1 and 2, before we have created a
-project of our own. In Block 3 you'll replace it with a project that
-records these dependencies for you.
-
-::::::::::::::::::::::::::::::::::::::: discussion
-
-### What `--no-project` and `--with` mean
-
-`--with jupyterlab` (and the others) asks uv to build a temporary
-environment containing those packages and run the command inside it.
-`--no-project` stops uv from looking for a `pyproject.toml` in the current
-folder, since you don't have one yet.
-
-:::::::::::::::::::::::::::::::::::::::::::::::::::
+The workshop is written for a **Jupyter notebook** workflow. You will use a
+terminal for a few short commands. Using another editor or IDE (VS Code,
+PyCharm, and so on) is fine if you already prefer one.
