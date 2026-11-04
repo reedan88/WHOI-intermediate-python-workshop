@@ -238,8 +238,9 @@
       <div class="accordion-body">
         <ul><li><a href="#what-goes-in-a-repo">What goes in a repo</a></li>
 <li><a href="#creating-the-project-with-uv">Creating the project with uv</a></li>
+<li><a href="#why-src-specifically">Why <code>src/</code>, specifically</a></li>
 <li><a href="#environments">Environments</a></li>
-<li><a href="#making-the-package-installable">Making the package installable</a></li>
+<li><a href="#describing-the-project-pyproject.toml">Describing the Project: pyproject.toml</a></li>
 <li><a href="#adding-dependencies">Adding dependencies</a></li>
 <li><a href="#running-code-in-the-project">Running code in the project</a></li>
 <li><a href="#package-management-the-lock-file">Package management: the lock file</a></li>
@@ -332,7 +333,7 @@
       </div>
     </nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Building a Repository and Managing Environments</h1>
-        <p>Last updated on 2026-11-03 |
+        <p>Last updated on 2026-11-04 |
 
         <a href="https://github.com/reedan88/WHOI-intermediate-python-workshop/edit/main/episodes/03-repo-environments.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -384,7 +385,7 @@ and an <code>__init__.py</code>, sitting next to
 notebook. It’s not enough to share with a colleague, or use from a
 notebook anywhere else on your machine. For that, the package needs a
 proper home:</p>
-<pre class="text"><code>gs01sumo-mooring-tools/
+<pre class="text"><code>gi01sumo-mooring-tools/
 ├── .gitignore
 ├── .python-version
 ├── LICENSE
@@ -469,6 +470,9 @@ identifier, so it can’t contain a hyphen. <code>uv</code> turns one into
 the other automatically. If you see
 <code>ModuleNotFoundError: No module named 'mooring-tools'</code>,
 that’s the mix-up.</p>
+</div>
+</div>
+</div>
 <div id="challenge-1-lay-out-the-repository" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
@@ -490,18 +494,20 @@ file with your <code>__init__.py</code> from Block 2, and move
 <code>first_analysis.ipynb</code> and the two <code>.nc</code> files
 into them. (Update the data paths in the notebook to
 <code>../data/...</code>.)</li>
+<li>Add a line <code>data/</code> to the <code>.gitignore</code> file
+that <code>uv init</code> created, so the large data files are never
+committed.</li>
 </ol></div>
 </div>
 </div>
-<div class="section level2">
-<h2 id="why-src-specifically">Why <code>src/</code>, specifically<a class="anchor" aria-label="anchor" href="#why-src-specifically"></a></h2>
-<p>Compare two layouts, both without the package actually installed:</p>
+</section><section><h2 class="section-heading" id="why-src-specifically">Why <code>src/</code>, specifically<a class="anchor" aria-label="anchor" href="#why-src-specifically"></a></h2>
+<hr class="half-width"><p>Compare two layouts, both without the package actually installed:</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" tabindex="-1" aria-label="code-block-4-1"></a><span class="co"># flat layout: mooring_tools/ directly at the repo root</span></span>
 <span id="cb4-2"><a href="#cb4-2" tabindex="-1" aria-label="code-block-4-2"></a><span class="bu">cd</span> flat-layout-repo</span>
-<span id="cb4-3"><a href="#cb4-3" tabindex="-1" aria-label="code-block-4-3"></a><span class="ex">python3</span> <span class="at">-c</span> <span class="st">"import mooring_tools"</span></span></code></pre>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1" aria-label="code-block-4-3"></a><span class="ex">uv</span> run <span class="at">--no-project</span> python <span class="at">-c</span> <span class="st">"import mooring_tools"</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -513,13 +519,16 @@ into them. (Update the data paths in the notebook to
 </h3>
 <pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" tabindex="-1" aria-label="code-block-6-1"></a><span class="co"># src layout: mooring_tools/ inside src/</span></span>
 <span id="cb6-2"><a href="#cb6-2" tabindex="-1" aria-label="code-block-6-2"></a><span class="bu">cd</span> src-layout-repo</span>
-<span id="cb6-3"><a href="#cb6-3" tabindex="-1" aria-label="code-block-6-3"></a><span class="ex">python3</span> <span class="at">-c</span> <span class="st">"import mooring_tools"</span></span></code></pre>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1" aria-label="code-block-6-3"></a><span class="ex">uv</span> run <span class="at">--no-project</span> python <span class="at">-c</span> <span class="st">"import mooring_tools"</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>ModuleNotFoundError: No module named 'mooring_tools'</code></pre>
 </div>
+<p>(<code>--no-project</code> tells uv not to build an environment from
+a <code>pyproject.toml</code>, so that this really is “without the
+package installed.”)</p>
 <p>With a flat layout, Python finds the package because your current
 directory is always searched first. That means
 <code>import mooring_tools</code> can silently “work” from inside the
@@ -527,10 +536,6 @@ repo even if the package was never actually installed, or if the install
 is broken. The bug only shows up later, when someone tries to use the
 package from outside the repo and it’s nowhere to be found. With
 <code>src/</code>, that failure happens immediately.</p>
-</div>
-</div>
-</div>
-</div>
 </section><section><h2 class="section-heading" id="environments">Environments<a class="anchor" aria-label="anchor" href="#environments"></a></h2>
 <hr class="half-width"><p>Every Python installation on your machine has one set of installed
 packages by default. If two projects need different, incompatible
@@ -561,10 +566,12 @@ and fully recreatable.</p>
 </div>
 </div>
 </div>
-</section><section><h2 class="section-heading" id="making-the-package-installable">Making the package installable<a class="anchor" aria-label="anchor" href="#making-the-package-installable"></a></h2>
-<hr class="half-width"><p><code>pyproject.toml</code> (Tom’s Obvious Minimal Language), at the
-repo root, is what turns a <code>src/</code> folder into something
-<code>pip</code> understands:</p>
+</section><section><h2 class="section-heading" id="describing-the-project-pyproject-toml">Describing the Project: pyproject.toml<a class="anchor" aria-label="anchor" href="#describing-the-project-pyproject-toml"></a></h2>
+<hr class="half-width"><p><code>pyproject.toml</code>, at the repo root, is the file that
+describes your project to uv and to every other Python packaging tool.
+It is written in TOML (Tom’s Obvious Minimal Language), a simple
+<code>key = value</code> format. Open the one <code>uv init</code>
+created:</p>
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">TOML<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -594,7 +601,7 @@ real reason. Our code runs fine on older versions, so relax it to
 <li>
 <strong><code>description</code></strong> should say what the
 package does. Make it
-<code>"Burst-statistics, plotting, and merge utilities for OOI GS01SUMO CTD/DOSTA data"</code>.</li>
+<code>"Burst-statistics, plotting, and merge utilities for OOI GI01SUMO CTD/DOSTA data"</code>.</li>
 </ul><p>The <code>[build-system]</code> table tells tools how to turn
 <code>src/</code> into an installable package. uv fills it in; you don’t
 need to edit it.</p>
@@ -764,11 +771,11 @@ time you <code>uv add</code>, <code>uv remove</code>, or
 <code>uv lock</code>.)</p>
 <p>The difference between <code>pyproject.toml</code> and
 <code>uv.lock</code> is that the former declares what is needed to run
-your code whereas the latter states exactly what your environment has
-installed at the time that <code>uv</code> was run. installed, version
-by version. The lock file covers every platform and Python version your
-project supports, so a lock file made on a Mac works on Windows and
-Linux.</p>
+your code, whereas the latter records exactly what was installed,
+version by version, the last time uv resolved your dependencies. A
+colleague reproducing your result wants the second one. The lock file
+covers every platform and Python version your project supports, so a
+lock file made on a Mac also works on Windows and Linux.</p>
 <p>Commit both files. Then reproducing your environment on a new machine
 is:</p>
 <div class="codewrapper sourceCode" id="cb17">
@@ -850,9 +857,10 @@ Jupyter:</p>
 <code>.python-version</code>, <code>README.md</code>,
 <code>LICENSE</code>, and everything under <code>src/</code> and
 <code>notebooks/</code>. Don’t commit <code>.venv/</code>.</p>
-<p>If your data files are large or sensitive, consider whether
-<code>data/</code> belongs in <code>.gitignore</code> too, with a note
-in the README on where to get it.</p>
+<p>We already added <code>data/</code> to <code>.gitignore</code>. Our
+files are far larger than GitHub accepts, and large or sensitive data in
+general rarely belongs in a code repository. Instead, the README says
+where to get the data.</p>
 </div>
 </div>
 </div>
@@ -967,7 +975,7 @@ any links that you are not going to use.
         | <a href="https://github.com/reedan88/WHOI-intermediate-python-workshop/blob/main/CONTRIBUTING.md" class="external-link">Contributing</a>
         | <a href="https://github.com/reedan88/WHOI-intermediate-python-workshop/" class="external-link">Source</a></p>
         <p>
-        <a href="../citation.html">Cite</a>
+        <a href="https://github.com/reedan88/WHOI-intermediate-python-workshop/blob/main/" class="external-link">Cite</a>
         | <a href="mailto:areed@whoi.edu">Contact</a> | <a href="https://carpentries.org/about/" class="external-link">About</a></p>
 		</div>
 		<div class="col-md-6">
@@ -997,8 +1005,8 @@ any links that you are not going to use.
   "url": "https://reedan88.github.io/WHOI-intermediate-python-workshop/instructor/03-repo-environments.html",
   "identifier": "https://reedan88.github.io/WHOI-intermediate-python-workshop/instructor/03-repo-environments.html",
   "dateCreated": "2026-07-13",
-  "dateModified": "2026-11-03",
-  "datePublished": "2026-11-03"
+  "dateModified": "2026-11-04",
+  "datePublished": "2026-11-04"
 }
 
   </script><script>

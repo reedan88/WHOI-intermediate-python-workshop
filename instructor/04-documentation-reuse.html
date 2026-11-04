@@ -328,7 +328,7 @@
       </div>
     </nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Documentation and Reuse</h1>
-        <p>Last updated on 2026-11-03 |
+        <p>Last updated on 2026-11-04 |
 
         <a href="https://github.com/reedan88/WHOI-intermediate-python-workshop/edit/main/episodes/04-documentation-reuse.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -445,26 +445,29 @@ against <code>data/gi01sumo_nsif_ctd.nc</code>.</p>
 <span id="cb1-41"><a href="#cb1-41" tabindex="-1" aria-label="code-block-1-41"></a></span>
 <span id="cb1-42"><a href="#cb1-42" tabindex="-1" aria-label="code-block-1-42"></a><span class="fu">## Usage</span></span>
 <span id="cb1-43"><a href="#cb1-43" tabindex="-1" aria-label="code-block-1-43"></a></span>
-<span id="cb1-44"><a href="#cb1-44" tabindex="-1" aria-label="code-block-1-44"></a><span class="sc">\`\`\`</span>python</span>
-<span id="cb1-45"><a href="#cb1-45" tabindex="-1" aria-label="code-block-1-45"></a>import xarray as xr</span>
-<span id="cb1-46"><a href="#cb1-46" tabindex="-1" aria-label="code-block-1-46"></a>import numpy as np</span>
-<span id="cb1-47"><a href="#cb1-47" tabindex="-1" aria-label="code-block-1-47"></a>from mooring<span class="sc">\_</span>tools.stats import resample<span class="sc">\_</span>burst<span class="sc">\_</span>stats</span>
+<span id="cb1-44"><a href="#cb1-44" tabindex="-1" aria-label="code-block-1-44"></a><span class="in">```python</span></span>
+<span id="cb1-45"><a href="#cb1-45" tabindex="-1" aria-label="code-block-1-45"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-46"><a href="#cb1-46" tabindex="-1" aria-label="code-block-1-46"></a><span class="im">import</span> xarray <span class="im">as</span> xr</span>
+<span id="cb1-47"><a href="#cb1-47" tabindex="-1" aria-label="code-block-1-47"></a><span class="im">from</span> mooring_tools.stats <span class="im">import</span> resample_burst_stats</span>
 <span id="cb1-48"><a href="#cb1-48" tabindex="-1" aria-label="code-block-1-48"></a></span>
-<span id="cb1-49"><a href="#cb1-49" tabindex="-1" aria-label="code-block-1-49"></a>ctd = xr.open<span class="sc">\_</span>dataset("data/gi01sumo<span class="sc">\_</span>nsif<span class="sc">\_</span>ctd.nc")</span>
-<span id="cb1-50"><a href="#cb1-50" tabindex="-1" aria-label="code-block-1-50"></a>scalar<span class="sc">\_</span>vars = <span class="co">[</span><span class="ot">v for v in ctd.data\_vars if ctd[v].dims == ("time",) and np.issubdtype(ctd[v].dtype, np.number)</span><span class="co">]</span></span>
-<span id="cb1-51"><a href="#cb1-51" tabindex="-1" aria-label="code-block-1-51"></a>ctd<span class="sc">\_</span>stats = resample<span class="sc">\_</span>burst_\stats(ctd<span class="co">[</span><span class="ot">scalar\_vars</span><span class="co">]</span>.to<span class="sc">\_</span>\dataframe())</span>
-<span id="cb1-52"><a href="#cb1-52" tabindex="-1" aria-label="code-block-1-52"></a><span class="sc">\`\`\`</span></span>
+<span id="cb1-49"><a href="#cb1-49" tabindex="-1" aria-label="code-block-1-49"></a>ctd <span class="op">=</span> xr.open_dataset(<span class="st">"data/gi01sumo_nsif_ctd.nc"</span>)</span>
+<span id="cb1-50"><a href="#cb1-50" tabindex="-1" aria-label="code-block-1-50"></a>scalar_vars <span class="op">=</span> [v <span class="cf">for</span> v <span class="kw">in</span> ctd.data_vars <span class="cf">if</span> ctd[v].dims <span class="op">==</span> (<span class="st">"time"</span>,) <span class="kw">and</span> np.issubdtype(ctd[v].dtype, np.number)]</span>
+<span id="cb1-51"><a href="#cb1-51" tabindex="-1" aria-label="code-block-1-51"></a>ctd_stats <span class="op">=</span> resample_burst_stats(ctd[scalar_vars].to_dataframe())</span>
+<span id="cb1-52"><a href="#cb1-52" tabindex="-1" aria-label="code-block-1-52"></a><span class="in">```</span></span>
 <span id="cb1-53"><a href="#cb1-53" tabindex="-1" aria-label="code-block-1-53"></a></span>
-<span id="cb1-54"><a href="#cb1-54" tabindex="-1" aria-label="code-block-1-54"></a>See <span class="sc">\`</span>notebooks/first<span class="sc">\_</span>analysis<span class="sc">\.</span>ipynb<span class="sc">\`</span> for a full worked example.</span>
+<span id="cb1-54"><a href="#cb1-54" tabindex="-1" aria-label="code-block-1-54"></a>See <span class="in">`notebooks/first_analysis.ipynb`</span> for a full worked example.</span>
 <span id="cb1-55"><a href="#cb1-55" tabindex="-1" aria-label="code-block-1-55"></a></span>
 <span id="cb1-56"><a href="#cb1-56" tabindex="-1" aria-label="code-block-1-56"></a><span class="fu">## Data</span></span>
 <span id="cb1-57"><a href="#cb1-57" tabindex="-1" aria-label="code-block-1-57"></a></span>
-<span id="cb1-58"><a href="#cb1-58" tabindex="-1" aria-label="code-block-1-58"></a><span class="sc">\`</span>data/<span class="sc">\`</span> contains an example OOI GI01SUMO deployment 7</span>
-<span id="cb1-59"><a href="#cb1-59" tabindex="-1" aria-label="code-block-1-59"></a>record. The full dataset is available via the OOI Data Portal.</span>
-<span id="cb1-60"><a href="#cb1-60" tabindex="-1" aria-label="code-block-1-60"></a></span>
-<span id="cb1-61"><a href="#cb1-61" tabindex="-1" aria-label="code-block-1-61"></a><span class="fu">## License</span></span>
-<span id="cb1-62"><a href="#cb1-62" tabindex="-1" aria-label="code-block-1-62"></a></span>
-<span id="cb1-63"><a href="#cb1-63" tabindex="-1" aria-label="code-block-1-63"></a>MIT — see <span class="sc">\`</span>LICENSE<span class="sc">\`</span>.</span></code></pre>
+<span id="cb1-58"><a href="#cb1-58" tabindex="-1" aria-label="code-block-1-58"></a>The <span class="in">`data/`</span> folder is not part of this repository because the files are</span>
+<span id="cb1-59"><a href="#cb1-59" tabindex="-1" aria-label="code-block-1-59"></a>too large. It should contain <span class="in">`gi01sumo_nsif_ctd.nc`</span> and</span>
+<span id="cb1-60"><a href="#cb1-60" tabindex="-1" aria-label="code-block-1-60"></a><span class="in">`gi01sumo_nsif_dosta.nc`</span>, a full deployment of real OOI GI01SUMO data. Get</span>
+<span id="cb1-61"><a href="#cb1-61" tabindex="-1" aria-label="code-block-1-61"></a>them from the workshop's starter-files download (see the lesson's Getting</span>
+<span id="cb1-62"><a href="#cb1-62" tabindex="-1" aria-label="code-block-1-62"></a>Started page), or download similar data from the OOI Data Explorer.</span>
+<span id="cb1-63"><a href="#cb1-63" tabindex="-1" aria-label="code-block-1-63"></a></span>
+<span id="cb1-64"><a href="#cb1-64" tabindex="-1" aria-label="code-block-1-64"></a><span class="fu">## License</span></span>
+<span id="cb1-65"><a href="#cb1-65" tabindex="-1" aria-label="code-block-1-65"></a></span>
+<span id="cb1-66"><a href="#cb1-66" tabindex="-1" aria-label="code-block-1-66"></a>MIT — see <span class="in">`LICENSE`</span>.</span></code></pre>
 </div>
 </div>
 </div>
@@ -520,88 +523,103 @@ type hints on the signature, and a full NumPy-style docstring (summary,
 <span id="cb3-2"><a href="#cb3-2" tabindex="-1" aria-label="code-block-3-2"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb3-3"><a href="#cb3-3" tabindex="-1" aria-label="code-block-3-3"></a><span class="im">import</span> xarray <span class="im">as</span> xr</span>
 <span id="cb3-4"><a href="#cb3-4" tabindex="-1" aria-label="code-block-3-4"></a></span>
-<span id="cb3-5"><a href="#cb3-5" tabindex="-1" aria-label="code-block-3-5"></a>VARIABLE_ATTRS <span class="op">=</span> {</span>
-<span id="cb3-6"><a href="#cb3-6" tabindex="-1" aria-label="code-block-3-6"></a>    <span class="st">"sea_water_temperature"</span>: {<span class="st">"units"</span>: <span class="st">"degrees_Celsius"</span>, <span class="st">"long_name"</span>: <span class="st">"Sea Water Temperature"</span>},</span>
-<span id="cb3-7"><a href="#cb3-7" tabindex="-1" aria-label="code-block-3-7"></a>    <span class="st">"sea_water_practical_salinity"</span>: {<span class="st">"units"</span>: <span class="st">"1"</span>, <span class="st">"long_name"</span>: <span class="st">"Sea Water Practical Salinity"</span>},</span>
-<span id="cb3-8"><a href="#cb3-8" tabindex="-1" aria-label="code-block-3-8"></a>    <span class="st">"sea_water_pressure"</span>: {<span class="st">"units"</span>: <span class="st">"dbar"</span>, <span class="st">"long_name"</span>: <span class="st">"Sea Water Pressure"</span>},</span>
-<span id="cb3-9"><a href="#cb3-9" tabindex="-1" aria-label="code-block-3-9"></a>    <span class="st">"sea_water_density"</span>: {<span class="st">"units"</span>: <span class="st">"kg m-3"</span>, <span class="st">"long_name"</span>: <span class="st">"Sea Water Density"</span>},</span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1" aria-label="code-block-3-5"></a><span class="co"># Attributes that describe each variable</span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1" aria-label="code-block-3-6"></a>VARIABLE_ATTRS <span class="op">=</span> {</span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1" aria-label="code-block-3-7"></a>    <span class="st">"sea_water_temperature"</span>: {<span class="st">"units"</span>: <span class="st">"degrees_Celsius"</span>, <span class="st">"long_name"</span>: <span class="st">"Sea Water Temperature"</span>},</span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1" aria-label="code-block-3-8"></a>    <span class="st">"sea_water_practical_salinity"</span>: {<span class="st">"units"</span>: <span class="st">"1"</span>, <span class="st">"long_name"</span>: <span class="st">"Sea Water Practical Salinity"</span>},</span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1" aria-label="code-block-3-9"></a>    <span class="st">"sea_water_pressure"</span>: {<span class="st">"units"</span>: <span class="st">"dbar"</span>, <span class="st">"long_name"</span>: <span class="st">"Sea Water Pressure"</span>},</span>
 <span id="cb3-10"><a href="#cb3-10" tabindex="-1" aria-label="code-block-3-10"></a>    <span class="st">"oxygen_concentration_corrected"</span>: {<span class="st">"units"</span>: <span class="st">"umol kg-1"</span>, <span class="st">"long_name"</span>: <span class="st">"Corrected Dissolved Oxygen Concentration"</span>},</span>
 <span id="cb3-11"><a href="#cb3-11" tabindex="-1" aria-label="code-block-3-11"></a>}</span>
 <span id="cb3-12"><a href="#cb3-12" tabindex="-1" aria-label="code-block-3-12"></a></span>
-<span id="cb3-13"><a href="#cb3-13" tabindex="-1" aria-label="code-block-3-13"></a></span>
-<span id="cb3-14"><a href="#cb3-14" tabindex="-1" aria-label="code-block-3-14"></a><span class="kw">def</span> flag_and_flatten(stats: pd.DataFrame, was_filled: pd.DataFrame, keep_vars: <span class="bu">list</span>[<span class="bu">str</span>]) <span class="op">-&gt;</span> pd.DataFrame:</span>
-<span id="cb3-15"><a href="#cb3-15" tabindex="-1" aria-label="code-block-3-15"></a>    <span class="co">"""Restrict to `keep_vars`, add a modeled_flag per variable, and flatten</span></span>
-<span id="cb3-16"><a href="#cb3-16" tabindex="-1" aria-label="code-block-3-16"></a><span class="co">    the 2-level (variable, stat) columns into single flat names.</span></span>
-<span id="cb3-17"><a href="#cb3-17" tabindex="-1" aria-label="code-block-3-17"></a></span>
-<span id="cb3-18"><a href="#cb3-18" tabindex="-1" aria-label="code-block-3-18"></a><span class="co">    Parameters</span></span>
-<span id="cb3-19"><a href="#cb3-19" tabindex="-1" aria-label="code-block-3-19"></a><span class="co">    ----------</span></span>
-<span id="cb3-20"><a href="#cb3-20" tabindex="-1" aria-label="code-block-3-20"></a><span class="co">    stats : pandas.DataFrame</span></span>
-<span id="cb3-21"><a href="#cb3-21" tabindex="-1" aria-label="code-block-3-21"></a><span class="co">        Output of `resample_burst_stats` (2-level column MultiIndex of</span></span>
-<span id="cb3-22"><a href="#cb3-22" tabindex="-1" aria-label="code-block-3-22"></a><span class="co">        (variable, stat)).</span></span>
-<span id="cb3-23"><a href="#cb3-23" tabindex="-1" aria-label="code-block-3-23"></a><span class="co">    was_filled : pandas.DataFrame</span></span>
-<span id="cb3-24"><a href="#cb3-24" tabindex="-1" aria-label="code-block-3-24"></a><span class="co">        Boolean frame, same shape/columns as the "median" slice of `stats`,</span></span>
-<span id="cb3-25"><a href="#cb3-25" tabindex="-1" aria-label="code-block-3-25"></a><span class="co">        True where that burst was gap-filled rather than observed.</span></span>
-<span id="cb3-26"><a href="#cb3-26" tabindex="-1" aria-label="code-block-3-26"></a><span class="co">    keep_vars : list[str]</span></span>
-<span id="cb3-27"><a href="#cb3-27" tabindex="-1" aria-label="code-block-3-27"></a><span class="co">        Which variables (first-level column names) to keep.</span></span>
-<span id="cb3-28"><a href="#cb3-28" tabindex="-1" aria-label="code-block-3-28"></a></span>
-<span id="cb3-29"><a href="#cb3-29" tabindex="-1" aria-label="code-block-3-29"></a><span class="co">    Returns</span></span>
-<span id="cb3-30"><a href="#cb3-30" tabindex="-1" aria-label="code-block-3-30"></a><span class="co">    -------</span></span>
-<span id="cb3-31"><a href="#cb3-31" tabindex="-1" aria-label="code-block-3-31"></a><span class="co">    pandas.DataFrame</span></span>
-<span id="cb3-32"><a href="#cb3-32" tabindex="-1" aria-label="code-block-3-32"></a><span class="co">        Flat columns like "sea_water_temperature_median",</span></span>
-<span id="cb3-33"><a href="#cb3-33" tabindex="-1" aria-label="code-block-3-33"></a><span class="co">        "sea_water_temperature_mad", "sea_water_temperature_modeled_flag".</span></span>
-<span id="cb3-34"><a href="#cb3-34" tabindex="-1" aria-label="code-block-3-34"></a><span class="co">    """</span></span>
-<span id="cb3-35"><a href="#cb3-35" tabindex="-1" aria-label="code-block-3-35"></a>    stats <span class="op">=</span> stats.loc[:, keep_vars].copy()</span>
-<span id="cb3-36"><a href="#cb3-36" tabindex="-1" aria-label="code-block-3-36"></a>    <span class="cf">for</span> var <span class="kw">in</span> keep_vars:</span>
-<span id="cb3-37"><a href="#cb3-37" tabindex="-1" aria-label="code-block-3-37"></a>        stats[(var, <span class="st">"modeled_flag"</span>)] <span class="op">=</span> was_filled[var].astype(<span class="bu">int</span>)</span>
-<span id="cb3-38"><a href="#cb3-38" tabindex="-1" aria-label="code-block-3-38"></a></span>
-<span id="cb3-39"><a href="#cb3-39" tabindex="-1" aria-label="code-block-3-39"></a>    stats.columns <span class="op">=</span> [<span class="st">"_"</span>.join(col).strip() <span class="cf">for</span> col <span class="kw">in</span> stats.columns.values]</span>
-<span id="cb3-40"><a href="#cb3-40" tabindex="-1" aria-label="code-block-3-40"></a>    <span class="cf">return</span> stats</span>
-<span id="cb3-41"><a href="#cb3-41" tabindex="-1" aria-label="code-block-3-41"></a></span>
-<span id="cb3-42"><a href="#cb3-42" tabindex="-1" aria-label="code-block-3-42"></a></span>
-<span id="cb3-43"><a href="#cb3-43" tabindex="-1" aria-label="code-block-3-43"></a><span class="kw">def</span> merge_ctd_dosta(ctd_flat: pd.DataFrame, dosta_flat: pd.DataFrame) <span class="op">-&gt;</span> xr.Dataset:</span>
-<span id="cb3-44"><a href="#cb3-44" tabindex="-1" aria-label="code-block-3-44"></a>    <span class="co">"""Outer-merge flattened CTD and DOSTA tables and attach variable attributes.</span></span>
-<span id="cb3-45"><a href="#cb3-45" tabindex="-1" aria-label="code-block-3-45"></a></span>
-<span id="cb3-46"><a href="#cb3-46" tabindex="-1" aria-label="code-block-3-46"></a><span class="co">    Parameters</span></span>
-<span id="cb3-47"><a href="#cb3-47" tabindex="-1" aria-label="code-block-3-47"></a><span class="co">    ----------</span></span>
-<span id="cb3-48"><a href="#cb3-48" tabindex="-1" aria-label="code-block-3-48"></a><span class="co">    ctd_flat, dosta_flat : pandas.DataFrame</span></span>
-<span id="cb3-49"><a href="#cb3-49" tabindex="-1" aria-label="code-block-3-49"></a><span class="co">        Output of `flag_and_flatten` for each instrument. Both must already</span></span>
-<span id="cb3-50"><a href="#cb3-50" tabindex="-1" aria-label="code-block-3-50"></a><span class="co">        be flattened to single-level columns -- merging one flattened and</span></span>
-<span id="cb3-51"><a href="#cb3-51" tabindex="-1" aria-label="code-block-3-51"></a><span class="co">        one still-MultiIndex table raises a `MergeError`.</span></span>
-<span id="cb3-52"><a href="#cb3-52" tabindex="-1" aria-label="code-block-3-52"></a></span>
-<span id="cb3-53"><a href="#cb3-53" tabindex="-1" aria-label="code-block-3-53"></a><span class="co">    Returns</span></span>
-<span id="cb3-54"><a href="#cb3-54" tabindex="-1" aria-label="code-block-3-54"></a><span class="co">    -------</span></span>
-<span id="cb3-55"><a href="#cb3-55" tabindex="-1" aria-label="code-block-3-55"></a><span class="co">    xarray.Dataset</span></span>
-<span id="cb3-56"><a href="#cb3-56" tabindex="-1" aria-label="code-block-3-56"></a><span class="co">        Merged on the shared burst-median time index, with `units` and</span></span>
-<span id="cb3-57"><a href="#cb3-57" tabindex="-1" aria-label="code-block-3-57"></a><span class="co">        `long_name` attached to each data variable listed in</span></span>
-<span id="cb3-58"><a href="#cb3-58" tabindex="-1" aria-label="code-block-3-58"></a><span class="co">        `VARIABLE_ATTRS`. To support a new variable, add it to</span></span>
-<span id="cb3-59"><a href="#cb3-59" tabindex="-1" aria-label="code-block-3-59"></a><span class="co">        `VARIABLE_ATTRS` and include it in the `keep_vars` passed to</span></span>
-<span id="cb3-60"><a href="#cb3-60" tabindex="-1" aria-label="code-block-3-60"></a><span class="co">        `flag_and_flatten` -- no changes needed here.</span></span>
-<span id="cb3-61"><a href="#cb3-61" tabindex="-1" aria-label="code-block-3-61"></a><span class="co">    """</span></span>
-<span id="cb3-62"><a href="#cb3-62" tabindex="-1" aria-label="code-block-3-62"></a>    merged <span class="op">=</span> pd.merge(ctd_flat, dosta_flat, left_index<span class="op">=</span><span class="va">True</span>, right_index<span class="op">=</span><span class="va">True</span>, how<span class="op">=</span><span class="st">"outer"</span>)</span>
-<span id="cb3-63"><a href="#cb3-63" tabindex="-1" aria-label="code-block-3-63"></a>    merged.index.name <span class="op">=</span> <span class="st">"time"</span></span>
-<span id="cb3-64"><a href="#cb3-64" tabindex="-1" aria-label="code-block-3-64"></a>    ds <span class="op">=</span> merged.to_xarray()</span>
-<span id="cb3-65"><a href="#cb3-65" tabindex="-1" aria-label="code-block-3-65"></a></span>
-<span id="cb3-66"><a href="#cb3-66" tabindex="-1" aria-label="code-block-3-66"></a>    <span class="cf">for</span> var <span class="kw">in</span> ds.data_vars:</span>
-<span id="cb3-67"><a href="#cb3-67" tabindex="-1" aria-label="code-block-3-67"></a>        base_name <span class="op">=</span> var.rsplit(<span class="st">"_"</span>, <span class="dv">1</span>)[<span class="dv">0</span>] <span class="cf">if</span> var.endswith((<span class="st">"_median"</span>, <span class="st">"_mad"</span>)) <span class="cf">else</span> var</span>
-<span id="cb3-68"><a href="#cb3-68" tabindex="-1" aria-label="code-block-3-68"></a>        <span class="cf">if</span> base_name <span class="kw">in</span> VARIABLE_ATTRS:</span>
-<span id="cb3-69"><a href="#cb3-69" tabindex="-1" aria-label="code-block-3-69"></a>            ds[var].attrs.update(VARIABLE_ATTRS[base_name])</span>
-<span id="cb3-70"><a href="#cb3-70" tabindex="-1" aria-label="code-block-3-70"></a></span>
-<span id="cb3-71"><a href="#cb3-71" tabindex="-1" aria-label="code-block-3-71"></a>    <span class="cf">return</span> ds</span>
-<span id="cb3-72"><a href="#cb3-72" tabindex="-1" aria-label="code-block-3-72"></a></span>
-<span id="cb3-73"><a href="#cb3-73" tabindex="-1" aria-label="code-block-3-73"></a></span>
-<span id="cb3-74"><a href="#cb3-74" tabindex="-1" aria-label="code-block-3-74"></a><span class="kw">def</span> save_merged_dataset(ds: xr.Dataset, path: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
-<span id="cb3-75"><a href="#cb3-75" tabindex="-1" aria-label="code-block-3-75"></a>    <span class="co">"""Write a merged dataset to netCDF, with a couple of dataset-level attrs.</span></span>
-<span id="cb3-76"><a href="#cb3-76" tabindex="-1" aria-label="code-block-3-76"></a></span>
-<span id="cb3-77"><a href="#cb3-77" tabindex="-1" aria-label="code-block-3-77"></a><span class="co">    Parameters</span></span>
-<span id="cb3-78"><a href="#cb3-78" tabindex="-1" aria-label="code-block-3-78"></a><span class="co">    ----------</span></span>
-<span id="cb3-79"><a href="#cb3-79" tabindex="-1" aria-label="code-block-3-79"></a><span class="co">    ds : xarray.Dataset</span></span>
-<span id="cb3-80"><a href="#cb3-80" tabindex="-1" aria-label="code-block-3-80"></a><span class="co">        Typically the output of `merge_ctd_dosta`.</span></span>
-<span id="cb3-81"><a href="#cb3-81" tabindex="-1" aria-label="code-block-3-81"></a><span class="co">    path : str</span></span>
-<span id="cb3-82"><a href="#cb3-82" tabindex="-1" aria-label="code-block-3-82"></a><span class="co">        Output file path.</span></span>
-<span id="cb3-83"><a href="#cb3-83" tabindex="-1" aria-label="code-block-3-83"></a><span class="co">    """</span></span>
-<span id="cb3-84"><a href="#cb3-84" tabindex="-1" aria-label="code-block-3-84"></a>    ds.attrs.setdefault(<span class="st">"source"</span>, <span class="st">"OOI GI01SUMO near-surface instrument frame (CTD + DOSTA)"</span>)</span>
-<span id="cb3-85"><a href="#cb3-85" tabindex="-1" aria-label="code-block-3-85"></a>    ds.attrs.setdefault(<span class="st">"processing"</span>, <span class="st">"15-minute burst median/MAD; gaps filled with linear trend + harmonic fit"</span>)</span>
-<span id="cb3-86"><a href="#cb3-86" tabindex="-1" aria-label="code-block-3-86"></a>    ds.to_netcdf(path)</span></code></pre>
+<span id="cb3-13"><a href="#cb3-13" tabindex="-1" aria-label="code-block-3-13"></a><span class="co"># Attributes that describe the statistic that was computed</span></span>
+<span id="cb3-14"><a href="#cb3-14" tabindex="-1" aria-label="code-block-3-14"></a>STAT_ATTRS <span class="op">=</span> {</span>
+<span id="cb3-15"><a href="#cb3-15" tabindex="-1" aria-label="code-block-3-15"></a>    <span class="st">"median"</span>: {<span class="st">"comment"</span>: <span class="st">"Median of each 15-minute burst of samples"</span>},</span>
+<span id="cb3-16"><a href="#cb3-16" tabindex="-1" aria-label="code-block-3-16"></a>    <span class="st">"mad"</span>: {<span class="st">"comment"</span>: <span class="st">"Median absolute deviation of each 15-minute burst of samples"</span>},</span>
+<span id="cb3-17"><a href="#cb3-17" tabindex="-1" aria-label="code-block-3-17"></a>}</span>
+<span id="cb3-18"><a href="#cb3-18" tabindex="-1" aria-label="code-block-3-18"></a></span>
+<span id="cb3-19"><a href="#cb3-19" tabindex="-1" aria-label="code-block-3-19"></a><span class="co"># Attributes of the modeled flag, which is not in the units of the variable</span></span>
+<span id="cb3-20"><a href="#cb3-20" tabindex="-1" aria-label="code-block-3-20"></a>FLAG_ATTRS <span class="op">=</span> {<span class="st">"units"</span>: <span class="st">"1"</span>, <span class="st">"comment"</span>: <span class="st">"Indicates whether a value was observed (0) or modeled (1)"</span>}</span>
+<span id="cb3-21"><a href="#cb3-21" tabindex="-1" aria-label="code-block-3-21"></a></span>
+<span id="cb3-22"><a href="#cb3-22" tabindex="-1" aria-label="code-block-3-22"></a></span>
+<span id="cb3-23"><a href="#cb3-23" tabindex="-1" aria-label="code-block-3-23"></a><span class="kw">def</span> flag_and_flatten(stats: pd.DataFrame, was_filled: pd.DataFrame, keep_vars: <span class="bu">list</span>[<span class="bu">str</span>]) <span class="op">-&gt;</span> pd.DataFrame:</span>
+<span id="cb3-24"><a href="#cb3-24" tabindex="-1" aria-label="code-block-3-24"></a>    <span class="co">"""Restrict to `keep_vars`, add a modeled_flag per variable, and flatten</span></span>
+<span id="cb3-25"><a href="#cb3-25" tabindex="-1" aria-label="code-block-3-25"></a><span class="co">    the 2-level (variable, stat) columns into single flat names.</span></span>
+<span id="cb3-26"><a href="#cb3-26" tabindex="-1" aria-label="code-block-3-26"></a></span>
+<span id="cb3-27"><a href="#cb3-27" tabindex="-1" aria-label="code-block-3-27"></a><span class="co">    Parameters</span></span>
+<span id="cb3-28"><a href="#cb3-28" tabindex="-1" aria-label="code-block-3-28"></a><span class="co">    ----------</span></span>
+<span id="cb3-29"><a href="#cb3-29" tabindex="-1" aria-label="code-block-3-29"></a><span class="co">    stats : pandas.DataFrame</span></span>
+<span id="cb3-30"><a href="#cb3-30" tabindex="-1" aria-label="code-block-3-30"></a><span class="co">        Output of `resample_burst_stats` (2-level column MultiIndex of</span></span>
+<span id="cb3-31"><a href="#cb3-31" tabindex="-1" aria-label="code-block-3-31"></a><span class="co">        (variable, stat)).</span></span>
+<span id="cb3-32"><a href="#cb3-32" tabindex="-1" aria-label="code-block-3-32"></a><span class="co">    was_filled : pandas.DataFrame</span></span>
+<span id="cb3-33"><a href="#cb3-33" tabindex="-1" aria-label="code-block-3-33"></a><span class="co">        Boolean frame with one column per variable, True where that burst</span></span>
+<span id="cb3-34"><a href="#cb3-34" tabindex="-1" aria-label="code-block-3-34"></a><span class="co">        was gap-filled rather than observed.</span></span>
+<span id="cb3-35"><a href="#cb3-35" tabindex="-1" aria-label="code-block-3-35"></a><span class="co">    keep_vars : list[str]</span></span>
+<span id="cb3-36"><a href="#cb3-36" tabindex="-1" aria-label="code-block-3-36"></a><span class="co">        Which variables (first-level column names) to keep.</span></span>
+<span id="cb3-37"><a href="#cb3-37" tabindex="-1" aria-label="code-block-3-37"></a></span>
+<span id="cb3-38"><a href="#cb3-38" tabindex="-1" aria-label="code-block-3-38"></a><span class="co">    Returns</span></span>
+<span id="cb3-39"><a href="#cb3-39" tabindex="-1" aria-label="code-block-3-39"></a><span class="co">    -------</span></span>
+<span id="cb3-40"><a href="#cb3-40" tabindex="-1" aria-label="code-block-3-40"></a><span class="co">    pandas.DataFrame</span></span>
+<span id="cb3-41"><a href="#cb3-41" tabindex="-1" aria-label="code-block-3-41"></a><span class="co">        Flat columns like "sea_water_temperature_median",</span></span>
+<span id="cb3-42"><a href="#cb3-42" tabindex="-1" aria-label="code-block-3-42"></a><span class="co">        "sea_water_temperature_mad", "sea_water_temperature_modeled_flag".</span></span>
+<span id="cb3-43"><a href="#cb3-43" tabindex="-1" aria-label="code-block-3-43"></a><span class="co">    """</span></span>
+<span id="cb3-44"><a href="#cb3-44" tabindex="-1" aria-label="code-block-3-44"></a>    stats <span class="op">=</span> stats.loc[:, keep_vars].copy()</span>
+<span id="cb3-45"><a href="#cb3-45" tabindex="-1" aria-label="code-block-3-45"></a>    <span class="cf">for</span> var <span class="kw">in</span> keep_vars:</span>
+<span id="cb3-46"><a href="#cb3-46" tabindex="-1" aria-label="code-block-3-46"></a>        stats[(var, <span class="st">"modeled_flag"</span>)] <span class="op">=</span> was_filled[var].astype(<span class="bu">int</span>)</span>
+<span id="cb3-47"><a href="#cb3-47" tabindex="-1" aria-label="code-block-3-47"></a></span>
+<span id="cb3-48"><a href="#cb3-48" tabindex="-1" aria-label="code-block-3-48"></a>    stats.columns <span class="op">=</span> [<span class="st">"_"</span>.join(col).strip() <span class="cf">for</span> col <span class="kw">in</span> stats.columns.values]</span>
+<span id="cb3-49"><a href="#cb3-49" tabindex="-1" aria-label="code-block-3-49"></a>    <span class="cf">return</span> stats</span>
+<span id="cb3-50"><a href="#cb3-50" tabindex="-1" aria-label="code-block-3-50"></a></span>
+<span id="cb3-51"><a href="#cb3-51" tabindex="-1" aria-label="code-block-3-51"></a></span>
+<span id="cb3-52"><a href="#cb3-52" tabindex="-1" aria-label="code-block-3-52"></a><span class="kw">def</span> merge_ctd_dosta(ctd_flat: pd.DataFrame, dosta_flat: pd.DataFrame) <span class="op">-&gt;</span> xr.Dataset:</span>
+<span id="cb3-53"><a href="#cb3-53" tabindex="-1" aria-label="code-block-3-53"></a>    <span class="co">"""Outer-merge flattened CTD and DOSTA tables and attach variable attributes.</span></span>
+<span id="cb3-54"><a href="#cb3-54" tabindex="-1" aria-label="code-block-3-54"></a></span>
+<span id="cb3-55"><a href="#cb3-55" tabindex="-1" aria-label="code-block-3-55"></a><span class="co">    Parameters</span></span>
+<span id="cb3-56"><a href="#cb3-56" tabindex="-1" aria-label="code-block-3-56"></a><span class="co">    ----------</span></span>
+<span id="cb3-57"><a href="#cb3-57" tabindex="-1" aria-label="code-block-3-57"></a><span class="co">    ctd_flat, dosta_flat : pandas.DataFrame</span></span>
+<span id="cb3-58"><a href="#cb3-58" tabindex="-1" aria-label="code-block-3-58"></a><span class="co">        Output of `flag_and_flatten` for each instrument. Both must already</span></span>
+<span id="cb3-59"><a href="#cb3-59" tabindex="-1" aria-label="code-block-3-59"></a><span class="co">        be flattened to single-level columns -- merging one flattened and</span></span>
+<span id="cb3-60"><a href="#cb3-60" tabindex="-1" aria-label="code-block-3-60"></a><span class="co">        one still-MultiIndex table raises a `MergeError`.</span></span>
+<span id="cb3-61"><a href="#cb3-61" tabindex="-1" aria-label="code-block-3-61"></a></span>
+<span id="cb3-62"><a href="#cb3-62" tabindex="-1" aria-label="code-block-3-62"></a><span class="co">    Returns</span></span>
+<span id="cb3-63"><a href="#cb3-63" tabindex="-1" aria-label="code-block-3-63"></a><span class="co">    -------</span></span>
+<span id="cb3-64"><a href="#cb3-64" tabindex="-1" aria-label="code-block-3-64"></a><span class="co">    xarray.Dataset</span></span>
+<span id="cb3-65"><a href="#cb3-65" tabindex="-1" aria-label="code-block-3-65"></a><span class="co">        Merged on the shared burst-median time index. Each data variable gets</span></span>
+<span id="cb3-66"><a href="#cb3-66" tabindex="-1" aria-label="code-block-3-66"></a><span class="co">        the `units` and `long_name` listed for it in `VARIABLE_ATTRS`, plus a</span></span>
+<span id="cb3-67"><a href="#cb3-67" tabindex="-1" aria-label="code-block-3-67"></a><span class="co">        comment describing the statistic. To support a new variable, add it to</span></span>
+<span id="cb3-68"><a href="#cb3-68" tabindex="-1" aria-label="code-block-3-68"></a><span class="co">        `VARIABLE_ATTRS` and include it in the `keep_vars` passed to</span></span>
+<span id="cb3-69"><a href="#cb3-69" tabindex="-1" aria-label="code-block-3-69"></a><span class="co">        `flag_and_flatten` -- no changes needed here.</span></span>
+<span id="cb3-70"><a href="#cb3-70" tabindex="-1" aria-label="code-block-3-70"></a><span class="co">    """</span></span>
+<span id="cb3-71"><a href="#cb3-71" tabindex="-1" aria-label="code-block-3-71"></a>    merged <span class="op">=</span> pd.merge(ctd_flat, dosta_flat, left_index<span class="op">=</span><span class="va">True</span>, right_index<span class="op">=</span><span class="va">True</span>, how<span class="op">=</span><span class="st">"outer"</span>)</span>
+<span id="cb3-72"><a href="#cb3-72" tabindex="-1" aria-label="code-block-3-72"></a>    merged.index.name <span class="op">=</span> <span class="st">"time"</span></span>
+<span id="cb3-73"><a href="#cb3-73" tabindex="-1" aria-label="code-block-3-73"></a>    ds <span class="op">=</span> merged.to_xarray()</span>
+<span id="cb3-74"><a href="#cb3-74" tabindex="-1" aria-label="code-block-3-74"></a></span>
+<span id="cb3-75"><a href="#cb3-75" tabindex="-1" aria-label="code-block-3-75"></a>    <span class="cf">for</span> var <span class="kw">in</span> ds.data_vars:</span>
+<span id="cb3-76"><a href="#cb3-76" tabindex="-1" aria-label="code-block-3-76"></a>        <span class="cf">if</span> var.endswith(<span class="st">"_modeled_flag"</span>):</span>
+<span id="cb3-77"><a href="#cb3-77" tabindex="-1" aria-label="code-block-3-77"></a>            ds[var].attrs.update(FLAG_ATTRS)</span>
+<span id="cb3-78"><a href="#cb3-78" tabindex="-1" aria-label="code-block-3-78"></a>            <span class="cf">continue</span></span>
+<span id="cb3-79"><a href="#cb3-79" tabindex="-1" aria-label="code-block-3-79"></a>        <span class="cf">for</span> stat, stat_attrs <span class="kw">in</span> STAT_ATTRS.items():</span>
+<span id="cb3-80"><a href="#cb3-80" tabindex="-1" aria-label="code-block-3-80"></a>            <span class="cf">if</span> var.endswith(<span class="ss">f"_</span><span class="sc">{</span>stat<span class="sc">}</span><span class="ss">"</span>):</span>
+<span id="cb3-81"><a href="#cb3-81" tabindex="-1" aria-label="code-block-3-81"></a>                base_name <span class="op">=</span> var[: <span class="op">-</span>(<span class="bu">len</span>(stat) <span class="op">+</span> <span class="dv">1</span>)]</span>
+<span id="cb3-82"><a href="#cb3-82" tabindex="-1" aria-label="code-block-3-82"></a>                ds[var].attrs.update(VARIABLE_ATTRS.get(base_name, {}))</span>
+<span id="cb3-83"><a href="#cb3-83" tabindex="-1" aria-label="code-block-3-83"></a>                ds[var].attrs.update(stat_attrs)</span>
+<span id="cb3-84"><a href="#cb3-84" tabindex="-1" aria-label="code-block-3-84"></a>                <span class="cf">break</span></span>
+<span id="cb3-85"><a href="#cb3-85" tabindex="-1" aria-label="code-block-3-85"></a></span>
+<span id="cb3-86"><a href="#cb3-86" tabindex="-1" aria-label="code-block-3-86"></a>    <span class="cf">return</span> ds</span>
+<span id="cb3-87"><a href="#cb3-87" tabindex="-1" aria-label="code-block-3-87"></a></span>
+<span id="cb3-88"><a href="#cb3-88" tabindex="-1" aria-label="code-block-3-88"></a></span>
+<span id="cb3-89"><a href="#cb3-89" tabindex="-1" aria-label="code-block-3-89"></a><span class="kw">def</span> save_merged_dataset(ds: xr.Dataset, path: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb3-90"><a href="#cb3-90" tabindex="-1" aria-label="code-block-3-90"></a>    <span class="co">"""Write a merged dataset to netCDF, with a couple of dataset-level attrs.</span></span>
+<span id="cb3-91"><a href="#cb3-91" tabindex="-1" aria-label="code-block-3-91"></a></span>
+<span id="cb3-92"><a href="#cb3-92" tabindex="-1" aria-label="code-block-3-92"></a><span class="co">    Parameters</span></span>
+<span id="cb3-93"><a href="#cb3-93" tabindex="-1" aria-label="code-block-3-93"></a><span class="co">    ----------</span></span>
+<span id="cb3-94"><a href="#cb3-94" tabindex="-1" aria-label="code-block-3-94"></a><span class="co">    ds : xarray.Dataset</span></span>
+<span id="cb3-95"><a href="#cb3-95" tabindex="-1" aria-label="code-block-3-95"></a><span class="co">        Typically the output of `merge_ctd_dosta`.</span></span>
+<span id="cb3-96"><a href="#cb3-96" tabindex="-1" aria-label="code-block-3-96"></a><span class="co">    path : str</span></span>
+<span id="cb3-97"><a href="#cb3-97" tabindex="-1" aria-label="code-block-3-97"></a><span class="co">        Output file path.</span></span>
+<span id="cb3-98"><a href="#cb3-98" tabindex="-1" aria-label="code-block-3-98"></a><span class="co">    """</span></span>
+<span id="cb3-99"><a href="#cb3-99" tabindex="-1" aria-label="code-block-3-99"></a>    ds.attrs.setdefault(<span class="st">"source"</span>, <span class="st">"OOI GI01SUMO near-surface instrument frame (CTD + DOSTA)"</span>)</span>
+<span id="cb3-100"><a href="#cb3-100" tabindex="-1" aria-label="code-block-3-100"></a>    ds.attrs.setdefault(<span class="st">"processing"</span>, <span class="st">"15-minute burst median/MAD; gaps filled with linear trend + harmonic fit"</span>)</span>
+<span id="cb3-101"><a href="#cb3-101" tabindex="-1" aria-label="code-block-3-101"></a>    ds.to_netcdf(path)</span></code></pre>
 </div>
 </div>
 </div>
@@ -695,11 +713,27 @@ on its own prints the current version.</li>
 <strong>Tag the commit in git</strong> (<code>git tag v0.2.0</code>)
 so “the version I ran this analysis with” is always recoverable later,
 even after further changes.</li>
-</ul><p>Version updates (e.g. <code>version = "0.2.0"</code> vs
-<code>version = "1.0.0"</code>) depends on the scale. Modest updates
-(e.g. bug fixes, addition of new functions, etc) will generally result
-in a former; big updates (a new module, refactoring, etc) would be the
-latter.</p>
+</ul><p>Which number to bump follows a widely used convention called <a href="https://semver.org/" class="external-link">semantic versioning</a>: version numbers look
+like <code>MAJOR.MINOR.PATCH</code>.</p>
+<ul><li>
+<strong>Patch</strong> (<code>0.1.0</code> → <code>0.1.1</code>,
+<code>uv version --bump patch</code>): bug fixes that don’t change how
+anyone uses the package.</li>
+<li>
+<strong>Minor</strong> (<code>0.1.0</code> → <code>0.2.0</code>,
+<code>uv version --bump minor</code>): new features that don’t break
+existing code, such as adding a new function or supporting density.</li>
+<li>
+<strong>Major</strong> (<code>0.2.0</code> → <code>1.0.0</code>,
+<code>uv version --bump major</code>): changes that can break code that
+used the old version, such as renaming a function or changing what it
+returns.</li>
+</ul><p>Commit the changed <code>pyproject.toml</code> and
+<code>uv.lock</code> together with the tag, so the version number and
+the recorded environment never disagree.</p>
+<p>Picking the work back up months later is the same two commands a new
+user runs: <code>uv sync</code> to rebuild <code>.venv</code> from
+<code>uv.lock</code>, then <code>uv run jupyter lab</code>.</p>
 </section><section><h2 class="section-heading" id="wrap-up">Wrap-up<a class="anchor" aria-label="anchor" href="#wrap-up"></a></h2>
 <hr class="half-width"><p>Across all four blocks: a repeated block became a function (Block 1),
 the function joined others in a package (Block 2), the package became
@@ -760,7 +794,7 @@ any links that you are not going to use.
         | <a href="https://github.com/reedan88/WHOI-intermediate-python-workshop/blob/main/CONTRIBUTING.md" class="external-link">Contributing</a>
         | <a href="https://github.com/reedan88/WHOI-intermediate-python-workshop/" class="external-link">Source</a></p>
         <p>
-        <a href="../citation.html">Cite</a>
+        <a href="https://github.com/reedan88/WHOI-intermediate-python-workshop/blob/main/" class="external-link">Cite</a>
         | <a href="mailto:areed@whoi.edu">Contact</a> | <a href="https://carpentries.org/about/" class="external-link">About</a></p>
 		</div>
 		<div class="col-md-6">
@@ -790,8 +824,8 @@ any links that you are not going to use.
   "url": "https://reedan88.github.io/WHOI-intermediate-python-workshop/instructor/04-documentation-reuse.html",
   "identifier": "https://reedan88.github.io/WHOI-intermediate-python-workshop/instructor/04-documentation-reuse.html",
   "dateCreated": "2026-07-13",
-  "dateModified": "2026-11-03",
-  "datePublished": "2026-11-03"
+  "dateModified": "2026-11-04",
+  "datePublished": "2026-11-04"
 }
 
   </script><script>
