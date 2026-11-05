@@ -16,8 +16,8 @@ repository you can hand to a colleague or return to yourself six months from now
 - Comfortable writing and running Python scripts
 - Familiarity with variables, loops, conditionals, and basic data structures
   (lists, dicts)
-- No prior experience with git, packaging, or software testing is assumed
-  - Although git familiarity is beneficials
+- Basic knowledge of git and gitHub
+- No prior experience with packaging, or software testing is assumed
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
