@@ -176,7 +176,7 @@ Your version number will differ. Any recent version is fine.
 ## Step 4: Download the starter files
 
 Download **`starter-files.zip`** from the lesson's
-[Releases page](https://github.com/reedan88/WHOI-intermediate-python-workshop/releases/latest)
+[Releases page](https://github.com/WHOIGit/WHOI-intermediate-python-workshop/releases/latest)
 and unzip it to a folder you will be able to find again, for example a new
 folder called `workshop` in your Documents folder.
 

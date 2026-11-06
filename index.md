@@ -9,6 +9,9 @@ Interoperable, and Reuseable**) standards. Across two four-hour sessions, we
 will move from a single well-written function all the way to a documented 
 repository you can hand to a colleague or return to yourself six months from now.
 
+To join, see the [Register](learners/register.md) page. Before Session 1, complete
+[Getting Started](learners/getting-started.md).
+
 ::::::::::::::::::::::::::::::::::::::: prereq
 
 ## Prerequisites

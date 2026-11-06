@@ -14,7 +14,7 @@ during the sessions.
 
 The starter files are distributed as a single zip file, `starter-files.zip`,
 on the lesson's
-[Releases page](https://github.com/reedan88/WHOI-intermediate-python-workshop/releases/latest).
+[Releases page](https://github.com/WHOIGit/WHOI-intermediate-python-workshop/releases/latest).
 It contains:
 
 - `first_analysis.ipynb`: a deliberately "messy" Jupyter notebook that we
